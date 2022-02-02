@@ -3,6 +3,7 @@ package com.bignerdranch.android.gamecreator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,10 +39,14 @@ public class MainActivity extends AppCompatActivity {
         submit_answer_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String check = passwordAnswer_editText.getText().toString().trim();
+                Toast toast = Toast.makeText(getApplicationContext(),"", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
                 if (password.equals(check)) {
-                    Toast.makeText(getApplicationContext(),"Correct!", Toast.LENGTH_SHORT).show();
+                    toast.setText("Correct!");
+                    toast.show();
                 } else {
-                    Toast.makeText(getApplicationContext(),"Incorrect.",Toast.LENGTH_SHORT).show();
+                    toast.setText("Incorrect.");
+                    toast.show();
                 }
             }
         });
