@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GameCreator</string>
+    <string name="create_game">CREATE GAME</string>
 </resources>
