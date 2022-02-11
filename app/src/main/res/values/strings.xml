@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">GameCreator</string>
     <string name="create_game">CREATE GAME</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="game_components">
+        <item>Text</item>
+        <item>Image</item>
+    </string-array>
+    <string-array name="solution_components">
+        <item>Four buttons - One correct</item>
+        <item>Text input field</item>
+    </string-array>
 </resources>
