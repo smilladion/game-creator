@@ -1,27 +1,29 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.application' version '7.1.1'
 }
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "29.0.3"
+    compileSdk 32
 
     defaultConfig {
-        applicationId "com.bignerdranch.android.gamecreator"
-        minSdkVersion 24
-        targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
+        applicationId 'dk.itu.gamecreator.android'
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk 25
+        targetSdk 32
+
+        versionCode 1
+        versionName '1.0'
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -29,11 +31,13 @@ android {
 }
 
 dependencies {
+    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: '2.1.3'
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation group: 'androidx.appcompat', name: 'appcompat', version: '1.4.1'
+    implementation group: 'com.google.android.material', name: 'material', version: '1.5.0'
+
+    androidTestImplementation group: 'androidx.test.ext', name: 'junit', version: '1.1.3'
+    androidTestImplementation group: 'androidx.test.espresso', name: 'espresso-core', version: '3.4.0'
+
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
 }

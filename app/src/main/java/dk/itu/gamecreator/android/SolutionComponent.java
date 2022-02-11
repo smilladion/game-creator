@@ -1,8 +1,4 @@
-package com.bignerdranch.android.gamecreator;
-
-import android.view.View;
-
-import java.util.List;
+package dk.itu.gamecreator.android;
 
 public abstract class SolutionComponent extends Component {
 

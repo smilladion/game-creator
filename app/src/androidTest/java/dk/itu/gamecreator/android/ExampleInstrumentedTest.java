@@ -1,4 +1,4 @@
-package com.bignerdranch.android.gamecreator;
+package dk.itu.gamecreator.android;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.bignerdranch.android.gamecreator", appContext.getPackageName());
+        assertEquals("dk.itu.gamecreator.android", appContext.getPackageName());
     }
 }

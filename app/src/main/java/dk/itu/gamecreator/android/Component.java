@@ -1,8 +1,8 @@
-package com.bignerdranch.android.gamecreator;
+package dk.itu.gamecreator.android;
 
 public abstract class Component {
 
-    private int id;
+    private final int id;
 
     public Component(int id) {
         this.id = id;

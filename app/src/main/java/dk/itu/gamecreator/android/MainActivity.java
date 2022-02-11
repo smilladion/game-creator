@@ -1,4 +1,4 @@
-package com.bignerdranch.android.gamecreator;
+package dk.itu.gamecreator.android;
 
 import androidx.appcompat.app.AppCompatActivity;
 

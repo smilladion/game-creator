@@ -1,9 +1,6 @@
-package com.bignerdranch.android.gamecreator;
+package dk.itu.gamecreator.android;
 
-import android.graphics.Color;
 import android.widget.Button;
-
-import java.util.List;
 
 public class ButtonGroupComponent extends SolutionComponent {
 
