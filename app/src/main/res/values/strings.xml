@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">GameCreator</string>
+
     <string name="play_game">PLAY</string>
     <string name="create_game">CREATE</string>
+
+    <string-array name="game_components">
+        <item>Text</item>
+        <item>Image</item>
+    </string-array>
+    <string-array name="solution_components">
+        <item>Four buttons - One correct</item>
+        <item>Text input field</item>
+    </string-array>
 </resources>
