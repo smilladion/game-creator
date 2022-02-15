@@ -1,11 +1,53 @@
 package dk.itu.gamecreator.android;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 public class CreateTextComponentFragment extends Fragment {
 
-    public CreateTextComponentFragment() {
-        super(R.layout.fragment_create_text_component);
+    EditText text;
+    Button doneButton;
+    Button discardButton;
+    GameComponent gameComponent;
+    ComponentDB cDB;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_create_text_component, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        cDB = ComponentDB.getInstance();
+
+        text = view.findViewById(R.id.input_text);
+        doneButton = view.findViewById(R.id.done_button);
+        discardButton = view.findViewById(R.id.discard_button);
+
+        doneButton.setOnClickListener(this::onDoneClicked);
+        discardButton.setOnClickListener(this::onDiscardClicked);
+    }
+
+    public void onDoneClicked(View view) {
+        gameComponent = new TextComponent(cDB.getNextId(), text.getText().toString());
+        cDB.currentGame.addComponent(gameComponent);
+    }
+
+    public void onDiscardClicked(View view) {
+
+    }
 }

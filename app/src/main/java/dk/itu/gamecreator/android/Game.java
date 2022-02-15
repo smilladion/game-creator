@@ -22,7 +22,7 @@ public class Game {
         components.add(component);
     }
 
-    public void setSolution(SolutionComponent solution) {
+    public void addSolution(SolutionComponent solution) {
         this.solution = solution;
     }
 }
