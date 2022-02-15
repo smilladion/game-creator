@@ -6,16 +6,16 @@ import android.widget.TextView;
 
 public class TextComponent extends GameComponent {
 
-    private TextView textView;
     private String text;
 
     public TextComponent(int id, String text) {
         super(id);
         this.text = text;
-        textView.setText(text);
     }
 
     public View getView(Context context) {
-        return textView;
+        TextView tw = new TextView(context);
+        tw.setText(text);
+        return tw;
     }
 }

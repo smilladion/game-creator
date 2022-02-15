@@ -53,7 +53,7 @@ public class CreateTextComponentFragment extends Fragment {
     public void onDiscardClicked(View view) {
 
     }
-
+    //HERE IS PROBLEM - the fragment does not know create_fragment
     public void closeFragment() {
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

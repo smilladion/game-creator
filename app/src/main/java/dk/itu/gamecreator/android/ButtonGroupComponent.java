@@ -1,5 +1,6 @@
 package dk.itu.gamecreator.android;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
@@ -49,7 +50,8 @@ public class ButtonGroupComponent extends SolutionComponent {
         }
     }
 
-    public Button[] getButtons() {
-        return buttons;
+    public View getView(Context context) {
+        // THIS IS NOT DONE - needs a layout. (And to actually contain all buttons)
+        return buttons[0];
     }
 }

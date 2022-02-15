@@ -14,21 +14,12 @@
         android:orientation="horizontal"
         android:layout_gravity="center">
 
-        <Spinner
-            android:id="@+id/game_component_spinner"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginVertical="10dp"/>
-
-        <Spinner
-            android:id="@+id/solution_component_spinner"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginVertical="10dp"/>
+        <Button
+            android:id="@+id/create_text_button"
+            android:text="Text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </Button>
 
     </LinearLayout>
 

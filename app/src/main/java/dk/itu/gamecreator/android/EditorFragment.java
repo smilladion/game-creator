@@ -31,6 +31,9 @@ public class EditorFragment extends Fragment {
         for (GameComponent gc: cDB.getCurrentGame().getComponents()) {
             ll.addView(gc.getView(this.getContext()));
         }
-        ll.addView(cDB.getCurrentGame().getSolution().getView(this.getContext()));
+        Component c = cDB.getCurrentGame().getSolution();
+        if (c != null) {
+            ll.addView(c.getView(this.getContext()));
+        }
     }
 }
