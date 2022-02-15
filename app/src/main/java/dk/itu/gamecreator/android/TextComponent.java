@@ -1,5 +1,7 @@
 package dk.itu.gamecreator.android;
 
+import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 public class TextComponent extends GameComponent {
@@ -13,7 +15,7 @@ public class TextComponent extends GameComponent {
         textView.setText(text);
     }
 
-    public TextView getTextView() {
+    public View getView(Context context) {
         return textView;
     }
 }

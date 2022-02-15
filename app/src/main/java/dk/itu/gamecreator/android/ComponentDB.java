@@ -4,6 +4,14 @@ import java.util.List;
 
 public final class ComponentDB {
 
+    /*
+    * Placeholder for a Database until we create a real one - this is just a
+    * Singleton class that can hold data that persists across the different
+    * fragments and activities. The private constructor makes sure that it is
+    * only created once.
+    *
+    * */
+
     static ComponentDB instance = null;
     Game currentGame;
     int id;
@@ -18,6 +26,10 @@ public final class ComponentDB {
             instance = new ComponentDB();
         }
         return instance;
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
     }
 
     public void addGameComponent(GameComponent gc) {

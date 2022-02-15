@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class CreateTextComponentFragment extends Fragment {
 
@@ -44,10 +46,19 @@ public class CreateTextComponentFragment extends Fragment {
 
     public void onDoneClicked(View view) {
         gameComponent = new TextComponent(cDB.getNextId(), text.getText().toString());
-        cDB.currentGame.addComponent(gameComponent);
+        cDB.addGameComponent(gameComponent);
+        closeFragment();
     }
 
     public void onDiscardClicked(View view) {
 
+    }
+
+    public void closeFragment() {
+        FragmentManager fm = getChildFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setReorderingAllowed(true);
+        ft.replace(R.id.create_fragment, EditorFragment.class, null);
+        ft.commit();
     }
 }

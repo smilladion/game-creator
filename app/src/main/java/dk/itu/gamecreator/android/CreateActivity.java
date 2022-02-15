@@ -7,13 +7,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-public class CreateActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateActivity extends AppCompatActivity {
 
     Spinner gameComponentDropdown;
     Spinner solutionComponentDropdown;
+    ComponentDB cDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class CreateActivity extends AppCompatActivity implements AdapterView.OnI
 
         gameComponentDropdown = findViewById(R.id.game_component_spinner);
         solutionComponentDropdown = findViewById(R.id.solution_component_spinner);
+        cDB = ComponentDB.getInstance();
 
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
                 this,
@@ -34,16 +35,14 @@ public class CreateActivity extends AppCompatActivity implements AdapterView.OnI
                 android.R.layout.simple_spinner_item);
 
         gameComponentDropdown.setAdapter(adapter1);
-        //gameComponentDropdown.setOnItemClickListener(this);
         solutionComponentDropdown.setAdapter(adapter2);
+
+        FragmentManager fm = getSupportFragmentManager();
 
         gameComponentDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View selectedItemView, int pos, long id) {
                 String component = parent.getItemAtPosition(pos).toString();
-                System.out.println("HER: " + component);
-
-                FragmentManager fm = getSupportFragmentManager();
 
                 switch (component) {
                     case "Text":
@@ -60,26 +59,10 @@ public class CreateActivity extends AppCompatActivity implements AdapterView.OnI
 
         });
 
-    }
+        fm.beginTransaction().setReorderingAllowed(true)
+                .add(R.id.create_fragment, EditorFragment.class, null)
+                .commit();
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        String component = parent.getItemAtPosition(pos).toString();
-        System.out.println("HER: " + component);
-
-        FragmentManager fm = getSupportFragmentManager();
-
-        switch (component) {
-            case "Text":
-                fm.beginTransaction().setReorderingAllowed(true)
-                        .add(R.id.create_fragment, CreateTextComponentFragment.class, null)
-                        .commit();
-        }
-    }
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
     }
 }
 
