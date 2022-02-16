@@ -32,14 +32,6 @@ public final class ComponentDB {
         return currentGame;
     }
 
-    public void addGameComponent(GameComponent gc) {
-        currentGame.addComponent(gc);
-    }
-
-    public void addSolution(SolutionComponent sc) {
-        currentGame.addSolution(sc);
-    }
-
     public int getNextId() {
         id = id + 1;
         return id;

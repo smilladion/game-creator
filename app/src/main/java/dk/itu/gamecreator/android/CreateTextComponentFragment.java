@@ -1,5 +1,6 @@
 package dk.itu.gamecreator.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,19 +47,22 @@ public class CreateTextComponentFragment extends Fragment {
 
     public void onDoneClicked(View view) {
         gameComponent = new TextComponent(cDB.getNextId(), text.getText().toString());
-        cDB.addGameComponent(gameComponent);
+        cDB.getCurrentGame().addComponent(gameComponent);
         closeFragment();
     }
 
     public void onDiscardClicked(View view) {
-
+        Intent intent = new Intent(this.getContext(), CreateActivity.class);
+        startActivity(intent);
     }
     //HERE IS PROBLEM - the fragment does not know create_fragment
     public void closeFragment() {
-        FragmentManager fm = getChildFragmentManager();
+        Intent intent = new Intent(this.getContext(), CreateActivity.class);
+        startActivity(intent);
+        /*FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.setReorderingAllowed(true);
         ft.replace(R.id.create_fragment, EditorFragment.class, null);
-        ft.commit();
+        ft.commit();*/
     }
 }
