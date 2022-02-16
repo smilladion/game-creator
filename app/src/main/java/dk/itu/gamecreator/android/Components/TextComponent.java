@@ -20,4 +20,8 @@ public class TextComponent extends GameComponent {
         tw.setText(text);
         return tw;
     }
+
+    public String getText() {
+        return text;
+    }
 }
