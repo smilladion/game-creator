@@ -12,4 +12,5 @@
         <item>Four buttons - One correct</item>
         <item>Text input field</item>
     </string-array>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

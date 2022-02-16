@@ -7,24 +7,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button play;
-    private Button create;
+    private Button playButton;
+    private Button createButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        play = findViewById(R.id.play_button);
-        create = findViewById(R.id.create_button);
+        playButton = findViewById(R.id.play_button);
+        createButton = findViewById(R.id.create_button);
 
-        play.setOnClickListener(this::onPlayClicked);
-        create.setOnClickListener(this::onCreateClicked);
+        playButton.setOnClickListener(this::onPlayClicked);
+        createButton.setOnClickListener(this::onCreateClicked);
     }
 
     private void onPlayClicked(View view) {
