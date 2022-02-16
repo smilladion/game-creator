@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/currentComponents"
+        android:id="@+id/current_components"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

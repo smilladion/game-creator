@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
@@ -24,7 +25,6 @@ import dk.itu.gamecreator.android.RecyclerViewAdapter;
 public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
-    LinearLayout ll;
     RecyclerViewAdapter adapter;
 
     @Override
@@ -41,27 +41,11 @@ public class EditorFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
-        ll = view.findViewById(R.id.game_component_layout);
 
-        RecyclerView recyclerView = view.findViewById(R.id.currentComponents);
+        RecyclerView recyclerView = view.findViewById(R.id.current_components);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        ArrayList<String> texts = new ArrayList<>();
-        for (GameComponent gc : cDB.getCurrentGame().getComponents()) {
-            if (gc instanceof TextComponent) {
-                texts.add(((TextComponent) gc).getText());
-            }
-        }
-
-        adapter = new RecyclerViewAdapter(this.getContext(), texts);
+        adapter = new RecyclerViewAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
         recyclerView.setAdapter(adapter);
-
-        /* for (GameComponent gc: cDB.getCurrentGame().getComponents()) {
-            ll.addView(gc.getView(this.getContext()));
-        }
-        Component c = cDB.getCurrentGame().getSolution();
-        if (c != null) {
-            ll.addView(c.getView(this.getContext()));
-        } */
     }
 }
