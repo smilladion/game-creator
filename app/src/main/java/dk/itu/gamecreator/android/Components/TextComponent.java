@@ -1,8 +1,10 @@
-package dk.itu.gamecreator.android;
+package dk.itu.gamecreator.android.Components;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
+
+import dk.itu.gamecreator.android.Components.GameComponent;
 
 public class TextComponent extends GameComponent {
 

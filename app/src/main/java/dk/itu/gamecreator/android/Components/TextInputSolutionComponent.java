@@ -1,13 +1,12 @@
-package dk.itu.gamecreator.android;
+package dk.itu.gamecreator.android.Components;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import dk.itu.gamecreator.android.SolutionComponent;
+import dk.itu.gamecreator.android.Components.SolutionComponent;
 
 public class TextInputSolutionComponent extends SolutionComponent {
 

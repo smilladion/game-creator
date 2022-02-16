@@ -1,8 +1,10 @@
-package dk.itu.gamecreator.android;
+package dk.itu.gamecreator.android.Components;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+
+import dk.itu.gamecreator.android.Components.GameComponent;
 
 public class ImageComponent extends GameComponent {
 

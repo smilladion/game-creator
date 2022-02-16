@@ -1,14 +1,16 @@
-package dk.itu.gamecreator.android;
+package dk.itu.gamecreator.android.Activities;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+
+import dk.itu.gamecreator.android.ComponentDB;
+import dk.itu.gamecreator.android.Fragments.CreateTextComponentFragment;
+import dk.itu.gamecreator.android.Fragments.EditorFragment;
+import dk.itu.gamecreator.android.R;
 
 public class CreateActivity extends AppCompatActivity {
 

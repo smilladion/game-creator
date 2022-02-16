@@ -1,4 +1,4 @@
-package dk.itu.gamecreator.android;
+package dk.itu.gamecreator.android.Components;
 
 import android.content.Context;
 import android.view.View;

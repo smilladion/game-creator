@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GameCreator">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             android:screenOrientation="portrait">
             <intent-filter>
@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".CreateActivity"
+            android:name=".Activities.CreateActivity"
             android:screenOrientation="portrait" />
     </application>
 

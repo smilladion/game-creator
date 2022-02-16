@@ -1,4 +1,4 @@
-package dk.itu.gamecreator.android;
+package dk.itu.gamecreator.android.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
+import dk.itu.gamecreator.android.Activities.CreateActivity;
+import dk.itu.gamecreator.android.ComponentDB;
+import dk.itu.gamecreator.android.Components.GameComponent;
+import dk.itu.gamecreator.android.Components.TextComponent;
+import dk.itu.gamecreator.android.R;
 
 public class CreateTextComponentFragment extends Fragment {
 

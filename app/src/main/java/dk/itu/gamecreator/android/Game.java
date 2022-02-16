@@ -2,6 +2,9 @@ package dk.itu.gamecreator.android;
 
 import java.util.ArrayList;
 
+import dk.itu.gamecreator.android.Components.GameComponent;
+import dk.itu.gamecreator.android.Components.SolutionComponent;
+
 public class Game {
     private ArrayList<GameComponent> components;
     private SolutionComponent solution;
