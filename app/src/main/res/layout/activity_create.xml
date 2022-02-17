@@ -15,6 +15,13 @@
         android:layout_gravity="center">
 
         <Button
+            android:id="@+id/back_button"
+            android:text="Back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </Button>
+
+        <Button
             android:id="@+id/create_text_button"
             android:text="Text"
             android:layout_width="match_parent"
