@@ -1,5 +1,6 @@
 package dk.itu.gamecreator.android;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class ComponentDB {
@@ -14,10 +15,12 @@ public final class ComponentDB {
 
     static ComponentDB instance = null;
     Game currentGame;
+    List<Game> allGames;
     int id;
 
     private ComponentDB() {
         currentGame = new Game();
+        allGames = new ArrayList<>();
         id = 0;
     }
 
@@ -26,6 +29,10 @@ public final class ComponentDB {
             instance = new ComponentDB();
         }
         return instance;
+    }
+
+    public void addGame(Game game) {
+        allGames.add(game);
     }
 
     public Game getCurrentGame() {

@@ -28,6 +28,13 @@
             android:layout_height="match_parent">
         </Button>
 
+        <Button
+            android:id="@+id/create_text_solution_button"
+            android:text="Text solution"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </Button>
+
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
