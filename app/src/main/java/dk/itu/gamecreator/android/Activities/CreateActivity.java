@@ -47,6 +47,7 @@ public class CreateActivity extends AppCompatActivity {
     public void createSolutionText(View view) {
         fm.beginTransaction().setReorderingAllowed(true)
                 .replace(R.id.create_fragment, CreateTextSolutionFragment.class, null)
+                .addToBackStack(null)
                 .commit();
     }
 

@@ -13,17 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private final List<GameComponent> components;
+    private final List<Component> components;
     private final LayoutInflater mInflater;
 
     // data is passed into the constructor
-    public RecyclerViewAdapter(Context context, List<GameComponent> components) {
+    public RecyclerViewAdapter(Context context, List<Component> components) {
         this.mInflater = LayoutInflater.from(context);
         this.components = components;
     }
@@ -38,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        GameComponent component = components.get(position);
+        Component component = components.get(position);
 
         if (component instanceof TextComponent) {
             holder.componentText.setText(((TextComponent) component).getText());
