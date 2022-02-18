@@ -5,6 +5,10 @@
     <string name="create_game">CREATE</string>
 
     <string name="text_component">Text</string>
+    <string name="text_solution_component">Text Solution</string>
+
+    <string name="solution_text">Solution:</string>
+    <string name="button_text">Button text:</string>
 
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>

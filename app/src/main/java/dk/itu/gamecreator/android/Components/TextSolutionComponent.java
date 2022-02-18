@@ -60,4 +60,8 @@ public class TextSolutionComponent extends SolutionComponent {
     public void setEditText(EditText editText) {
         this.editText = editText;
     }
+
+    public String getButtonText() {
+        return buttonText;
+    }
 }
