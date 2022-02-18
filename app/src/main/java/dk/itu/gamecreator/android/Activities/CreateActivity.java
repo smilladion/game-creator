@@ -16,8 +16,6 @@ import dk.itu.gamecreator.android.R;
 
 public class CreateActivity extends AppCompatActivity {
 
-    //Spinner gameComponentDropdown;
-    //Spinner solutionComponentDropdown;
     Button createTextButton;
     Button createTextSolutionButton;
     Button backButton;
@@ -44,7 +42,6 @@ public class CreateActivity extends AppCompatActivity {
         fm.beginTransaction().setReorderingAllowed(true)
                 .add(R.id.create_fragment, EditorFragment.class, null)
                 .commit();
-
     }
 
     public void createSolutionText(View view) {
@@ -61,8 +58,7 @@ public class CreateActivity extends AppCompatActivity {
     public void createText(View view) {
         fm.beginTransaction().setReorderingAllowed(true)
                 .replace(R.id.create_fragment, CreateTextComponentFragment.class, null)
+                .addToBackStack(null)
                 .commit();
     }
 }
-
-
