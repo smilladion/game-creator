@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.GameComponent;
+import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.R;
 
 public class PlayActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         ll = findViewById(R.id.play_layout);
-        backButton = findViewById(R.id.back_button);
+        backButton = findViewById(R.id.back_button_play);
         cDB = ComponentDB.getInstance();
 
         backButton.setOnClickListener(this::goBack);
@@ -32,9 +33,9 @@ public class PlayActivity extends AppCompatActivity {
         for(GameComponent gc: cDB.getCurrentGame().getComponents()) {
             ll.addView(gc.getView(this));
         }
-        View solution = cDB.getCurrentGame().getSolution().getView(this);
+        SolutionComponent solution = cDB.getCurrentGame().getSolution();
         if (solution != null) {
-            ll.addView(solution);
+            ll.addView(solution.getView(this));
         }
     }
 
