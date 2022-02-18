@@ -64,4 +64,8 @@ public class TextSolutionComponent extends SolutionComponent {
     public String getButtonText() {
         return buttonText;
     }
+
+    public void setButtonText(String text) {
+        this.buttonText = text;
+    }
 }
