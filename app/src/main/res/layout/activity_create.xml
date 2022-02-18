@@ -35,6 +35,13 @@
             android:layout_height="match_parent">
         </Button>
 
+        <Button
+            android:id="@+id/create_image_button"
+            android:text="Image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </Button>
+
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
