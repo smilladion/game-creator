@@ -13,11 +13,10 @@ import androidx.fragment.app.Fragment;
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
-import dk.itu.gamecreator.android.Components.TextComponent;
-import dk.itu.gamecreator.android.Components.TextInputSolutionComponent;
+import dk.itu.gamecreator.android.Components.TextSolutionComponent;
 import dk.itu.gamecreator.android.R;
 
-public class CreateTextSolutionComponentFragment extends Fragment {
+public class CreateTextSolutionFragment extends Fragment {
 
     ComponentDB cDB;
     EditText solutionText;
@@ -54,7 +53,7 @@ public class CreateTextSolutionComponentFragment extends Fragment {
     public void onDoneClicked(View view) {
         String solution = solutionText.getText().toString();
         String button = buttonText.getText().toString();
-        solutionComponent = new TextInputSolutionComponent(cDB.getNextId(), solution, button);
+        solutionComponent = new TextSolutionComponent(cDB.getNextId(), solution, button);
         cDB.getCurrentGame().addSolution(solutionComponent);
 
         closeFragment();

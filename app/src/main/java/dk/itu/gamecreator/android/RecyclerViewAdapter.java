@@ -1,7 +1,6 @@
 package dk.itu.gamecreator.android;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import dk.itu.gamecreator.android.Activities.MainActivity;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
-import dk.itu.gamecreator.android.Fragments.CreateTextComponentFragment;
+import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -64,7 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.create_fragment, CreateTextComponentFragment.class, bundle)
+                        .replace(R.id.create_fragment, CreateTextFragment.class, bundle)
                         .addToBackStack(null)
                         .commit();
             }

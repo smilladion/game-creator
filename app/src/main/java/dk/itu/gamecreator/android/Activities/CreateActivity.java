@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Fragments.CreateTextComponentFragment;
-import dk.itu.gamecreator.android.Fragments.CreateTextSolutionComponentFragment;
+import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
+import dk.itu.gamecreator.android.Fragments.CreateTextSolutionFragment;
 import dk.itu.gamecreator.android.Fragments.EditorFragment;
 import dk.itu.gamecreator.android.R;
 
@@ -46,7 +46,7 @@ public class CreateActivity extends AppCompatActivity {
 
     public void createSolutionText(View view) {
         fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.create_fragment, CreateTextSolutionComponentFragment.class, null)
+                .replace(R.id.create_fragment, CreateTextSolutionFragment.class, null)
                 .commit();
     }
 
@@ -57,7 +57,7 @@ public class CreateActivity extends AppCompatActivity {
 
     public void createText(View view) {
         fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.create_fragment, CreateTextComponentFragment.class, null)
+                .replace(R.id.create_fragment, CreateTextFragment.class, null)
                 .addToBackStack(null)
                 .commit();
     }

@@ -17,7 +17,7 @@ import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
 
-public class CreateImageComponentFragment extends Fragment {
+public class CreateImageFragment extends Fragment {
 
     Button doneButton;
     Button discardButton;
@@ -59,7 +59,7 @@ public class CreateImageComponentFragment extends Fragment {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        
+
     }
 
     public void onDoneClicked(View view) {

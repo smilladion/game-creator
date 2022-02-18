@@ -14,7 +14,7 @@ import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
 
-public class CreateTextComponentFragment extends Fragment {
+public class CreateTextFragment extends Fragment {
 
     EditText editText;
     Button doneButton;

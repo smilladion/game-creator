@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import dk.itu.gamecreator.android.Components.SolutionComponent;
 
-public class TextInputSolutionComponent extends SolutionComponent {
+public class TextSolutionComponent extends SolutionComponent {
 
     private String solutionText;
     private String buttonText;
     EditText editText;
 
-    public TextInputSolutionComponent(int id, String solutionText, String buttonText) {
+    public TextSolutionComponent(int id, String solutionText, String buttonText) {
         super(id);
         this.solutionText = solutionText;
         this.buttonText = buttonText;
