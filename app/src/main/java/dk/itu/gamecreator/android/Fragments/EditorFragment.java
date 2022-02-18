@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
+import dk.itu.gamecreator.android.ItemMoveCallback;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.RecyclerViewAdapter;
 
@@ -46,6 +48,11 @@ public class EditorFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         adapter = new RecyclerViewAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
+
+        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+
         recyclerView.setAdapter(adapter);
     }
 }
