@@ -1,6 +1,5 @@
 package dk.itu.gamecreator.android.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
@@ -18,11 +16,11 @@ import dk.itu.gamecreator.android.R;
 
 public class CreateTextComponentFragment extends Fragment {
 
-    EditText text;
+    EditText editText;
     Button doneButton;
     Button discardButton;
-    GameComponent gameComponent;
     ComponentDB cDB;
+    GameComponent component; // Non-null when fragment was created through an edit button
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,42 +28,47 @@ public class CreateTextComponentFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        cDB = ComponentDB.getInstance();
+        Bundle bundle = getArguments();
+
+        // Checks if the fragment was opened through an edit button and fetches component data
+        if (bundle != null) {
+            int index = bundle.getInt("componentIndex");
+            component = cDB.getCurrentGame().getComponents().get(index);
+        }
+
         return inflater.inflate(R.layout.fragment_create_text_component, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
-        cDB = ComponentDB.getInstance();
-
-        text = view.findViewById(R.id.input_text);
+        editText = view.findViewById(R.id.input_text);
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
+
+        if (component != null) {
+            editText.setText(((TextComponent) component).getText());
+        }
 
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
     }
 
     public void onDoneClicked(View view) {
-        gameComponent = new TextComponent(cDB.getNextId(), text.getText().toString());
-        cDB.getCurrentGame().addComponent(gameComponent);
-        closeFragment();
+        // If fragment was opened through edit button, then set that component's text and return
+        // Otherwise create a new component and add it to the database
+        if (component != null) {
+            ((TextComponent) component).setText(editText.getText().toString());
+        } else {
+            GameComponent gameComponent = new TextComponent(cDB.getNextId(), editText.getText().toString());
+            cDB.getCurrentGame().addComponent(gameComponent);
+        }
+
+        getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
     public void onDiscardClicked(View view) {
-        Intent intent = new Intent(this.getContext(), CreateActivity.class);
-        startActivity(intent);
-    }
-    //HERE IS PROBLEM - the fragment does not know create_fragment
-    public void closeFragment() {
-        Intent intent = new Intent(this.getContext(), CreateActivity.class);
-        startActivity(intent);
-        /*FragmentManager fm = getChildFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setReorderingAllowed(true);
-        ft.replace(R.id.create_fragment, EditorFragment.class, null);
-        ft.commit();*/
+        getParentFragmentManager().popBackStack();
     }
 }

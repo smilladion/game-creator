@@ -1,23 +1,29 @@
 package dk.itu.gamecreator.android;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import dk.itu.gamecreator.android.Activities.MainActivity;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
+import dk.itu.gamecreator.android.Fragments.CreateTextComponentFragment;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private List<GameComponent> components;
-    private LayoutInflater mInflater;
+    private final List<GameComponent> components;
+    private final LayoutInflater mInflater;
 
     // data is passed into the constructor
     public RecyclerViewAdapter(Context context, List<GameComponent> components) {
@@ -53,7 +59,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("componentIndex", holder.getAdapterPosition());
 
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.create_fragment, CreateTextComponentFragment.class, bundle)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
