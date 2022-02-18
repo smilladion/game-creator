@@ -2,6 +2,7 @@ package dk.itu.gamecreator.android.Components;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,25 +13,38 @@ public class TextInputSolutionComponent extends SolutionComponent {
 
     private String inputText;
     private String solutionText;
-    private String promptText;
+    private String buttonText;
     private TextView textView;
     private EditText editText;
+    private Button button;
 
-    public TextInputSolutionComponent(int id, String inputText, String solutionText, String promptText) {
+    public TextInputSolutionComponent(int id, String inputText, String solutionText, String buttonText) {
         super(id);
         this.inputText = inputText;
         this.solutionText = solutionText;
-        this.promptText = promptText;
-        textView.setText(inputText);
-        editText.setText(promptText);
+        this.buttonText = buttonText;
     }
 
     public View getView(Context context) {
         LinearLayout ll = new LinearLayout(context);
         ll.setOrientation(LinearLayout.HORIZONTAL);
+        textView = new TextView(context);
+        editText = new EditText(context);
+        textView.setText(inputText);
         ll.addView(textView);
         ll.addView(editText);
+        ll.addView(button);
+        button.setOnClickListener(this::checkSolution);
         return ll;
+    }
+
+    // Is this possible? When the LinearLayout is returned, does it keep all the info?
+    public void checkSolution(View view) {
+        if (this.solutionText.equals(editText.getText().toString())) {
+            System.out.println("yes");
+        } else {
+            System.out.println("no");
+        }
     }
 
     public String getInputText() {
@@ -47,14 +61,6 @@ public class TextInputSolutionComponent extends SolutionComponent {
 
     public void setSolutionText(String solutionText) {
         this.solutionText = solutionText;
-    }
-
-    public String getPromptText() {
-        return promptText;
-    }
-
-    public void setPromptText(String promptText) {
-        this.promptText = promptText;
     }
 
     public TextView getTextView() {
