@@ -1,7 +1,12 @@
 package dk.itu.gamecreator.android.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
@@ -28,6 +38,13 @@ public class CreateImageComponentFragment extends Fragment {
 
     GameComponent gameComponent;
     ComponentDB cDB;
+
+    Uri pictureUri = null;
+
+    Context context = getContext();
+
+    private static final int GALLERY = 1, CAMERA = 2;
+    private static final String IMAGE_DIRECTORY = "/comp_image";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,16 +68,61 @@ public class CreateImageComponentFragment extends Fragment {
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
 
+        selectImageButton.setOnClickListener(this::imageChooser);
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::closeFragment);
     }
 
-    public void imageChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+    public void imageChooser(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, GALLERY);
         
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY) {
+            if (data != null) {
+                Uri uri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                    String path = saveImage(bitmap);
+                    imageView.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public String saveImage(Bitmap bitmap) {
+        File file = null;
+        try {
+            file = new File(Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+            file.createNewFile();
+
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bytes);
+            byte[] bitmapdata = bytes.toByteArray();
+
+            FileOutputStream fstream = new FileOutputStream(file);
+            fstream.write(bitmapdata);
+            fstream.flush();
+            fstream.close();
+            return file.getAbsolutePath();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return file.getAbsolutePath();
+        }
+    }
+
+
 
     public void onDoneClicked(View view) {
         closeFragment(view);
