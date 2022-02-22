@@ -1,9 +1,8 @@
 package dk.itu.gamecreator.android.Fragments;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,10 +22,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
@@ -48,8 +47,19 @@ public class CreateImageComponentFragment extends Fragment {
     GameComponent gameComponent;
     ComponentDB cDB;
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    //static final Uri locationForPhotos;
+    Uri pictureUri = null;
+
+    Context context;
+
+    private static final int GALLERY = 1, CAMERA = 2;
+    private static final String IMAGE_DIRECTORY = "/comp_image";
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,15 +83,15 @@ public class CreateImageComponentFragment extends Fragment {
         takePictureButton = view.findViewById(R.id.take_picture_button);
         imageView = view.findViewById(R.id.preview_image_view);
 
-        takePictureButton.setOnClickListener(this::dispatchTakePictureIntent);
-
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
 
+        selectImageButton.setOnClickListener(this::imageChooser);
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::closeFragment);
     }
 
+/*
     private void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -103,32 +113,57 @@ public class CreateImageComponentFragment extends Fragment {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
+    } */
+
+    public void imageChooser(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, GALLERY);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY) {
+            if (data != null) {
+                Uri uri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                    String path = saveImage(bitmap);
+                    imageView.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",   /* suffix */
-                storageDir      /* directory */
-        );
+    public String saveImage(Bitmap bitmap) {
+        File file = null;
+        try {
+            file = new File(Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+            file.createNewFile();
 
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bytes);
+            byte[] bitmapdata = bytes.toByteArray();
+
+            FileOutputStream fstream = new FileOutputStream(file);
+            fstream.write(bitmapdata);
+            fstream.flush();
+            fstream.close();
+            return file.getAbsolutePath();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return file.getAbsolutePath();
+        }
     }
+
+
 
     public void onDoneClicked(View view) {
         closeFragment(view);
