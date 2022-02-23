@@ -14,7 +14,7 @@
     </Button>
 
     <LinearLayout
-        android:id="@+id/game_layout"
+        android:id="@+id/play_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"/>

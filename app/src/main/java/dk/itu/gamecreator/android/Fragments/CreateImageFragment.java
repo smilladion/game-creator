@@ -22,9 +22,7 @@ import java.io.IOException;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.ImageComponent;
-import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
 
 public class CreateImageFragment extends Fragment {
@@ -178,7 +176,7 @@ public class CreateImageFragment extends Fragment {
         if (component != null) {
             component.setBitmap(bitmap);
         } else {
-            int id = cDB.getNextId();
+            int id = cDB.getNextComponentId();
             component = new ImageComponent(id, bitmap);
             cDB.getCurrentGame().addComponent(component);
         }

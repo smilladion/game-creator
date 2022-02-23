@@ -61,7 +61,7 @@ public class CreateTextFragment extends Fragment {
         if (component != null) {
             component.setText(editText.getText().toString());
         } else {
-            TextComponent tc = new TextComponent(cDB.getNextId(), editText.getText().toString());
+            TextComponent tc = new TextComponent(cDB.getNextComponentId(), editText.getText().toString());
             cDB.getCurrentGame().addComponent(tc);
         }
 

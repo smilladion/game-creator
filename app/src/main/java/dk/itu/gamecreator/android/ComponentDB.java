@@ -15,6 +15,7 @@ public final class ComponentDB {
 
     private static ComponentDB instance = null;
     private Game currentGame = null;
+    private Game chosenGame = null;
     private List<Game> allGames;
     private int id;
 
@@ -43,11 +44,23 @@ public final class ComponentDB {
         return allGames;
     }
 
+    public void setCurrentGame(Game game) {
+        currentGame = game;
+    }
+
     public Game getCurrentGame() {
         return currentGame;
     }
 
-    public int getNextId() {
+    public void setChosenGame(Game game) {
+        this.chosenGame = game;
+    }
+
+    public Game getChosenGame() {
+        return chosenGame;
+    }
+
+    public int getNextComponentId() {
         id = id + 1;
         return id;
     }

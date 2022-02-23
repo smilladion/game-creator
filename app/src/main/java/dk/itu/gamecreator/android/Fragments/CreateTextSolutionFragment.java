@@ -70,7 +70,7 @@ public class CreateTextSolutionFragment extends Fragment {
         } else {
             String solution = solutionText.getText().toString();
             String button = buttonText.getText().toString();
-            TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextId(), solution, button);
+            TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextComponentId(), solution, button);
             cDB.getCurrentGame().addComponent(sc);
         }
 

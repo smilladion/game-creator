@@ -10,6 +10,8 @@
 
     <string name="image_component">Image</string>
 
+    <string name="name_of_game">Game name: </string>
+
     <string name="solution_text">Solution:</string>
     <string name="button_text">Button text:</string>
 
@@ -24,4 +26,6 @@
         <item>Four buttons - One correct</item>
         <item>Text input field</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
