@@ -13,10 +13,10 @@ public final class ComponentDB {
     *
     * */
 
-    static ComponentDB instance = null;
-    Game currentGame;
-    List<Game> allGames;
-    int id;
+    private static ComponentDB instance = null;
+    private Game currentGame;
+    private List<Game> allGames;
+    private int id;
 
     private ComponentDB() {
         currentGame = new Game();

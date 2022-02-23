@@ -4,19 +4,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.GameComponent;
+import dk.itu.gamecreator.android.Components.TextComponent;
+import dk.itu.gamecreator.android.ItemMoveCallback;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.RecyclerViewAdapter;
 
 public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
-    LinearLayout ll;
+    RecyclerViewAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,13 +43,16 @@ public class EditorFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
-        ll = view.findViewById(R.id.game_component_layout);
-        for (GameComponent gc: cDB.getCurrentGame().getComponents()) {
-            ll.addView(gc.getView(this.getContext()));
-        }
-        Component c = cDB.getCurrentGame().getSolution();
-        if (c != null) {
-            ll.addView(c.getView(this.getContext()));
-        }
+
+        RecyclerView recyclerView = view.findViewById(R.id.current_components);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        adapter = new RecyclerViewAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
+
+        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.setAdapter(adapter);
     }
 }

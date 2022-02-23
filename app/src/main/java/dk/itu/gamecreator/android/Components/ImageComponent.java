@@ -25,4 +25,12 @@ public class ImageComponent extends GameComponent {
         image.setRotation(270);
         return image;
     }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 }

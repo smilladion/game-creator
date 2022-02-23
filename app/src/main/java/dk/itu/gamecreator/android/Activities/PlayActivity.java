@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import dk.itu.gamecreator.android.ComponentDB;
+import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.R;
@@ -30,12 +31,8 @@ public class PlayActivity extends AppCompatActivity {
 
         backButton.setOnClickListener(this::goBack);
 
-        for(GameComponent gc: cDB.getCurrentGame().getComponents()) {
+        for (Component gc: cDB.getCurrentGame().getComponents()) {
             ll.addView(gc.getView(this));
-        }
-        SolutionComponent solution = cDB.getCurrentGame().getSolution();
-        if (solution != null) {
-            ll.addView(solution.getView(this));
         }
     }
 

@@ -2,30 +2,20 @@ package dk.itu.gamecreator.android;
 
 import java.util.ArrayList;
 
-import dk.itu.gamecreator.android.Components.GameComponent;
-import dk.itu.gamecreator.android.Components.SolutionComponent;
+import dk.itu.gamecreator.android.Components.Component;
 
 public class Game {
-    private ArrayList<GameComponent> components;
-    private SolutionComponent solution;
+    private final ArrayList<Component> components;
 
     public Game() {
         components = new ArrayList<>();
     }
 
-    public ArrayList<GameComponent> getComponents() {
+    public ArrayList<Component> getComponents() {
         return components;
     }
 
-    public SolutionComponent getSolution() {
-        return solution;
-    }
-
-    public void addComponent(GameComponent component) {
+    public void addComponent(Component component) {
         components.add(component);
-    }
-
-    public void addSolution(SolutionComponent solution) {
-        this.solution = solution;
     }
 }

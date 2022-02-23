@@ -1,10 +1,8 @@
 package dk.itu.gamecreator.android.Fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,14 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
@@ -35,7 +27,7 @@ import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
 
-public class CreateImageComponentFragment extends Fragment {
+public class CreateImageFragment extends Fragment {
 
     Button doneButton;
     Button discardButton;
@@ -45,7 +37,7 @@ public class CreateImageComponentFragment extends Fragment {
     ImageView imageView;
     //int SELECT_PICTURE = 200;
     String currentPhotoPath;
-    GameComponent gameComponent;
+    ImageComponent component;
     ComponentDB cDB;
 
     Uri pictureUri = null;
@@ -72,6 +64,14 @@ public class CreateImageComponentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        cDB = ComponentDB.getInstance();
+        Bundle bundle = getArguments();
+        // Checks if the fragment was opened through an edit button and fetches component data
+        if (bundle != null) {
+            int index = bundle.getInt("componentIndex");
+            component = (ImageComponent) cDB.getCurrentGame().getComponents().get(index);
+        }
+
         return inflater.inflate(R.layout.fragment_create_image_component, container, false);
     }
 
@@ -87,10 +87,16 @@ public class CreateImageComponentFragment extends Fragment {
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
 
-        selectImageButton.setOnClickListener(this::imageChooser);
+        selectImageButton.setOnClickListener(this::openGallery);
         takePictureButton.setOnClickListener(this::openCamera);
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::closeFragment);
+
+        if (component != null) {
+            imageView.setImageBitmap(component.getBitmap());
+            bitmap = component.getBitmap();
+        }
+
     }
 
     /* Opens the gallery with an implicit intent, and starts an Activity for result
@@ -98,7 +104,7 @@ public class CreateImageComponentFragment extends Fragment {
     * result.
     * startActivityForResult is deprecated, but it is very limited what can be found about
      * the new method online, and what HAS been found seems to be more complicated.*/
-    public void imageChooser(View view) {
+    public void openGallery(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, GALLERY);
@@ -169,9 +175,13 @@ public class CreateImageComponentFragment extends Fragment {
     }
 
     public void onDoneClicked(View view) {
-        int id = cDB.getNextId();
-        gameComponent = new ImageComponent(id, bitmap);
-        cDB.getCurrentGame().addComponent(gameComponent);
+        if (component != null) {
+            component.setBitmap(bitmap);
+        } else {
+            int id = cDB.getNextId();
+            component = new ImageComponent(id, bitmap);
+            cDB.getCurrentGame().addComponent(component);
+        }
         closeFragment(view);
     }
 
