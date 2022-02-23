@@ -8,7 +8,7 @@
     android:layout_margin="10dp">
 
     <TextView
-        android:text="@string/text_component"
+        android:text="@string/text"
         android:textStyle="bold"
         android:textSize="17sp"
         android:textColor="@color/white"

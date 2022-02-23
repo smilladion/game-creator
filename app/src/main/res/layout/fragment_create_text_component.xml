@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Input text: "/>
+        android:text="@string/input_text"/>
 
     <EditText
         android:id="@+id/input_text"
@@ -24,18 +24,18 @@
 
         <Button
             android:id="@+id/done_button"
-            android:text="Done"
+            android:text="@string/done"
+            android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/discard_button"
-            android:text="Discard"
+            android:text="@string/discard"
+            android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
     </LinearLayout>
-
 
 </LinearLayout>

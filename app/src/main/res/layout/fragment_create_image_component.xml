@@ -4,15 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center">
 
     <Button
         android:id="@+id/select_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="SELECT IMAGE"
+        android:text="@string/select_image"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
@@ -20,9 +19,8 @@
         android:id="@+id/take_picture_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="TAKE PICTURE"
+        android:layout_marginTop="10dp"
+        android:text="@string/take_picture"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
@@ -43,13 +41,15 @@
 
         <Button
             android:id="@+id/done_button"
-            android:text="Done"
+            android:text="@string/done"
+            android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/discard_button"
-            android:text="Discard"
+            android:text="@string/discard"
+            android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
