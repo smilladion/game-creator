@@ -28,6 +28,7 @@ public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
     RecyclerViewAdapter adapter;
+    Button saveGame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,11 @@ public class EditorFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
-
+        if (cDB.getCurrentGame() == null) {
+            cDB.newGame();
+        }
+        saveGame = view.findViewById(R.id.save_game_button);
+        saveGame.setOnClickListener(this::saveGame);
         RecyclerView recyclerView = view.findViewById(R.id.current_components);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -54,5 +59,9 @@ public class EditorFragment extends Fragment {
         touchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public void saveGame(View view) {
+        cDB.saveGame();
     }
 }

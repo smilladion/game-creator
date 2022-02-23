@@ -3,6 +3,7 @@
 
     <string name="play_game">PLAY</string>
     <string name="create_game">CREATE</string>
+    <string name="save_game">SAVE GAME</string>
 
     <string name="text_component">Text</string>
     <string name="text_solution_component">Text Solution</string>

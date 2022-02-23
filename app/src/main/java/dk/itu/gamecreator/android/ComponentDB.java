@@ -14,12 +14,11 @@ public final class ComponentDB {
     * */
 
     private static ComponentDB instance = null;
-    private Game currentGame;
+    private Game currentGame = null;
     private List<Game> allGames;
     private int id;
 
     private ComponentDB() {
-        currentGame = new Game();
         allGames = new ArrayList<>();
         id = 0;
     }
@@ -31,8 +30,17 @@ public final class ComponentDB {
         return instance;
     }
 
-    public void addGame(Game game) {
-        allGames.add(game);
+    public void newGame() {
+        currentGame = new Game();
+    }
+
+    public void saveGame() {
+        allGames.add(currentGame);
+        currentGame = null;
+    }
+
+    public List<Game> getAllGames() {
+        return allGames;
     }
 
     public Game getCurrentGame() {
