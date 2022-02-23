@@ -9,8 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import dk.itu.gamecreator.android.ComponentDB;
+
+import dk.itu.gamecreator.android.Fragments.CreateImageFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextSolutionFragment;
+
 import dk.itu.gamecreator.android.Fragments.EditorFragment;
 import dk.itu.gamecreator.android.R;
 
@@ -18,6 +21,8 @@ public class CreateActivity extends AppCompatActivity {
 
     Button createTextButton;
     Button createTextSolutionButton;
+    Button createImageButton;
+
     ComponentDB cDB;
     FragmentManager fm;
 
@@ -38,8 +43,17 @@ public class CreateActivity extends AppCompatActivity {
         createTextSolutionButton = findViewById(R.id.create_text_solution_button);
         createTextSolutionButton.setOnClickListener(this::createSolutionText);
 
+        createImageButton = findViewById(R.id.create_image_button);
+        createImageButton.setOnClickListener(this::createImage);
+
         fm.beginTransaction().setReorderingAllowed(true)
                 .add(R.id.create_fragment, EditorFragment.class, null)
+                .commit();
+    }
+
+    public void createImage(View view) {
+        fm.beginTransaction().setReorderingAllowed(true)
+                .replace(R.id.create_fragment, CreateImageFragment.class, null)
                 .commit();
     }
 

@@ -7,6 +7,8 @@
     <string name="text_component">Text</string>
     <string name="text_solution_component">Text Solution</string>
 
+    <string name="image_component">Image</string>
+
     <string name="solution_text">Solution:</string>
     <string name="button_text">Button text:</string>
 

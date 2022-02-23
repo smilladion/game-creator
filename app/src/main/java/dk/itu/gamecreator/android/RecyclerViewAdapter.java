@@ -1,12 +1,15 @@
 package dk.itu.gamecreator.android;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,8 +19,10 @@ import java.util.Collections;
 import java.util.List;
 
 import dk.itu.gamecreator.android.Components.Component;
+import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.Components.TextSolutionComponent;
+import dk.itu.gamecreator.android.Fragments.CreateImageFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextSolutionFragment;
 
@@ -31,6 +36,7 @@ public class RecyclerViewAdapter
 
     private static final int TYPE_TEXT = 1;
     private static final int TYPE_SOLUTION_TEXT = 2;
+    private static final int TYPE_IMAGE = 3;
 
     public RecyclerViewAdapter(Context context, List<Component> components) {
         this.mInflater = LayoutInflater.from(context);
@@ -43,9 +49,14 @@ public class RecyclerViewAdapter
         if (viewType == TYPE_TEXT) { // TextComponent
             View view = mInflater.inflate(R.layout.recycler_text, parent, false);
             return new TextViewHolder(view);
-        } else { // TextSolutionComponent
+        } else if (viewType == TYPE_SOLUTION_TEXT) {
             View view = mInflater.inflate(R.layout.recycler_text_solution, parent, false);
             return new TextSolutionViewHolder(view);
+        } else if (viewType == TYPE_IMAGE) {
+            View view = mInflater.inflate(R.layout.recycler_image, parent, false);
+            return new ImageViewHolder(view);
+        } else {
+            return null;
         }
     }
 
@@ -61,7 +72,7 @@ public class RecyclerViewAdapter
 
             textHolder.deleteButton.setOnClickListener(view -> onDelete(textHolder));
             textHolder.editButton.setOnClickListener(view -> onEdit(textHolder, CreateTextFragment.class));
-        } else { // TextSolutionComponent
+        } else if (getItemViewType(position) == TYPE_SOLUTION_TEXT) {
             TextSolutionViewHolder textSolutionHolder = (TextSolutionViewHolder) holder;
 
             String text = ((TextSolutionComponent) component).getSolutionText();
@@ -72,6 +83,15 @@ public class RecyclerViewAdapter
 
             textSolutionHolder.deleteButton.setOnClickListener(view -> onDelete(textSolutionHolder));
             textSolutionHolder.editButton.setOnClickListener(view -> onEdit(textSolutionHolder, CreateTextSolutionFragment.class));
+        } else if (getItemViewType(position) == TYPE_IMAGE) {
+            ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
+            Bitmap bitmap;
+            if (component instanceof ImageComponent) {
+                bitmap = ((ImageComponent) component).getBitmap();
+                imageViewHolder.imageView.setImageBitmap(bitmap);
+            }
+            imageViewHolder.deleteButton.setOnClickListener(view -> onDelete(imageViewHolder));
+            imageViewHolder.editButton.setOnClickListener(view -> onEdit(imageViewHolder, CreateImageFragment.class));
         }
     }
 
@@ -96,8 +116,12 @@ public class RecyclerViewAdapter
     public int getItemViewType(int position) {
         if (components.get(position) instanceof TextComponent) {
             return TYPE_TEXT;
-        } else {
+        } else if (components.get(position) instanceof TextSolutionComponent) {
             return TYPE_SOLUTION_TEXT;
+        } else if (components.get(position) instanceof ImageComponent) {
+            return TYPE_IMAGE;
+        } else {
+            return -1;
         }
     }
 
@@ -169,6 +193,20 @@ public class RecyclerViewAdapter
             buttonText = itemView.findViewById(R.id.button_text);
             editButton = itemView.findViewById(R.id.edit_button);
             deleteButton = itemView.findViewById(R.id.delete_button);
+        }
+    }
+
+    public static class ImageViewHolder extends ViewHolder {
+
+        Button editButton;
+        Button deleteButton;
+        ImageView imageView;
+
+        ImageViewHolder(View itemView) {
+            super(itemView);
+            editButton = itemView.findViewById(R.id.edit_button);
+            deleteButton = itemView.findViewById(R.id.delete_button);
+            imageView = itemView.findViewById(R.id.image_view);
         }
     }
 }
