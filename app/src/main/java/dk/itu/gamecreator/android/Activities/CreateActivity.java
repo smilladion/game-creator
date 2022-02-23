@@ -49,6 +49,8 @@ public class CreateActivity extends AppCompatActivity {
                 .replace(R.id.create_fragment, CreateTextSolutionFragment.class, null)
                 .addToBackStack(null)
                 .commit();
+
+        setButtonsEnabled(false);
     }
 
     public void goBack(View view) {
@@ -61,5 +63,13 @@ public class CreateActivity extends AppCompatActivity {
                 .replace(R.id.create_fragment, CreateTextFragment.class, null)
                 .addToBackStack(null)
                 .commit();
+
+        setButtonsEnabled(false);
+    }
+
+    public void setButtonsEnabled(boolean isEnabled) {
+        createTextButton.setEnabled(isEnabled);
+        createTextSolutionButton.setEnabled(isEnabled);
+        backButton.setEnabled(isEnabled);
     }
 }
