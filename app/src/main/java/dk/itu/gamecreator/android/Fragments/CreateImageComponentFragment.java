@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,6 +31,7 @@ import java.io.IOException;
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.GameComponent;
+import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
 
@@ -41,13 +43,13 @@ public class CreateImageComponentFragment extends Fragment {
     Button selectImageButton;
     Button takePictureButton;
     ImageView imageView;
-    int SELECT_PICTURE = 200;
+    //int SELECT_PICTURE = 200;
     String currentPhotoPath;
-
     GameComponent gameComponent;
     ComponentDB cDB;
 
     Uri pictureUri = null;
+    Bitmap bitmap;
 
     Context context;
 
@@ -55,6 +57,7 @@ public class CreateImageComponentFragment extends Fragment {
     private static final String IMAGE_DIRECTORY = "/comp_image";
 
 
+    /*This is just used to get the context of the Activity*/
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -63,9 +66,7 @@ public class CreateImageComponentFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -87,40 +88,35 @@ public class CreateImageComponentFragment extends Fragment {
         discardButton = view.findViewById(R.id.discard_button);
 
         selectImageButton.setOnClickListener(this::imageChooser);
+        takePictureButton.setOnClickListener(this::openCamera);
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::closeFragment);
     }
 
-/*
-    private void dispatchTakePictureIntent(View view) {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            System.out.println("HEEEY");
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getContext(),
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        }
-    } */
-
+    /* Opens the gallery with an implicit intent, and starts an Activity for result
+    * - This ensures that when the activity "returns", it knows what to do with the
+    * result.
+    * startActivityForResult is deprecated, but it is very limited what can be found about
+     * the new method online, and what HAS been found seems to be more complicated.*/
     public void imageChooser(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, GALLERY);
     }
 
+    /* Opens the camera with an implicit intent, and starts an Activity for result
+     * - This ensures that when the activity "returns", it knows what to do with the
+     * result.
+     * startActivityForResult is deprecated, but it is very limited what can be found about
+     * the new method online, and what HAS been found seems to be more complicated. */
+    public void openCamera(View view) {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA);
+    }
+
+
+    /* When any Activity returns to this UI, this function is called.
+    * It is deprecated (See reasons in comments above) */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -131,16 +127,24 @@ public class CreateImageComponentFragment extends Fragment {
             if (data != null) {
                 Uri uri = data.getData();
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-                    String path = saveImage(bitmap);
+                    bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                    //Bitmap resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
                     imageView.setImageBitmap(bitmap);
+                    // TODO ? Image comes out rotated - to have it normal, do this.
+                    imageView.setRotation(270);
+                    currentPhotoPath = saveImage(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+        } else if (requestCode == CAMERA) {
+            bitmap = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(bitmap);
+            currentPhotoPath = saveImage(bitmap);
         }
     }
 
+    /*  Takes the bitmap and converts it into a file and returns the path to the save image. */
     public String saveImage(Bitmap bitmap) {
         File file = null;
         try {
@@ -159,13 +163,15 @@ public class CreateImageComponentFragment extends Fragment {
 
         } catch (Exception e) {
             e.printStackTrace();
+            //returns null
             return file.getAbsolutePath();
         }
     }
 
-
-
     public void onDoneClicked(View view) {
+        int id = cDB.getNextId();
+        gameComponent = new ImageComponent(id, bitmap);
+        cDB.getCurrentGame().addComponent(gameComponent);
         closeFragment(view);
     }
 
