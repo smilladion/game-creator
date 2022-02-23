@@ -182,6 +182,7 @@ public class CreateImageFragment extends Fragment {
             component = new ImageComponent(id, bitmap);
             cDB.getCurrentGame().addComponent(component);
         }
+        ((CreateActivity) getActivity()).setButtonsEnabled(true);
         closeFragment(view);
     }
 
