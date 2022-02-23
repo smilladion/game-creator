@@ -54,6 +54,7 @@ public class CreateActivity extends AppCompatActivity {
     public void createImage(View view) {
         fm.beginTransaction().setReorderingAllowed(true)
                 .replace(R.id.create_fragment, CreateImageFragment.class, null)
+                .addToBackStack(null)
                 .commit();
     }
 

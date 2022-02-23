@@ -22,9 +22,7 @@ import java.io.IOException;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.ImageComponent;
-import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
 
 public class CreateImageFragment extends Fragment {
@@ -90,7 +88,7 @@ public class CreateImageFragment extends Fragment {
         selectImageButton.setOnClickListener(this::openGallery);
         takePictureButton.setOnClickListener(this::openCamera);
         doneButton.setOnClickListener(this::onDoneClicked);
-        discardButton.setOnClickListener(this::closeFragment);
+        discardButton.setOnClickListener(this::onDiscardClicked);
 
         if (component != null) {
             imageView.setImageBitmap(component.getBitmap());
@@ -183,11 +181,11 @@ public class CreateImageFragment extends Fragment {
             cDB.getCurrentGame().addComponent(component);
         }
         ((CreateActivity) getActivity()).setButtonsEnabled(true);
-        closeFragment(view);
+
+        getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
-    public void closeFragment(View view) {
-        Intent intent = new Intent(this.getContext(), CreateActivity.class);
-        startActivity(intent);
+    public void onDiscardClicked(View view) {
+        getParentFragmentManager().popBackStack();
     }
 }
