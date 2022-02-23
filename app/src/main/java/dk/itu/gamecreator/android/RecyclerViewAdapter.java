@@ -1,6 +1,7 @@
 package dk.itu.gamecreator.android;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.List;
 
 import dk.itu.gamecreator.android.Components.Component;
@@ -19,7 +21,9 @@ import dk.itu.gamecreator.android.Components.TextSolutionComponent;
 import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextSolutionFragment;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewAdapter
+        extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+        implements ItemMoveCallback.ItemTouchHelperContract {
 
     private final List<Component> components;
     private final LayoutInflater mInflater;
@@ -102,15 +106,49 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return components.size();
     }
 
+    @Override
+    public void onRowMoved(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(components, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(components, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onRowSelected(ViewHolder viewHolder) {
+        viewHolder.rowView.setBackgroundColor(Color.GRAY);
+
+    }
+
+    @Override
+    public void onRowClear(ViewHolder viewHolder) {
+        viewHolder.rowView.setBackgroundColor(Color.WHITE);
+
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        View rowView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            rowView = itemView;
+        }
+    }
+
     // TextComponent
-    public static class TextViewHolder extends RecyclerView.ViewHolder {
+    public static class TextViewHolder extends ViewHolder {
         TextView componentText;
         Button editButton;
         Button deleteButton;
 
         TextViewHolder(View itemView) {
             super(itemView);
-
             componentText = itemView.findViewById(R.id.component_text);
             editButton = itemView.findViewById(R.id.edit_button);
             deleteButton = itemView.findViewById(R.id.delete_button);
@@ -118,7 +156,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     // TextSolutionComponent
-    public static class TextSolutionViewHolder extends RecyclerView.ViewHolder {
+    public static class TextSolutionViewHolder extends ViewHolder {
         TextView solutionText;
         TextView buttonText;
         Button editButton;
