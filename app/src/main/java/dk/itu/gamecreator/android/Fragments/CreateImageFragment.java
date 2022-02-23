@@ -180,12 +180,13 @@ public class CreateImageFragment extends Fragment {
             component = new ImageComponent(id, bitmap);
             cDB.getCurrentGame().addComponent(component);
         }
-        ((CreateActivity) getActivity()).setButtonsEnabled(true);
 
+        ((CreateActivity) getActivity()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
     public void onDiscardClicked(View view) {
+        ((CreateActivity) getActivity()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack();
     }
 }

@@ -56,6 +56,8 @@ public class CreateActivity extends AppCompatActivity {
                 .replace(R.id.create_fragment, CreateImageFragment.class, null)
                 .addToBackStack(null)
                 .commit();
+
+        setButtonsEnabled(false);
     }
 
     public void createSolutionText(View view) {
@@ -79,6 +81,7 @@ public class CreateActivity extends AppCompatActivity {
     public void setButtonsEnabled(boolean isEnabled) {
         createTextButton.setEnabled(isEnabled);
         createTextSolutionButton.setEnabled(isEnabled);
+        createImageButton.setEnabled(isEnabled);
     }
 
     // Used for the back button in the title bar
