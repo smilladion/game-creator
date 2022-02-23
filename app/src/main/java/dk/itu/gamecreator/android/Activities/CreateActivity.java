@@ -1,7 +1,7 @@
 package dk.itu.gamecreator.android.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,7 +18,6 @@ public class CreateActivity extends AppCompatActivity {
 
     Button createTextButton;
     Button createTextSolutionButton;
-    Button backButton;
     ComponentDB cDB;
     FragmentManager fm;
 
@@ -26,6 +25,9 @@ public class CreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+
+        // Back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fm = getSupportFragmentManager();
 
@@ -35,9 +37,6 @@ public class CreateActivity extends AppCompatActivity {
 
         createTextSolutionButton = findViewById(R.id.create_text_solution_button);
         createTextSolutionButton.setOnClickListener(this::createSolutionText);
-
-        backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(this::goBack);
 
         fm.beginTransaction().setReorderingAllowed(true)
                 .add(R.id.create_fragment, EditorFragment.class, null)
@@ -53,11 +52,6 @@ public class CreateActivity extends AppCompatActivity {
         setButtonsEnabled(false);
     }
 
-    public void goBack(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
     public void createText(View view) {
         fm.beginTransaction().setReorderingAllowed(true)
                 .replace(R.id.create_fragment, CreateTextFragment.class, null)
@@ -70,6 +64,16 @@ public class CreateActivity extends AppCompatActivity {
     public void setButtonsEnabled(boolean isEnabled) {
         createTextButton.setEnabled(isEnabled);
         createTextSolutionButton.setEnabled(isEnabled);
-        backButton.setEnabled(isEnabled);
+    }
+
+    // Used for the back button in the title bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

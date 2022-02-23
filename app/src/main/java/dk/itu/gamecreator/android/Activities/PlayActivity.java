@@ -1,9 +1,7 @@
 package dk.itu.gamecreator.android.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +15,6 @@ import dk.itu.gamecreator.android.R;
 public class PlayActivity extends AppCompatActivity {
 
     LinearLayout ll;
-    Button backButton;
     ComponentDB cDB;
 
     @Override
@@ -25,19 +22,25 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        ll = findViewById(R.id.play_layout);
-        backButton = findViewById(R.id.back_button_play);
-        cDB = ComponentDB.getInstance();
+        // Back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        backButton.setOnClickListener(this::goBack);
+        ll = findViewById(R.id.play_layout);
+        cDB = ComponentDB.getInstance();
 
         for (Component gc: cDB.getCurrentGame().getComponents()) {
             ll.addView(gc.getView(this));
         }
     }
 
-    public void goBack(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    // Used for the back button in the title bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
