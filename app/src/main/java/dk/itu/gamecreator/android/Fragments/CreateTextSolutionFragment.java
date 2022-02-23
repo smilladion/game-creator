@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
+import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.TextSolutionComponent;
 import dk.itu.gamecreator.android.R;
@@ -72,6 +73,8 @@ public class CreateTextSolutionFragment extends Fragment {
             TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextId(), solution, button);
             cDB.getCurrentGame().addComponent(sc);
         }
+
+        ((CreateActivity) getActivity()).setButtonsEnabled(true);
 
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
