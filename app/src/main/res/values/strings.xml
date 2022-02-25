@@ -14,6 +14,10 @@
 
     <string name="name_of_game">Game name:&#032;</string>
 
+    <string name="text_editor_fragment">Editor</string>
+    <string name="text_preview_fragment">Preview</string>
+    <string name="text_config_fragment">Config</string>
+
     <string name="solution_text">Solution:</string>
     <string name="button_text">Button text:</string>
 

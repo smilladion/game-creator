@@ -2,26 +2,30 @@ package dk.itu.gamecreator.android.Activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import dk.itu.gamecreator.android.ComponentDB;
 
-import dk.itu.gamecreator.android.Fragments.CreateImageFragment;
-import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
-import dk.itu.gamecreator.android.Fragments.CreateTextSolutionFragment;
-
 import dk.itu.gamecreator.android.Fragments.EditorFragment;
+import dk.itu.gamecreator.android.Fragments.GameFragment;
 import dk.itu.gamecreator.android.R;
 
 public class CreateActivity extends AppCompatActivity {
 
-    Button createTextButton;
-    Button createTextSolutionButton;
-    Button createImageButton;
+    TabLayout tabLayout;
+    TabItem editorTab;
+    TabItem previewTab;
+    TabItem configTab;
+
+    Fragment editorFragment = new EditorFragment();
+    Fragment previewFragment = new GameFragment();
+    //Fragment configFragment = new ConfigFragment();
 
     ComponentDB cDB;
     FragmentManager fm;
@@ -37,51 +41,43 @@ public class CreateActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
 
         cDB = ComponentDB.getInstance();
-        createTextButton = findViewById(R.id.create_text_button);
-        createTextButton.setOnClickListener(this::createText);
 
-        createTextSolutionButton = findViewById(R.id.create_text_solution_button);
-        createTextSolutionButton.setOnClickListener(this::createSolutionText);
+        tabLayout = findViewById(R.id.tab_layout);
+        editorTab = findViewById(R.id.editor_tab);
+        previewTab = findViewById(R.id.preview_tab);
+        configTab = findViewById(R.id.config_tab);
 
-        createImageButton = findViewById(R.id.create_image_button);
-        createImageButton.setOnClickListener(this::createImage);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Fragment frag = editorFragment;
+                int pos = tab.getPosition();
+                if (pos == 0) {
+                    frag = editorFragment;
+                } else if (pos == 1) {
+                    frag = previewFragment;
+                } else if (pos == 2) {
+
+                }
+                fm.beginTransaction().setReorderingAllowed(true)
+                        .replace(R.id.create_fragment, frag, null)
+                        .commit();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         fm.beginTransaction().setReorderingAllowed(true)
-                .add(R.id.create_fragment, EditorFragment.class, null)
+                .add(R.id.create_fragment, editorFragment, null)
                 .commit();
-    }
-
-    public void createImage(View view) {
-        fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.create_fragment, CreateImageFragment.class, null)
-                .addToBackStack(null)
-                .commit();
-
-        setButtonsEnabled(false);
-    }
-
-    public void createSolutionText(View view) {
-        fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.create_fragment, CreateTextSolutionFragment.class, null)
-                .addToBackStack(null)
-                .commit();
-
-        setButtonsEnabled(false);
-    }
-
-    public void createText(View view) {
-        fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.create_fragment, CreateTextFragment.class, null)
-                .addToBackStack(null)
-                .commit();
-
-        setButtonsEnabled(false);
-    }
-
-    public void setButtonsEnabled(boolean isEnabled) {
-        createTextButton.setEnabled(isEnabled);
-        createTextSolutionButton.setEnabled(isEnabled);
-        createImageButton.setEnabled(isEnabled);
     }
 
     // Used for the back button in the title bar

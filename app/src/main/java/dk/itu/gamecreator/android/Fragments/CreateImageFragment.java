@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.R;
@@ -181,12 +180,12 @@ public class CreateImageFragment extends Fragment {
             cDB.getCurrentGame().addComponent(component);
         }
 
-        ((CreateActivity) getActivity()).setButtonsEnabled(true);
+        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
     public void onDiscardClicked(View view) {
-        ((CreateActivity) getActivity()).setButtonsEnabled(true);
+        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack();
     }
 }
