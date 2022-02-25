@@ -8,6 +8,32 @@
     tools:context=".Activities.CreateActivity"
     android:orientation="vertical">
 
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/editor_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_editor_fragment"
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/preview_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_preview_fragment"
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/config_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_config_fragment"
+            />
+    </com.google.android.material.tabs.TabLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
