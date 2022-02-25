@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import dk.itu.gamecreator.android.ComponentDB;
 
+import dk.itu.gamecreator.android.Fragments.ConfigFragment;
 import dk.itu.gamecreator.android.Fragments.EditorFragment;
 import dk.itu.gamecreator.android.Fragments.GameFragment;
 import dk.itu.gamecreator.android.R;
@@ -25,7 +26,7 @@ public class CreateActivity extends AppCompatActivity {
 
     Fragment editorFragment = new EditorFragment();
     Fragment previewFragment = new GameFragment();
-    //Fragment configFragment = new ConfigFragment();
+    Fragment configFragment = new ConfigFragment();
 
     ComponentDB cDB;
     FragmentManager fm;
@@ -57,7 +58,7 @@ public class CreateActivity extends AppCompatActivity {
                 } else if (pos == 1) {
                     frag = previewFragment;
                 } else if (pos == 2) {
-
+                    frag = configFragment;
                 }
                 fm.beginTransaction().setReorderingAllowed(true)
                         .replace(R.id.create_fragment, frag, null)
