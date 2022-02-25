@@ -114,7 +114,7 @@ public class RecyclerViewAdapter
                 .addToBackStack(null)
                 .commit();
 
-        activity.setButtonsEnabled(false);
+        //activity.setButtonsEnabled(false);
     }
 
     @Override

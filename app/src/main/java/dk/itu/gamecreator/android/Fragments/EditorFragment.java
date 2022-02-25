@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +28,15 @@ public class EditorFragment extends Fragment {
     Button saveGame;
     RecyclerView recyclerView;
     EditText nameGameEdit;
+
+    Button createTextButton;
+    Button createTextSolutionButton;
+    Button createImageButton;
+
+    FragmentContainerView fragmentContainerView;
+    Fragment textFragment = new CreateTextFragment();
+    Fragment textSolutionFragment = new CreateTextSolutionFragment();
+    Fragment imageFragment = new CreateImageFragment();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,11 +59,31 @@ public class EditorFragment extends Fragment {
         recyclerView = view.findViewById(R.id.current_components);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
+        fragmentContainerView = view.findViewById(R.id.component_fragment);
+
         nameGameEdit = view.findViewById(R.id.game_name_edit);
+
+        createTextButton = view.findViewById(R.id.create_text_button);
+        createTextButton.setOnClickListener(v -> openComponentFragment(v, textFragment));
+
+        createTextSolutionButton = view.findViewById(R.id.create_text_solution_button);
+        createTextSolutionButton.setOnClickListener(v -> openComponentFragment(v, textSolutionFragment));
+
+        createImageButton = view.findViewById(R.id.create_image_button);
+        createImageButton.setOnClickListener(v -> openComponentFragment(v, imageFragment));
 
         saveGame = view.findViewById(R.id.save_game_button);
         saveGame.setOnClickListener(this::saveGame);
         populateRecyclerView(view);
+    }
+
+    public void openComponentFragment(View view, Fragment fragment) {
+        FragmentManager fm = getParentFragmentManager();
+        fm.beginTransaction().setReorderingAllowed(true)
+                .replace(R.id.create_fragment, fragment, null)
+                .addToBackStack(null)
+                .commit();
+        setButtonsEnabled(false);
     }
 
     public void populateRecyclerView(View view) {
@@ -68,6 +99,12 @@ public class EditorFragment extends Fragment {
         touchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public void setButtonsEnabled(boolean isEnabled) {
+        createTextButton.setEnabled(isEnabled);
+        createTextSolutionButton.setEnabled(isEnabled);
+        createImageButton.setEnabled(isEnabled);
     }
 
     public void saveGame(View view) {

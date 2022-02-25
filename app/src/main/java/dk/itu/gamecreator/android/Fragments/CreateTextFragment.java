@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
@@ -65,12 +64,12 @@ public class CreateTextFragment extends Fragment {
             cDB.getCurrentGame().addComponent(tc);
         }
 
-        ((CreateActivity) getActivity()).setButtonsEnabled(true);
+        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
     public void onDiscardClicked(View view) {
-        ((CreateActivity) getActivity()).setButtonsEnabled(true);
+        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack();
     }
 }

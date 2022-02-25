@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -33,38 +34,6 @@
             android:text="@string/text_config_fragment"
             />
     </com.google.android.material.tabs.TabLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-
-        <Button
-            android:id="@+id/create_text_button"
-            android:text="@string/text"
-            android:layout_marginHorizontal="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </Button>
-
-        <Button
-            android:id="@+id/create_text_solution_button"
-            android:text="@string/text_solution"
-            android:layout_marginHorizontal="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </Button>
-
-        <Button
-            android:id="@+id/create_image_button"
-            android:text="@string/image"
-            android:layout_marginHorizontal="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </Button>
-
-    </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/create_fragment"
