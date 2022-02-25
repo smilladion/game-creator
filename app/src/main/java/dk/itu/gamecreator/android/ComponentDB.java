@@ -17,11 +17,13 @@ public final class ComponentDB {
     private Game currentGame = null;
     private Game chosenGame = null;
     private List<Game> allGames;
-    private int id;
+    private int cID;
+    private int gID;
 
     private ComponentDB() {
         allGames = new ArrayList<>();
-        id = 0;
+        cID = 0;
+        gID = 0;
     }
 
     public static ComponentDB getInstance() {
@@ -36,8 +38,13 @@ public final class ComponentDB {
     }
 
     public void saveGame() {
-        allGames.add(currentGame);
-        currentGame = null;
+        if (currentGame.getgID() != 0) {
+            currentGame = null;
+        } else {
+            currentGame.setID(getNextgID());
+            allGames.add(currentGame);
+            currentGame = null;
+        }
     }
 
     public List<Game> getAllGames() {
@@ -60,9 +67,14 @@ public final class ComponentDB {
         return chosenGame;
     }
 
+    private int getNextgID() {
+        gID = gID + 1;
+        return gID;
+    }
+
     public int getNextComponentId() {
-        id = id + 1;
-        return id;
+        cID = cID + 1;
+        return cID;
     }
 
 }

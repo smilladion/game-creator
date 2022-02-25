@@ -1,9 +1,8 @@
-package dk.itu.gamecreator.android;
+package dk.itu.gamecreator.android.Adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +24,7 @@ import dk.itu.gamecreator.android.Components.TextSolutionComponent;
 import dk.itu.gamecreator.android.Fragments.CreateImageFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextSolutionFragment;
+import dk.itu.gamecreator.android.R;
 
 public class RecyclerViewAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder>

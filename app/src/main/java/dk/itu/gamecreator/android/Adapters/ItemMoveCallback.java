@@ -1,9 +1,11 @@
-package dk.itu.gamecreator.android;
+package dk.itu.gamecreator.android.Adapters;
 
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 
 public class ItemMoveCallback extends ItemTouchHelper.Callback {
 

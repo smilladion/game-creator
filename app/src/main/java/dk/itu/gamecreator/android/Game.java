@@ -6,7 +6,7 @@ import dk.itu.gamecreator.android.Components.Component;
 
 public class Game {
     private final ArrayList<Component> components;
-    private static int id;
+    private int gID;
     private String name;
 
     public Game() {
@@ -23,6 +23,14 @@ public class Game {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setID(int id) {
+        gID = id;
+    }
+
+    public int getgID() {
+        return gID;
     }
 
     public String getName() {
