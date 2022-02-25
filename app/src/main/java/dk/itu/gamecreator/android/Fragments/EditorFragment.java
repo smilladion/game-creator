@@ -77,6 +77,7 @@ public class EditorFragment extends Fragment {
             toast.show();
         } else {
             String name = nameGameEdit.getText().toString();
+            nameGameEdit.getText().clear();
             cDB.getCurrentGame().setName(name);
             cDB.saveGame();
             Toast toast = Toast.makeText(this.getContext(), "Game saved!", Toast.LENGTH_SHORT);

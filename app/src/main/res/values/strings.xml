@@ -5,10 +5,12 @@
     <string name="create_game">CREATE</string>
     <string name="save_game">SAVE GAME</string>
 
-    <string name="text_component">Text</string>
-    <string name="text_solution_component">Text Solution</string>
+    <string name="text">Text</string>
+    <string name="text_solution">Text Solution</string>
+    <string name="image">Image</string>
 
-    <string name="image_component">Image</string>
+    <string name="done">Done</string>
+    <string name="discard">Discard</string>
 
     <string name="name_of_game">Game name: </string>
 
@@ -17,6 +19,14 @@
 
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+
+    <string name="select_image">Select Image</string>
+    <string name="take_picture">Take Picture</string>
+
+    <string name="input_text">Input text:</string>
+
+    <string name="correct_solution">Input what the correct solution is:</string>
+    <string name="button_text_input">Input what the button should say:</string>
 
     <string-array name="game_components">
         <item>Text</item>

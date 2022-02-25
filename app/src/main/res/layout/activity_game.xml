@@ -5,16 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/back_button_play"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="Back">
-
-    </Button>
-
     <LinearLayout
-        android:id="@+id/play_layout"
+        android:id="@+id/game_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"/>

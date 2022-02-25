@@ -15,29 +15,25 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/back_button"
-            android:text="Back"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </Button>
-
-        <Button
             android:id="@+id/create_text_button"
-            android:text="Text"
+            android:text="@string/text"
+            android:layout_marginHorizontal="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </Button>
 
         <Button
             android:id="@+id/create_text_solution_button"
-            android:text="Text solution"
+            android:text="@string/text_solution"
+            android:layout_marginHorizontal="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </Button>
 
         <Button
             android:id="@+id/create_image_button"
-            android:text="Image"
+            android:text="@string/image"
+            android:layout_marginHorizontal="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </Button>

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Collections;
 import java.util.List;
 
+import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
@@ -72,6 +73,7 @@ public class RecyclerViewAdapter
 
             textHolder.deleteButton.setOnClickListener(view -> onDelete(textHolder));
             textHolder.editButton.setOnClickListener(view -> onEdit(textHolder, CreateTextFragment.class));
+
         } else if (getItemViewType(position) == TYPE_SOLUTION_TEXT) {
             TextSolutionViewHolder textSolutionHolder = (TextSolutionViewHolder) holder;
 
@@ -83,6 +85,7 @@ public class RecyclerViewAdapter
 
             textSolutionHolder.deleteButton.setOnClickListener(view -> onDelete(textSolutionHolder));
             textSolutionHolder.editButton.setOnClickListener(view -> onEdit(textSolutionHolder, CreateTextSolutionFragment.class));
+
         } else if (getItemViewType(position) == TYPE_IMAGE) {
             ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
             Bitmap bitmap;
@@ -105,11 +108,13 @@ public class RecyclerViewAdapter
         Bundle bundle = new Bundle();
         bundle.putInt("componentIndex", holder.getAdapterPosition());
 
-        AppCompatActivity activity = (AppCompatActivity) context;
+        CreateActivity activity = (CreateActivity) context;
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.create_fragment, fragmentClass, bundle)
                 .addToBackStack(null)
                 .commit();
+
+        activity.setButtonsEnabled(false);
     }
 
     @Override
@@ -188,7 +193,6 @@ public class RecyclerViewAdapter
 
         TextSolutionViewHolder(View itemView) {
             super(itemView);
-
             solutionText = itemView.findViewById(R.id.solution_text);
             buttonText = itemView.findViewById(R.id.button_text);
             editButton = itemView.findViewById(R.id.edit_button);
@@ -197,7 +201,6 @@ public class RecyclerViewAdapter
     }
 
     public static class ImageViewHolder extends ViewHolder {
-
         Button editButton;
         Button deleteButton;
         ImageView imageView;

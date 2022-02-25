@@ -88,7 +88,7 @@ public class CreateImageFragment extends Fragment {
         selectImageButton.setOnClickListener(this::openGallery);
         takePictureButton.setOnClickListener(this::openCamera);
         doneButton.setOnClickListener(this::onDoneClicked);
-        discardButton.setOnClickListener(this::closeFragment);
+        discardButton.setOnClickListener(this::onDiscardClicked);
 
         if (component != null) {
             imageView.setImageBitmap(component.getBitmap());
@@ -180,12 +180,13 @@ public class CreateImageFragment extends Fragment {
             component = new ImageComponent(id, bitmap);
             cDB.getCurrentGame().addComponent(component);
         }
+
         ((CreateActivity) getActivity()).setButtonsEnabled(true);
-        closeFragment(view);
+        getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
-    public void closeFragment(View view) {
-        Intent intent = new Intent(this.getContext(), CreateActivity.class);
-        startActivity(intent);
+    public void onDiscardClicked(View view) {
+        ((CreateActivity) getActivity()).setButtonsEnabled(true);
+        getParentFragmentManager().popBackStack();
     }
 }
