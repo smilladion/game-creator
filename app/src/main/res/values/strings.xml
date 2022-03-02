@@ -31,7 +31,7 @@
 
     <string name="correct_solution">Input what the correct solution is:</string>
     <string name="button_text_input">Input what the button should say:</string>
-
+    
     <string name="difficulty">Difficulty:&#032;</string>
 
     <string name="color_theme">Color theme:&#032;</string>
@@ -45,6 +45,17 @@
         <item>Medium</item>
         <item>Hard</item>
         <item>Expert</item>
+    </string-array>
+
+    <string name="text_size">Text size</string>
+
+    <string name="left_text">Left</string>
+    <string name="center_text">Center</string>
+    <string name="right_text">Right</string>
+
+    <string-array name="game_components">
+        <item>Text</item>
+        <item>Image</item>
     </string-array>
 
     <string-array name="color_array">

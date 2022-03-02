@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.textfield.TextInputEditText;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.TextComponent;
@@ -15,10 +18,12 @@ import dk.itu.gamecreator.android.R;
 
 public class CreateTextFragment extends Fragment {
 
-    EditText editText;
     Button doneButton;
     Button discardButton;
+    TextInputEditText editText;
     ComponentDB cDB;
+    MaterialButtonToggleGroup toggleButton;
+    AutoCompleteTextView sizeInput;
     TextComponent component; // Non-null when fragment was created through an edit button
 
     @Override
@@ -45,9 +50,13 @@ public class CreateTextFragment extends Fragment {
         editText = view.findViewById(R.id.input_text);
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
+        toggleButton = view.findViewById(R.id.toggleButton);
+        sizeInput = view.findViewById(R.id.input_size);
 
         if (component != null) {
             editText.setText(component.getText());
+            //sets it as float - does not look so good.
+            sizeInput.setText(String.valueOf(component.getSize()));
         }
 
         doneButton.setOnClickListener(this::onDoneClicked);
@@ -57,13 +66,27 @@ public class CreateTextFragment extends Fragment {
     public void onDoneClicked(View view) {
         // If fragment was opened through edit button, then set that component's text and return
         // Otherwise create a new component and add it to the database
+        String pos;
+        int buttonId = toggleButton.getCheckedButtonId();
+        if (buttonId == R.id.text_left) {
+            pos = "left";
+        } else if (buttonId == R.id.text_center) {
+            pos = "center";
+        } else {
+            pos = "right";
+        }
+        float size = Float.parseFloat(sizeInput.getText().toString());
+
         if (component != null) {
             component.setText(editText.getText().toString());
+            component.setPos(pos);
+            component.setSize(size);
         } else {
             TextComponent tc = new TextComponent(cDB.getNextComponentId(), editText.getText().toString());
+            tc.setPos(pos);
+            tc.setSize(size);
             cDB.getCurrentGame().addComponent(tc);
         }
-
         //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
