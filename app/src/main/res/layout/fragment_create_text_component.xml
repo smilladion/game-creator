@@ -1,19 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:endIconMode="clear_text"
+            android:hint="Input text..."
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/input_text"/>
+        android:layout_margin="20dp"
+        app:singleSelection="true">
+        <Button
+            android:id="@+id/text_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/left_text"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+        <Button
+            android:id="@+id/text_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/center_text"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+        <Button
+            android:id="@+id/text_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/right_text"
+            style="?attr/materialButtonOutlinedStyle"
+            />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <EditText
-        android:id="@+id/input_text"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:text="@string/text_size"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <AutoCompleteTextView
+                android:id="@+id/input_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,14 +103,16 @@
             android:text="@string/done"
             android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"/>
 
         <Button
             android:id="@+id/discard_button"
             android:text="@string/discard"
             android:layout_marginHorizontal="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"/>
 
     </LinearLayout>
 

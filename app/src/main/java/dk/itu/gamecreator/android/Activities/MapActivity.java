@@ -36,8 +36,9 @@ public class MapActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_map);
 
-        map = (MapView) findViewById(R.id.mapView);
+        map = findViewById(R.id.mapView);
         map.setTileSource(TileSourceFactory.MAPNIK);
+
 
         requestPermissionsIfNecessary(new String[] {
                 // if you need to show the current location, uncomment the line below
