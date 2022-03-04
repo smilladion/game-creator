@@ -1,11 +1,13 @@
 package dk.itu.gamecreator.android.Fragments;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -25,6 +27,7 @@ public class CreateTextFragment extends Fragment {
     MaterialButtonToggleGroup toggleButton;
     AutoCompleteTextView sizeInput;
     TextComponent component; // Non-null when fragment was created through an edit button
+    static float DEFAULT_TEXT_SIZE = 50;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,25 +73,39 @@ public class CreateTextFragment extends Fragment {
         int buttonId = toggleButton.getCheckedButtonId();
         if (buttonId == R.id.text_left) {
             pos = "left";
-        } else if (buttonId == R.id.text_center) {
-            pos = "center";
-        } else {
+        } else if (buttonId == R.id.text_right) {
             pos = "right";
-        }
-        float size = Float.parseFloat(sizeInput.getText().toString());
-
-        if (component != null) {
-            component.setText(editText.getText().toString());
-            component.setPos(pos);
-            component.setSize(size);
         } else {
-            TextComponent tc = new TextComponent(cDB.getNextComponentId(), editText.getText().toString());
-            tc.setPos(pos);
-            tc.setSize(size);
-            cDB.getCurrentGame().addComponent(tc);
+            pos = "center";
         }
-        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
-        getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
+
+        //Check if sizeinput is empty - if nothing given set default 50
+        float size;
+        if (sizeInput.getText().toString().trim().length() == 0) {
+            size = DEFAULT_TEXT_SIZE;
+        } else {
+            size = Float.parseFloat(sizeInput.getText().toString());
+        }
+
+        if (editText.getText().toString().trim().length() == 0) {
+            Toast toast = Toast.makeText(this.getContext(),
+                    "Text field can't be empty. Write something, or discard component", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else {
+            if (component != null) {
+                component.setText(editText.getText().toString());
+                component.setPos(pos);
+                component.setSize(size);
+            } else {
+                TextComponent tc = new TextComponent(cDB.getNextComponentId(), editText.getText().toString());
+                tc.setPos(pos);
+                tc.setSize(size);
+                cDB.getCurrentGame().addComponent(tc);
+            }
+            //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
+            getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
+        }
     }
 
     public void onDiscardClicked(View view) {

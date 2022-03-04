@@ -1,11 +1,13 @@
 package dk.itu.gamecreator.android.Fragments;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -63,18 +65,26 @@ public class CreateTextSolutionFragment extends Fragment {
     public void onDoneClicked(View view) {
         // If fragment was opened through edit button, then set that component's content and return
         // Otherwise create a new component and add it to the database
-        if (component != null) {
-            component.setSolutionText(solutionText.getText().toString());
-            component.setButtonText(buttonText.getText().toString());
-        } else {
-            String solution = solutionText.getText().toString();
-            String button = buttonText.getText().toString();
-            TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextComponentId(), solution, button);
-            cDB.getCurrentGame().addComponent(sc);
-        }
 
-        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
-        getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
+        if (solutionText.getText().toString().trim().length() == 0) {
+            Toast toast = Toast.makeText(this.getContext(),
+                    "Text field can't be empty. Write something, or discard component", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else {
+            if (component != null) {
+                component.setSolutionText(solutionText.getText().toString());
+                component.setButtonText(buttonText.getText().toString());
+            } else {
+                String solution = solutionText.getText().toString();
+                String button = buttonText.getText().toString();
+                TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextComponentId(), solution, button);
+                cDB.getCurrentGame().addComponent(sc);
+            }
+
+            //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
+            getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
+        }
     }
 
     public void onDiscardClicked(View view) {
