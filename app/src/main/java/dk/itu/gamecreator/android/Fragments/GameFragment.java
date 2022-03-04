@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
+import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
@@ -21,6 +22,7 @@ public class GameFragment extends Fragment {
     ComponentDB cDB;
     TextView text;
     Context context;
+    Game game;
 
     @Override
     public void onAttach(Context context) {
@@ -37,6 +39,8 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
+        game = cDB.getCurrentGame();
+
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
@@ -44,10 +48,10 @@ public class GameFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ll = view.findViewById(R.id.game_layout);
         text = view.findViewById(R.id.text);
-        if (cDB.getCurrentGame().getComponents().isEmpty()) {
+        if (game.getComponents().isEmpty()) {
             text.setText("Nothing to show");
         } else {
-            for (Component c: cDB.getCurrentGame().getComponents()) {
+            for (Component c: game.getComponents()) {
                 ll.addView(c.getView(context));
             }
         }

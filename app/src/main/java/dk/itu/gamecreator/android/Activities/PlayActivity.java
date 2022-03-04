@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
+import dk.itu.gamecreator.android.Fragments.GameFragment;
 import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
@@ -20,6 +23,7 @@ public class PlayActivity extends AppCompatActivity {
 
     LinearLayout ll;
     ComponentDB cDB;
+    FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,11 @@ public class PlayActivity extends AppCompatActivity {
         // Back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        fm = getSupportFragmentManager();
+
         ll = findViewById(R.id.game_layout);
         cDB = ComponentDB.getInstance();
+        //cDB.setChosenGame(null);
 
         int i = 1;
         for(Game game: cDB.getAllGames()) {
@@ -67,6 +74,7 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            cDB.setCurrentGame(null);
             finish();
             return true;
         }
@@ -75,8 +83,13 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void gameClick(View view, Game game) {
-        cDB.setChosenGame(game);
+        cDB.setCurrentGame(game);
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }
