@@ -30,7 +30,6 @@ public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
     RecyclerViewAdapter adapter;
-    Button saveGame;
     RecyclerView recyclerView;
 
     Button createTextButton;
@@ -74,8 +73,6 @@ public class EditorFragment extends Fragment {
         createImageButton = view.findViewById(R.id.create_image_button);
         createImageButton.setOnClickListener(v -> openComponentFragment(v, imageFragment));
 
-        saveGame = view.findViewById(R.id.save_game_button);
-        saveGame.setOnClickListener(this::saveGame);
         populateRecyclerView(view);
     }
 
@@ -107,22 +104,5 @@ public class EditorFragment extends Fragment {
         createTextButton.setEnabled(isEnabled);
         createTextSolutionButton.setEnabled(isEnabled);
         createImageButton.setEnabled(isEnabled);
-    }
-
-    public void saveGame(View view) {
-        if (cDB.getCurrentGame().getComponents().isEmpty()) {
-            Toast toast = Toast.makeText(this.getContext(), "Add a game component to create a game!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
-            AlertDialog dialog = GameNameDialog.getDialog(this.getContext());
-            dialog.setOnDismissListener(dialogInterface -> populateRecyclerView(view));
-        } else {
-            cDB.saveGame();
-            Toast toast = Toast.makeText(this.getContext(), "Game saved!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-            populateRecyclerView(view);
-        }
     }
 }
