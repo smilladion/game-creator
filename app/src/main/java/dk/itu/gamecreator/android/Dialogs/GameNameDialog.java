@@ -19,7 +19,7 @@ public class GameNameDialog {
         ComponentDB cDB = ComponentDB.getInstance();
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(context)
-            .setMessage("Game name:")
+            .setTitle("Game name:")
             .setCancelable(false)
             .setView(R.layout.game_name_dialog)
             .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss())

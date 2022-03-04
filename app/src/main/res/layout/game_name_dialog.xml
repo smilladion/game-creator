@@ -6,8 +6,8 @@
 
     <EditText
         android:id="@+id/set_game_name"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"/>
+        android:layout_marginHorizontal="20dp"/>
 
 </LinearLayout>
