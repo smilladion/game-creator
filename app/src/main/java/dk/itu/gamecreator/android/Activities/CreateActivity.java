@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -104,7 +105,9 @@ public class CreateActivity extends AppCompatActivity {
         } else {
             cDB.saveGame();
             cDB.newGame();
+
             finish();
+
             Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();

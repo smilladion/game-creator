@@ -1,6 +1,8 @@
 package dk.itu.gamecreator.android.Fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,6 @@ public class ConfigFragment extends Fragment {
     ComponentDB cDB;
     EditText nameGameEdit;
     Button editLocationButton;
-    Button saveConfigButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,11 +41,20 @@ public class ConfigFragment extends Fragment {
 
         nameGameEdit = view.findViewById(R.id.game_name);
         nameGameEdit.setText(cDB.getCurrentGame().getName());
+        nameGameEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                cDB.getCurrentGame().setName(s.toString());
+            }
+        });
 
         editLocationButton = view.findViewById(R.id.edit_location_button);
-
-        saveConfigButton = view.findViewById(R.id.save_config);
-        saveConfigButton.setOnClickListener(this::onSaveConfig);
 
         // Difficulty setting
         Spinner difficultySpinner = view.findViewById(R.id.difficulty_spinner);
@@ -66,17 +76,5 @@ public class ConfigFragment extends Fragment {
                 R.array.no_tries_array, android.R.layout.simple_spinner_item);
         noTriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         noTriesSpinner.setAdapter(noTriesAdapter);
-    }
-
-    private void onSaveConfig(View view) {
-        String name = nameGameEdit.getText().toString();
-
-        if (name != null && !name.trim().equals("")) {
-            cDB.getCurrentGame().setName(nameGameEdit.getText().toString());
-        }
-
-        Toast toast = Toast.makeText(this.getContext(), "Your changes have been saved", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
     }
 }
