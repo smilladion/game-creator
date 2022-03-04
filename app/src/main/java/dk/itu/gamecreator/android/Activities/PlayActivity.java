@@ -26,7 +26,8 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        // Back button
+        // Action bar
+        setTitle("All Games");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ll = findViewById(R.id.game_layout);

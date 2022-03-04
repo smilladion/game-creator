@@ -36,7 +36,8 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        // Back button
+        // Action bar
+        setTitle("Game Editor");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fm = getSupportFragmentManager();
@@ -81,7 +82,7 @@ public class CreateActivity extends AppCompatActivity {
                 .commit();
     }
 
-    // Used for the back button in the title bar
+    // Used for the back button in the action bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

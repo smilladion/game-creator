@@ -24,6 +24,8 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        // Action bar
+        setTitle("Play Game");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ll = findViewById(R.id.game_layout);
