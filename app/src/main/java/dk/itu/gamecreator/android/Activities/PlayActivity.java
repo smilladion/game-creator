@@ -31,8 +31,15 @@ public class PlayActivity extends AppCompatActivity {
 
         ll = findViewById(R.id.game_layout);
         cDB = ComponentDB.getInstance();
+    }
 
-        int i = 1;
+    // Using this method makes sure that the game name updates when editing it
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ll.removeAllViews();
+
         for(Game game: cDB.getAllGames()) {
             //Inner layout for each game + its edit and delete button
             LinearLayout gameLayout = new LinearLayout(this);
@@ -53,7 +60,6 @@ public class PlayActivity extends AppCompatActivity {
             gameLayout.addView(deleteButton);
 
             ll.addView(gameLayout);
-            i++;
         }
     }
 

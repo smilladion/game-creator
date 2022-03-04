@@ -113,8 +113,6 @@ public class RecyclerViewAdapter
                 .replace(R.id.create_fragment, fragmentClass, bundle)
                 .addToBackStack(null)
                 .commit();
-
-        //activity.setButtonsEnabled(false);
     }
 
     @Override
