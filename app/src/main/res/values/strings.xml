@@ -26,6 +26,10 @@
 
     <string name="select_image">Select Image</string>
     <string name="take_picture">Take Picture</string>
+    <string name="rotate_left">Rotate left</string>
+    <string name="rotate_right">Rotate right</string>
+    <string name="minus_image">-</string>
+    <string name="plus_image">+</string>
 
     <string name="input_text">Input text:</string>
 

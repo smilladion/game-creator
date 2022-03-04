@@ -25,26 +25,32 @@ import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.R;
 
 public class CreateImageFragment extends Fragment {
+    private static final int GALLERY = 1, CAMERA = 2;
+    private static final String IMAGE_DIRECTORY = "/comp_image";
+    static final int ROTATE_LEFT = 0, ROTATE_RIGHT = 1;
+    static final int MAKE_SMALLER = 0, MAKE_BIGGER = 1;
+    static final int RESIZE = 40;
 
-    Button doneButton;
-    Button discardButton;
 
-    Button selectImageButton;
-    Button takePictureButton;
+    Button doneButton, discardButton;
+    Button selectImageButton, takePictureButton;
+
     ImageView imageView;
-    //int SELECT_PICTURE = 200;
+
+    Button rotateLeftButton, rotateRightButton;
+    Button smallerButton, biggerButton;
+
     String currentPhotoPath;
     ImageComponent component;
     ComponentDB cDB;
 
-    Uri pictureUri = null;
     Bitmap bitmap;
 
     Context context;
 
-    private static final int GALLERY = 1, CAMERA = 2;
-    private static final String IMAGE_DIRECTORY = "/comp_image";
-
+    float rotation;
+    int height;
+    int width;
 
     /*This is just used to get the context of the Activity*/
     @Override
@@ -80,21 +86,61 @@ public class CreateImageFragment extends Fragment {
         selectImageButton = view.findViewById(R.id.select_image_button);
         takePictureButton = view.findViewById(R.id.take_picture_button);
         imageView = view.findViewById(R.id.preview_image_view);
+        rotateLeftButton = view.findViewById(R.id.rotate_left_button);
+        rotateRightButton = view.findViewById(R.id.rotate_right_button);
+        smallerButton = view.findViewById(R.id.minimise_button);
+        biggerButton = view.findViewById(R.id.maximise_button);
 
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
 
         selectImageButton.setOnClickListener(this::openGallery);
         takePictureButton.setOnClickListener(this::openCamera);
+        rotateLeftButton.setOnClickListener(v -> rotate(ROTATE_LEFT));
+        rotateRightButton.setOnClickListener(v -> rotate(ROTATE_RIGHT));
+        /*
+        smallerButton.setOnClickListener(v -> resize(MAKE_SMALLER));
+        biggerButton.setOnClickListener(v -> resize(MAKE_BIGGER));
+        ?/
+         */
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
+
+        rotation = imageView.getRotation();
+
+        //height = imageView.getHeight();
+        //width = imageView.getWidth();
 
         if (component != null) {
             imageView.setImageBitmap(component.getBitmap());
             bitmap = component.getBitmap();
+            rotation = component.getRotation();
         }
 
     }
+    //
+    public void rotate(int direction) {
+        if (direction == ROTATE_LEFT) {
+            rotation = rotation - 90;
+        } else {
+            rotation = rotation + 90;
+        }
+        imageView.setRotation(rotation);
+    }
+    /* TODO - taking out resize function can't make it work
+    public void resize(int direction) {
+        if (direction == MAKE_SMALLER) {
+            width = width - RESIZE;
+            height = height - RESIZE;
+        } else {
+            width = width + RESIZE;
+            height = height + RESIZE;
+        }
+        imageView.getLayoutParams().height = height;
+        imageView.getLayoutParams().width = width;
+        imageView.requestLayout();
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+    }*/
 
     /* Opens the gallery with an implicit intent, and starts an Activity for result
     * - This ensures that when the activity "returns", it knows what to do with the
@@ -174,9 +220,10 @@ public class CreateImageFragment extends Fragment {
     public void onDoneClicked(View view) {
         if (component != null) {
             component.setBitmap(bitmap);
+            component.setRotation(rotation);
         } else {
             int id = cDB.getNextComponentId();
-            component = new ImageComponent(id, bitmap);
+            component = new ImageComponent(id, bitmap, rotation, width, height);
             cDB.getCurrentGame().addComponent(component);
         }
 
