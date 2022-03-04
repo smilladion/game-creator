@@ -1,5 +1,6 @@
 package dk.itu.gamecreator.android.Fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
@@ -16,8 +18,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
+import dk.itu.gamecreator.android.Dialogs.GameNameDialog;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 
@@ -27,7 +32,6 @@ public class EditorFragment extends Fragment {
     RecyclerViewAdapter adapter;
     Button saveGame;
     RecyclerView recyclerView;
-    EditText nameGameEdit;
 
     Button createTextButton;
     Button createTextSolutionButton;
@@ -60,8 +64,6 @@ public class EditorFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         fragmentContainerView = view.findViewById(R.id.component_fragment);
-
-        nameGameEdit = view.findViewById(R.id.game_name_edit);
 
         createTextButton = view.findViewById(R.id.create_text_button);
         createTextButton.setOnClickListener(v -> openComponentFragment(v, textFragment));
@@ -112,10 +114,10 @@ public class EditorFragment extends Fragment {
             Toast toast = Toast.makeText(this.getContext(), "Add a game component to create a game!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
+            AlertDialog dialog = GameNameDialog.getDialog(this.getContext());
+            dialog.setOnDismissListener(dialogInterface -> populateRecyclerView(view));
         } else {
-            String name = nameGameEdit.getText().toString();
-            nameGameEdit.getText().clear();
-            cDB.getCurrentGame().setName(name);
             cDB.saveGame();
             Toast toast = Toast.makeText(this.getContext(), "Game saved!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);

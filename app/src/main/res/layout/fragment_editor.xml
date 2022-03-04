@@ -54,16 +54,6 @@
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name_of_game"/>
-
-        <EditText
-            android:id="@+id/game_name_edit"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"/>
-
         <Button
             android:id="@+id/save_game_button"
             android:text="@string/save_game"
