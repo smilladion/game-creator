@@ -10,7 +10,11 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import dk.itu.gamecreator.android.Adapters.GameRecyclerAdapter;
+import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.GameComponent;
@@ -23,7 +27,9 @@ public class PlayActivity extends AppCompatActivity {
 
     LinearLayout ll;
     ComponentDB cDB;
-    FragmentManager fm;
+
+    GameRecyclerAdapter adapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +39,11 @@ public class PlayActivity extends AppCompatActivity {
         // Action bar
         setTitle("All Games");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        fm = getSupportFragmentManager();
-
         ll = findViewById(R.id.game_layout);
         cDB = ComponentDB.getInstance();
+        recyclerView = findViewById(R.id.current_games);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        populateRecyclerView();
     }
 
     // Using this method makes sure that the game name updates when editing it
@@ -46,34 +52,12 @@ public class PlayActivity extends AppCompatActivity {
         super.onResume();
 
         ll.removeAllViews();
-
-        for(Game game: cDB.getAllGames()) {
-            //Inner layout for each game + its edit and delete button
-            LinearLayout gameLayout = new LinearLayout(this);
-
-            Button gameButton = new Button(this);
-            gameButton.setText(game.getName());
-            gameButton.setOnClickListener(view -> gameClick(view, game));
-
-            Button editButton = new Button(this);
-            editButton.setText("Edit");
-            editButton.setOnClickListener(view -> editGame(game));
-
-            Button deleteButton = new Button(this);
-            deleteButton.setText("Delete");
-
-            gameLayout.addView(gameButton);
-            gameLayout.addView(editButton);
-            gameLayout.addView(deleteButton);
-
-            ll.addView(gameLayout);
-        }
+        populateRecyclerView();
     }
 
-    public void editGame(Game game) {
-        cDB.setCurrentGame(game);
-        Intent intent = new Intent(this, CreateActivity.class);
-        startActivity(intent);
+    public void populateRecyclerView() {
+        adapter = new GameRecyclerAdapter(this, cDB.getAllGames());
+        recyclerView.setAdapter(adapter);
     }
 
     // Used for the back button in the title bar
@@ -87,11 +71,4 @@ public class PlayActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void gameClick(View view, Game game) {
-        cDB.setCurrentGame(game);
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-    }
-
 }
