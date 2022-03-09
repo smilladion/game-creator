@@ -54,4 +54,9 @@ public class ButtonGroupComponent extends SolutionComponent {
         // THIS IS NOT DONE - needs a layout. (And to actually contain all buttons)
         return buttons[0];
     }
+
+    @Override
+    public String getGravity() {
+        return "center";
+    }
 }

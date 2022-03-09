@@ -2,6 +2,7 @@ package dk.itu.gamecreator.android.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,18 @@ public class GameFragment extends Fragment {
             text.setText("Nothing to show");
         } else {
             for (Component c: game.getComponents()) {
-                ll.addView(c.getView(context));
+                LinearLayout viewLayout = new LinearLayout(context);
+                View v = c.getView(context);
+                String gravity = c.getGravity();
+                if (gravity.equals("left")) {
+                    viewLayout.setGravity(Gravity.LEFT);
+                } else if (gravity.equals("right")) {
+                    viewLayout.setGravity(Gravity.RIGHT);
+                } else {
+                    viewLayout.setGravity(Gravity.CENTER);
+                }
+                viewLayout.addView(v);
+                ll.addView(viewLayout);
             }
         }
     }

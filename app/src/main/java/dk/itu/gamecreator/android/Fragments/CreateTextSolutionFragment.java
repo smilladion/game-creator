@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class CreateTextSolutionFragment extends Fragment {
     EditText buttonText;
     Button doneButton;
     Button discardButton;
+    CheckBox caseSensitiveBox;
     TextSolutionComponent component; // Non-null when fragment was created through an edit button
 
     @Override
@@ -50,6 +52,7 @@ public class CreateTextSolutionFragment extends Fragment {
 
         solutionText = view.findViewById(R.id.input_solution);
         buttonText = view.findViewById(R.id.input_button_text);
+        caseSensitiveBox = view.findViewById(R.id.case_sensitive_checkbox);
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
 
@@ -72,13 +75,16 @@ public class CreateTextSolutionFragment extends Fragment {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } else {
+            boolean isChecked = caseSensitiveBox.isChecked();
             if (component != null) {
-                component.setSolutionText(solutionText.getText().toString());
-                component.setButtonText(buttonText.getText().toString());
+                component.setSolutionText(solutionText.getText().toString().trim());
+                component.setButtonText(buttonText.getText().toString().trim());
+                component.setCaseSensitive(isChecked);
             } else {
                 String solution = solutionText.getText().toString();
+                System.out.println(solution);
                 String button = buttonText.getText().toString();
-                TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextComponentId(), solution, button);
+                TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextComponentId(), solution, button, isChecked);
                 cDB.getCurrentGame().addComponent(sc);
             }
 
