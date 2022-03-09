@@ -15,12 +15,20 @@ public class TextSolutionComponent extends SolutionComponent {
 
     private String solutionText;
     private String buttonText;
+
+    private boolean isCaseSensitive;
     EditText editText;
 
-    public TextSolutionComponent(int id, String solutionText, String buttonText) {
+    public TextSolutionComponent(int id, String solutionText, String buttonText, boolean isCaseSensitive) {
         super(id);
-        this.solutionText = solutionText;
+        this.isCaseSensitive = isCaseSensitive;
+        if (this.isCaseSensitive) {
+            this.solutionText = solutionText;
+        } else {
+            this.solutionText = solutionText.toLowerCase();
+        }
         this.buttonText = buttonText;
+
     }
 
     public View getView(Context context) {
@@ -39,7 +47,13 @@ public class TextSolutionComponent extends SolutionComponent {
     }
 
     public void checkSolution(View view, Context context) {
-        if (this.solutionText.equals(editText.getText().toString())) {
+        String userSolution = editText.getText().toString().trim();
+        if (!isCaseSensitive) {
+            userSolution = userSolution.toLowerCase();
+        }
+        System.out.println("solution: " + solutionText);
+        System.out.println("userSolution: " + userSolution);
+        if (solutionText.equals(userSolution)) {
             Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
@@ -72,5 +86,13 @@ public class TextSolutionComponent extends SolutionComponent {
 
     public void setButtonText(String text) {
         this.buttonText = text;
+    }
+
+    public boolean isCaseSensitive() {
+        return isCaseSensitive;
+    }
+
+    public void setCaseSensitive(boolean caseSensitive) {
+        isCaseSensitive = caseSensitive;
     }
 }
