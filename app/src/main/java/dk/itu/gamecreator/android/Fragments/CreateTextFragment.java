@@ -95,11 +95,11 @@ public class CreateTextFragment extends Fragment {
         } else {
             if (component != null) {
                 component.setText(editText.getText().toString());
-                component.setPos(pos);
+                component.setGravity(pos);
                 component.setSize(size);
             } else {
                 TextComponent tc = new TextComponent(cDB.getNextComponentId(), editText.getText().toString());
-                tc.setPos(pos);
+                tc.setGravity(pos);
                 tc.setSize(size);
                 cDB.getCurrentGame().addComponent(tc);
             }

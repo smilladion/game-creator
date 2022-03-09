@@ -34,6 +34,11 @@ public class ImageComponent extends GameComponent {
         return image;
     }
 
+    @Override
+    public String getGravity() {
+        return "center";
+    }
+
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }

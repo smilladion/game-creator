@@ -12,4 +12,6 @@ public abstract class GameComponent extends Component {
     }
 
     public abstract View getView(Context context);
+
+    public abstract String getGravity();
 }
