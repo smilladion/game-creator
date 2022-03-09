@@ -12,9 +12,17 @@ public class ImageComponent extends GameComponent {
     private ImageView image;
     private Bitmap bitmap;
 
-    public ImageComponent(int id, Bitmap bitmap) {
+    private float rotation;
+
+    private int width;
+    private int height;
+
+    public ImageComponent(int id, Bitmap bitmap, float rotation, int width, int height) {
         super(id);
         this.bitmap = bitmap;
+        this.rotation = rotation;
+        this.width = width;
+        this.height = height;
     }
 
     public View getView(Context context) {
@@ -22,7 +30,7 @@ public class ImageComponent extends GameComponent {
         image.setImageBitmap(bitmap);
         image.setMaxWidth(300);
         image.setMaxHeight(300);
-        image.setRotation(270);
+        image.setRotation(rotation);
         return image;
     }
 
@@ -32,5 +40,30 @@ public class ImageComponent extends GameComponent {
 
     public Bitmap getBitmap() {
         return bitmap;
+    }
+
+
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
