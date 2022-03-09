@@ -76,7 +76,6 @@ public class CreateTextSolutionFragment extends Fragment {
             toast.show();
         } else {
             boolean isChecked = caseSensitiveBox.isChecked();
-            System.out.println("Is checked = " + isChecked);
             if (component != null) {
                 component.setSolutionText(solutionText.getText().toString().trim());
                 component.setButtonText(buttonText.getText().toString().trim());

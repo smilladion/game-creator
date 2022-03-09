@@ -50,9 +50,8 @@ public class TextSolutionComponent extends SolutionComponent {
         String userSolution = editText.getText().toString().trim();
         if (!isCaseSensitive) {
             userSolution = userSolution.toLowerCase();
+            solutionText = solutionText.toLowerCase();
         }
-        System.out.println("solution: " + solutionText);
-        System.out.println("userSolution: " + userSolution);
         if (solutionText.equals(userSolution)) {
             Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
