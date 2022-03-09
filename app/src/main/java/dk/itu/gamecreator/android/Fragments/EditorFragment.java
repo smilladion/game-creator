@@ -68,7 +68,6 @@ public class EditorFragment extends Fragment {
                 .replace(R.id.create_fragment, fragment, null)
                 .addToBackStack(null)
                 .commit();
-        setButtonsEnabled(false);
     }
 
     public void populateRecyclerView() {
@@ -84,11 +83,5 @@ public class EditorFragment extends Fragment {
         touchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setAdapter(adapter);
-    }
-
-    public void setButtonsEnabled(boolean isEnabled) {
-        createTextButton.setEnabled(isEnabled);
-        createTextSolutionButton.setEnabled(isEnabled);
-        createImageButton.setEnabled(isEnabled);
     }
 }

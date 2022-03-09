@@ -69,6 +69,7 @@ public class CreateImageFragment extends Fragment {
                              Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
         Bundle bundle = getArguments();
+
         // Checks if the fragment was opened through an edit button and fetches component data
         if (bundle != null) {
             int index = bundle.getInt("componentIndex");
@@ -222,9 +223,8 @@ public class CreateImageFragment extends Fragment {
             component.setBitmap(bitmap);
             component.setRotation(rotation);
         } else {
-            int id = cDB.getNextComponentId();
-            component = new ImageComponent(id, bitmap, rotation, width, height);
-            cDB.getCurrentGame().addComponent(component);
+            ImageComponent ic = new ImageComponent(cDB.getNextComponentId(), bitmap, rotation, width, height);
+            cDB.getCurrentGame().addComponent(ic);
         }
 
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor

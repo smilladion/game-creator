@@ -88,13 +88,11 @@ public class CreateTextSolutionFragment extends Fragment {
                 cDB.getCurrentGame().addComponent(sc);
             }
 
-            //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
             getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
         }
     }
 
     public void onDiscardClicked(View view) {
-        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack();
     }
 }
