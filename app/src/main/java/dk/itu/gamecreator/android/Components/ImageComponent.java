@@ -25,9 +25,7 @@ public class ImageComponent extends GameComponent {
 
     public View getView(Context context) {
         image = new ImageView(context);
-        image.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 100, 100, false));
-        image.setMaxWidth(300);
-        image.setMaxHeight(300);
+        image.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 300, 300, false));
         image.setRotation(rotation);
 
         return image;
