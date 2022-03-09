@@ -227,12 +227,10 @@ public class CreateImageFragment extends Fragment {
             cDB.getCurrentGame().addComponent(component);
         }
 
-        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
     public void onDiscardClicked(View view) {
-        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack();
     }
 }
