@@ -29,8 +29,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        // Back button
+        setTitle("Play Game");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fm = getSupportFragmentManager();

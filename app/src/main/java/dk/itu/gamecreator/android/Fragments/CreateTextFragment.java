@@ -103,13 +103,12 @@ public class CreateTextFragment extends Fragment {
                 tc.setSize(size);
                 cDB.getCurrentGame().addComponent(tc);
             }
-            //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
-            getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
         }
+
+        getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
     public void onDiscardClicked(View view) {
-        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack();
     }
 }

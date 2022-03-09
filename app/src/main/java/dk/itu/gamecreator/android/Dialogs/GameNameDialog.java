@@ -3,6 +3,7 @@ package dk.itu.gamecreator.android.Dialogs;
 import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import dk.itu.gamecreator.android.Activities.CreateActivity;
+import dk.itu.gamecreator.android.Activities.MainActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.R;
 
@@ -33,8 +36,14 @@ public class GameNameDialog {
 
             if (gameNameText != null && !gameNameText.trim().equals("")) {
                 cDB.getCurrentGame().setName(gameName.getText().toString());
+
                 cDB.saveGame();
+                cDB.newGame();
+
                 dialog.dismiss();
+
+                ((CreateActivity) context).finish();
+
                 Toast toast = Toast.makeText(context, "Game saved!", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();

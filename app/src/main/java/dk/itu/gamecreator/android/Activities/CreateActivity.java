@@ -1,8 +1,15 @@
 package dk.itu.gamecreator.android.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,6 +18,9 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import dk.itu.gamecreator.android.ComponentDB;
+
+import dk.itu.gamecreator.android.Dialogs.GameNameDialog;
+
 import dk.itu.gamecreator.android.Fragments.ConfigFragment;
 import dk.itu.gamecreator.android.Fragments.EditorFragment;
 import dk.itu.gamecreator.android.Fragments.GameFragment;
@@ -22,6 +32,8 @@ public class CreateActivity extends AppCompatActivity {
     TabItem editorTab;
     TabItem previewTab;
     TabItem configTab;
+
+    Button saveGame;
 
     Fragment editorFragment = new EditorFragment();
     Fragment previewFragment = new GameFragment();
@@ -35,12 +47,16 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        // Back button
+        // Action bar
+        setTitle("Game Editor");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fm = getSupportFragmentManager();
 
         cDB = ComponentDB.getInstance();
+
+        saveGame = findViewById(R.id.save_game_button);
+        saveGame.setOnClickListener(this::saveGame);
 
         tabLayout = findViewById(R.id.tab_layout);
         editorTab = findViewById(R.id.editor_tab);
@@ -80,7 +96,26 @@ public class CreateActivity extends AppCompatActivity {
                 .commit();
     }
 
-    // Used for the back button in the title bar
+    public void saveGame(View view) {
+        if (cDB.getCurrentGame().getComponents().isEmpty()) {
+            Toast toast = Toast.makeText(this, "Add a game component to create a game!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
+            GameNameDialog.getDialog(this);
+        } else {
+            cDB.saveGame();
+            cDB.newGame();
+
+            finish();
+
+            Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+    }
+
+    // Used for the back button in the action bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
