@@ -27,7 +27,7 @@ public class CreateTextFragment extends Fragment {
     MaterialButtonToggleGroup toggleButton;
     AutoCompleteTextView sizeInput;
     TextComponent component; // Non-null when fragment was created through an edit button
-    static float DEFAULT_TEXT_SIZE = 50;
+    static float DEFAULT_TEXT_SIZE = 30;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
