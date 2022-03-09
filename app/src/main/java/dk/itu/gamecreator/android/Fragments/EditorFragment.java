@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +25,6 @@ public class EditorFragment extends Fragment {
     Button createTextSolutionButton;
     Button createImageButton;
 
-    FragmentContainerView fragmentContainerView;
     Fragment textFragment = new CreateTextFragment();
     Fragment textSolutionFragment = new CreateTextSolutionFragment();
     Fragment imageFragment = new CreateImageFragment();
@@ -52,8 +50,6 @@ public class EditorFragment extends Fragment {
         recyclerView = view.findViewById(R.id.current_components);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        fragmentContainerView = view.findViewById(R.id.component_fragment);
-
         createTextButton = view.findViewById(R.id.create_text_button);
         createTextButton.setOnClickListener(v -> openComponentFragment(v, textFragment));
 
@@ -63,7 +59,7 @@ public class EditorFragment extends Fragment {
         createImageButton = view.findViewById(R.id.create_image_button);
         createImageButton.setOnClickListener(v -> openComponentFragment(v, imageFragment));
 
-        populateRecyclerView(view);
+        populateRecyclerView();
     }
 
     public void openComponentFragment(View view, Fragment fragment) {
@@ -75,7 +71,7 @@ public class EditorFragment extends Fragment {
         setButtonsEnabled(false);
     }
 
-    public void populateRecyclerView(View view) {
+    public void populateRecyclerView() {
 
         if (cDB.getCurrentGame() == null) {
             cDB.newGame();
