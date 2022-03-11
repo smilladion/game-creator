@@ -28,7 +28,6 @@ public class TextSolutionComponent extends SolutionComponent {
             this.solutionText = solutionText.toLowerCase();
         }
         this.buttonText = buttonText;
-
     }
 
     public View getView(Context context) {
