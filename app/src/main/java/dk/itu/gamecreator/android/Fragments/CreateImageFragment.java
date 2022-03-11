@@ -122,8 +122,8 @@ public class CreateImageFragment extends Fragment {
     public void setButtonVisibility(int visibility) {
         rotateLeftButton.setVisibility(visibility);
         rotateRightButton.setVisibility(visibility);
-        smallerButton.setVisibility(visibility);
-        biggerButton.setVisibility(visibility);
+        // smallerButton.setVisibility(visibility);
+        // biggerButton.setVisibility(visibility);
     }
 
     public void rotate(int direction) {
