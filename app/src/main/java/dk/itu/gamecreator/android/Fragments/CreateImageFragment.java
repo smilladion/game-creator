@@ -3,6 +3,7 @@ package dk.itu.gamecreator.android.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -47,10 +48,6 @@ public class CreateImageFragment extends Fragment {
     Bitmap bitmap;
 
     Context context;
-
-    float rotation;
-    int height;
-    int width;
 
     /*This is just used to get the context of the Activity*/
     @Override
@@ -107,27 +104,24 @@ public class CreateImageFragment extends Fragment {
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
 
-        rotation = imageView.getRotation();
-
-        //height = imageView.getHeight();
-        //width = imageView.getWidth();
-
         if (component != null) {
             imageView.setImageBitmap(component.getBitmap());
             bitmap = component.getBitmap();
-            rotation = component.getRotation();
         }
+    }
 
-    }
-    //
     public void rotate(int direction) {
+        Matrix matrix = new Matrix();
+
         if (direction == ROTATE_LEFT) {
-            rotation = rotation - 90;
+            matrix.postRotate(-90);
         } else {
-            rotation = rotation + 90;
+            matrix.postRotate(90);
         }
-        imageView.setRotation(rotation);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        imageView.setImageBitmap(bitmap);
     }
+
     /* TODO - taking out resize function can't make it work
     public void resize(int direction) {
         if (direction == MAKE_SMALLER) {
@@ -178,10 +172,14 @@ public class CreateImageFragment extends Fragment {
                 Uri uri = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-                    //Bitmap resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+
+                    // Image comes out rotated - to have it normal, do this.
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(270);
+                    bitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                            bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
                     imageView.setImageBitmap(bitmap);
-                    // TODO ? Image comes out rotated - to have it normal, do this.
-                    imageView.setRotation(270);
                     currentPhotoPath = saveImage(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -189,6 +187,7 @@ public class CreateImageFragment extends Fragment {
             }
         } else if (requestCode == CAMERA) {
             bitmap = (Bitmap) data.getExtras().get("data");
+            // bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() - 300, bitmap.getHeight() - 300, true);
             imageView.setImageBitmap(bitmap);
             currentPhotoPath = saveImage(bitmap);
         }
@@ -221,9 +220,8 @@ public class CreateImageFragment extends Fragment {
     public void onDoneClicked(View view) {
         if (component != null) {
             component.setBitmap(bitmap);
-            component.setRotation(rotation);
         } else {
-            ImageComponent ic = new ImageComponent(cDB.getNextComponentId(), bitmap, rotation, width, height);
+            ImageComponent ic = new ImageComponent(cDB.getNextComponentId(), bitmap);
             cDB.getCurrentGame().addComponent(ic);
         }
 
