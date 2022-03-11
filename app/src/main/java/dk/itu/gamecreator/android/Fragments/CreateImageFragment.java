@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -32,22 +34,21 @@ public class CreateImageFragment extends Fragment {
     static final int MAKE_SMALLER = 0, MAKE_BIGGER = 1;
     static final int RESIZE = 40;
 
+    private Button doneButton, discardButton;
+    private Button selectImageButton, takePictureButton;
 
-    Button doneButton, discardButton;
-    Button selectImageButton, takePictureButton;
+    private ImageView imageView;
 
-    ImageView imageView;
+    private Button rotateLeftButton, rotateRightButton;
+    private Button smallerButton, biggerButton;
 
-    Button rotateLeftButton, rotateRightButton;
-    Button smallerButton, biggerButton;
+    private String currentPhotoPath;
+    private ImageComponent component;
+    private ComponentDB cDB;
 
-    String currentPhotoPath;
-    ImageComponent component;
-    ComponentDB cDB;
+    private Bitmap bitmap;
 
-    Bitmap bitmap;
-
-    Context context;
+    private Context context;
 
     /*This is just used to get the context of the Activity*/
     @Override
@@ -78,8 +79,9 @@ public class CreateImageFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
         cDB = ComponentDB.getInstance();
+
+        bitmap = null;
 
         selectImageButton = view.findViewById(R.id.select_image_button);
         takePictureButton = view.findViewById(R.id.take_picture_button);
@@ -88,9 +90,10 @@ public class CreateImageFragment extends Fragment {
         rotateRightButton = view.findViewById(R.id.rotate_right_button);
         smallerButton = view.findViewById(R.id.minimise_button);
         biggerButton = view.findViewById(R.id.maximise_button);
-
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
+
+        setButtonVisibility(View.INVISIBLE);
 
         selectImageButton.setOnClickListener(this::openGallery);
         takePictureButton.setOnClickListener(this::openCamera);
@@ -107,7 +110,15 @@ public class CreateImageFragment extends Fragment {
         if (component != null) {
             imageView.setImageBitmap(component.getBitmap());
             bitmap = component.getBitmap();
+            setButtonVisibility(View.VISIBLE);
         }
+    }
+
+    public void setButtonVisibility(int visibility) {
+        rotateLeftButton.setVisibility(visibility);
+        rotateRightButton.setVisibility(visibility);
+        smallerButton.setVisibility(visibility);
+        biggerButton.setVisibility(visibility);
     }
 
     public void rotate(int direction) {
@@ -181,15 +192,18 @@ public class CreateImageFragment extends Fragment {
 
                     imageView.setImageBitmap(bitmap);
                     currentPhotoPath = saveImage(bitmap);
+
+                    setButtonVisibility(View.VISIBLE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         } else if (requestCode == CAMERA) {
             bitmap = (Bitmap) data.getExtras().get("data");
-            // bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() - 300, bitmap.getHeight() - 300, true);
             imageView.setImageBitmap(bitmap);
             currentPhotoPath = saveImage(bitmap);
+
+            setButtonVisibility(View.VISIBLE);
         }
     }
 
@@ -218,14 +232,19 @@ public class CreateImageFragment extends Fragment {
     }
 
     public void onDoneClicked(View view) {
-        if (component != null) {
+        if (bitmap == null) {
+            Toast toast = Toast.makeText(this.getContext(),
+                    "Please choose an image or discard the component", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else if (component != null) {
             component.setBitmap(bitmap);
+            getParentFragmentManager().popBackStack();
         } else {
             ImageComponent ic = new ImageComponent(cDB.getNextComponentId(), bitmap);
             cDB.getCurrentGame().addComponent(ic);
+            getParentFragmentManager().popBackStack();
         }
-
-        getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
     }
 
     public void onDiscardClicked(View view) {
