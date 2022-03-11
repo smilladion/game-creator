@@ -37,7 +37,7 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         // Action bar
-        setTitle("All Games");
+        setTitle("My Games");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ll = findViewById(R.id.game_layout);
         cDB = ComponentDB.getInstance();
