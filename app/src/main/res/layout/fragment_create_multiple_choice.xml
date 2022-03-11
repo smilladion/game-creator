@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/radio_button_1">
+
+            <RadioButton
+                android:id="@+id/radio_button_1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp" />
+
+            <RadioButton
+                android:id="@+id/radio_button_2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp" />
+
+            <RadioButton
+                android:id="@+id/radio_button_3"
+                android:layout_width="match_parent"
+                android:layout_height="70dp" />
+
+            <RadioButton
+                android:id="@+id/radio_button_4"
+                android:layout_width="match_parent"
+                android:layout_height="70dp" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text1"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                app:endIconMode="clear_text"
+                android:hint="Input option 1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text2"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                app:endIconMode="clear_text"
+                android:hint="Input option 1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text3"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                app:endIconMode="clear_text"
+                android:hint="Input option 1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text4"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                app:endIconMode="clear_text"
+                android:hint="Input option 1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_text4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:layout_margin="20dp">
+
+        <Button
+            android:id="@+id/done_button"
+            android:text="@string/done"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:id="@+id/discard_button"
+            android:text="@string/discard"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+    </LinearLayout>
+
+</LinearLayout>

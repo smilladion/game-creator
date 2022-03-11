@@ -17,7 +17,7 @@
             android:text="@string/text"
             android:layout_marginHorizontal="5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             style="?attr/materialButtonOutlinedStyle">
         </Button>
 
@@ -26,7 +26,7 @@
             android:text="@string/text_solution"
             android:layout_marginHorizontal="5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             style="?attr/materialButtonOutlinedStyle">
         </Button>
 
@@ -35,11 +35,19 @@
             android:text="@string/image"
             android:layout_marginHorizontal="5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             style="?attr/materialButtonOutlinedStyle">
         </Button>
 
     </LinearLayout>
+    <Button
+        android:id="@+id/create_multiple_button"
+        android:text="@string/multiple"
+        android:layout_marginHorizontal="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?attr/materialButtonOutlinedStyle">
+    </Button>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/component_fragment"

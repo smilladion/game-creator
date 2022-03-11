@@ -82,7 +82,6 @@ public class CreateTextSolutionFragment extends Fragment {
                 component.setCaseSensitive(isChecked);
             } else {
                 String solution = solutionText.getText().toString();
-                System.out.println(solution);
                 String button = buttonText.getText().toString();
                 TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextComponentId(), solution, button, isChecked);
                 cDB.getCurrentGame().addComponent(sc);

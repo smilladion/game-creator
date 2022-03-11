@@ -8,6 +8,7 @@
     <string name="text">Text</string>
     <string name="text_solution">Text Solution</string>
     <string name="image">Image</string>
+    <string name="multiple">Multiple choice</string>
 
     <string name="done">Done</string>
     <string name="discard">Discard</string>

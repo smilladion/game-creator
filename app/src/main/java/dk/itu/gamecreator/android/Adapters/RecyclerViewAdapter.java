@@ -20,9 +20,11 @@ import java.util.List;
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.ImageComponent;
+import dk.itu.gamecreator.android.Components.MultipleChoiceSolution;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.Components.TextSolutionComponent;
 import dk.itu.gamecreator.android.Fragments.CreateImageFragment;
+import dk.itu.gamecreator.android.Fragments.CreateMultipleChoiceFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextSolutionFragment;
 import dk.itu.gamecreator.android.R;
@@ -38,6 +40,7 @@ public class RecyclerViewAdapter
     private static final int TYPE_TEXT = 1;
     private static final int TYPE_SOLUTION_TEXT = 2;
     private static final int TYPE_IMAGE = 3;
+    private static final int TYPE_MULTI = 4;
 
     public RecyclerViewAdapter(Context context, List<Component> components) {
         this.mInflater = LayoutInflater.from(context);
@@ -56,6 +59,9 @@ public class RecyclerViewAdapter
         } else if (viewType == TYPE_IMAGE) {
             View view = mInflater.inflate(R.layout.recycler_image, parent, false);
             return new ImageViewHolder(view);
+        } else if (viewType == TYPE_MULTI) {
+            View view = mInflater.inflate(R.layout.recycler_multi, parent, false);
+            return new MultiViewHolder(view);
         } else {
             return null;
         }
@@ -96,6 +102,10 @@ public class RecyclerViewAdapter
             }
             imageViewHolder.deleteButton.setOnClickListener(view -> onDelete(imageViewHolder));
             imageViewHolder.editButton.setOnClickListener(view -> onEdit(imageViewHolder, CreateImageFragment.class));
+        } else if (getItemViewType(position) == TYPE_MULTI) {
+            MultiViewHolder multiViewHolder = (MultiViewHolder) holder;
+            multiViewHolder.deleteButton.setOnClickListener(view -> onDelete(multiViewHolder));
+            multiViewHolder.editButton.setOnClickListener(view -> onEdit(multiViewHolder, CreateMultipleChoiceFragment.class));
         }
     }
 
@@ -124,6 +134,8 @@ public class RecyclerViewAdapter
             return TYPE_SOLUTION_TEXT;
         } else if (components.get(position) instanceof ImageComponent) {
             return TYPE_IMAGE;
+        } else if (components.get(position) instanceof MultipleChoiceSolution) {
+            return TYPE_MULTI;
         } else {
             return -1;
         }
@@ -166,6 +178,19 @@ public class RecyclerViewAdapter
         ViewHolder(View itemView) {
             super(itemView);
             rowView = itemView;
+        }
+    }
+
+    public static class MultiViewHolder extends ViewHolder {
+        TextView componentText;
+        Button editButton;
+        Button deleteButton;
+
+        MultiViewHolder(View itemView) {
+            super(itemView);
+            componentText = itemView.findViewById(R.id.component_text);
+            editButton = itemView.findViewById(R.id.edit_button);
+            deleteButton = itemView.findViewById(R.id.delete_button);
         }
     }
 

@@ -20,17 +20,27 @@ public class MultipleChoiceSolution extends SolutionComponent {
 
     @Override
     public View getView(Context context) {
-        LinearLayout ll = new LinearLayout(context);
-        ll.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout outer = new LinearLayout(context);
+        LinearLayout inner1 = new LinearLayout(context);
+        LinearLayout inner2 = new LinearLayout(context);
+        outer.setOrientation(LinearLayout.VERTICAL);
+        inner1.setOrientation(LinearLayout.HORIZONTAL);
+        inner2.setOrientation(LinearLayout.HORIZONTAL);
         for(int i = 0; i < options.length; i++) {
             Button b = new Button(context);
             b.setText(options[i]);
             // it didnt just want 'i' in the lambda?
             int finalI = i;
             b.setOnClickListener(view -> checkSolution(view, finalI, context));
-            ll.addView(b);
+            if (i < 2) {
+                inner1.addView(b);
+            } else {
+                inner2.addView(b);
+            }
         }
-        return ll;
+        outer.addView(inner1);
+        outer.addView(inner2);
+        return outer;
     }
 
     public void checkSolution(View view, int index, Context context) {
@@ -48,5 +58,21 @@ public class MultipleChoiceSolution extends SolutionComponent {
     @Override
     public String getGravity() {
         return "center";
+    }
+
+    public String[] getOptions() {
+        return options;
+    }
+
+    public void setOptions(String[] options) {
+        this.options = options;
+    }
+
+    public int getSolution() {
+        return solution;
+    }
+
+    public void setSolution(int solution) {
+        this.solution = solution;
     }
 }

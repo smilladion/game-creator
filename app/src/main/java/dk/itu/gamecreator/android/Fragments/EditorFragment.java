@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
+import dk.itu.gamecreator.android.Components.MultipleChoiceSolution;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 
@@ -25,11 +26,13 @@ public class EditorFragment extends Fragment {
     Button createTextButton;
     Button createTextSolutionButton;
     Button createImageButton;
+    Button createMultipleButton;
 
     FragmentContainerView fragmentContainerView;
     Fragment textFragment = new CreateTextFragment();
     Fragment textSolutionFragment = new CreateTextSolutionFragment();
     Fragment imageFragment = new CreateImageFragment();
+    Fragment multipleFragment = new CreateMultipleChoiceFragment();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,9 @@ public class EditorFragment extends Fragment {
 
         createImageButton = view.findViewById(R.id.create_image_button);
         createImageButton.setOnClickListener(v -> openComponentFragment(v, imageFragment));
+
+        createMultipleButton = view.findViewById(R.id.create_multiple_button);
+        createMultipleButton.setOnClickListener(v -> openComponentFragment(v, multipleFragment));
 
         populateRecyclerView(view);
     }
