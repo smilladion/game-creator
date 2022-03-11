@@ -4,30 +4,22 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class ImageComponent extends GameComponent {
 
     private ImageView image;
     private Bitmap bitmap;
 
-    private float rotation;
-
-    private int width;
-    private int height;
-
-    public ImageComponent(int id, Bitmap bitmap, float rotation, int width, int height) {
+    public ImageComponent(int id, Bitmap bitmap) {
         super(id);
         this.bitmap = bitmap;
-        this.rotation = rotation;
-        this.width = width;
-        this.height = height;
     }
 
     public View getView(Context context) {
         image = new ImageView(context);
-        image.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 300, 300, false));
-        image.setRotation(rotation);
-
+        image.setLayoutParams(new LinearLayout.LayoutParams(650, 600));
+        image.setImageBitmap(bitmap);
         return image;
     }
 
@@ -42,30 +34,5 @@ public class ImageComponent extends GameComponent {
 
     public Bitmap getBitmap() {
         return bitmap;
-    }
-
-
-    public float getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 }

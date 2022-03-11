@@ -98,7 +98,6 @@ public class RecyclerViewAdapter
             if (component instanceof ImageComponent) {
                 bitmap = ((ImageComponent) component).getBitmap();
                 imageViewHolder.imageView.setImageBitmap(bitmap);
-                imageViewHolder.imageView.setRotation(((ImageComponent) component).getRotation());
             }
             imageViewHolder.deleteButton.setOnClickListener(view -> onDelete(imageViewHolder));
             imageViewHolder.editButton.setOnClickListener(view -> onEdit(imageViewHolder, CreateImageFragment.class));
