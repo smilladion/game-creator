@@ -81,6 +81,7 @@ public class CreateImageFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
 
+        // Necessary because the bitmap persists for some reason
         bitmap = null;
 
         selectImageButton = view.findViewById(R.id.select_image_button);
