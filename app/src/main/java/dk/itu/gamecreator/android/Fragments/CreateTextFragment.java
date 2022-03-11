@@ -1,5 +1,6 @@
 package dk.itu.gamecreator.android.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,11 +10,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
 
+import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
@@ -22,6 +25,7 @@ public class CreateTextFragment extends Fragment {
 
     Button doneButton;
     Button discardButton;
+    Button closeButton;
     TextInputEditText editText;
     ComponentDB cDB;
     MaterialButtonToggleGroup toggleButton;
@@ -50,6 +54,7 @@ public class CreateTextFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        closeButton = view.findViewById(R.id.fragment_back_button);
         editText = view.findViewById(R.id.input_text);
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
@@ -64,6 +69,7 @@ public class CreateTextFragment extends Fragment {
 
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
+        closeButton.setOnClickListener(this::onDiscardClicked);
     }
 
     public void onDoneClicked(View view) {

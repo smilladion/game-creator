@@ -34,6 +34,7 @@ public class CreateImageFragment extends Fragment {
 
     Button doneButton, discardButton;
     Button selectImageButton, takePictureButton;
+    Button closeButton;
 
     ImageView imageView;
 
@@ -84,6 +85,8 @@ public class CreateImageFragment extends Fragment {
 
         cDB = ComponentDB.getInstance();
 
+        closeButton = view.findViewById(R.id.fragment_back_button);
+
         selectImageButton = view.findViewById(R.id.select_image_button);
         takePictureButton = view.findViewById(R.id.take_picture_button);
         imageView = view.findViewById(R.id.preview_image_view);
@@ -106,6 +109,7 @@ public class CreateImageFragment extends Fragment {
          */
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
+        closeButton.setOnClickListener(this::onDiscardClicked);
 
         rotation = imageView.getRotation();
 
