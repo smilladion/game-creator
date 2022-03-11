@@ -39,6 +39,8 @@ public class CreateImageFragment extends Fragment {
 
     private ImageView imageView;
 
+    private Button closeButton;
+
     private Button rotateLeftButton, rotateRightButton;
     private Button smallerButton, biggerButton;
 
@@ -80,10 +82,11 @@ public class CreateImageFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
-
+        
         // Necessary because the bitmap persists for some reason
         bitmap = null;
 
+        closeButton = view.findViewById(R.id.fragment_back_button);
         selectImageButton = view.findViewById(R.id.select_image_button);
         takePictureButton = view.findViewById(R.id.take_picture_button);
         imageView = view.findViewById(R.id.preview_image_view);
@@ -107,6 +110,7 @@ public class CreateImageFragment extends Fragment {
          */
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
+        closeButton.setOnClickListener(this::onDiscardClicked);
 
         if (component != null) {
             imageView.setImageBitmap(component.getBitmap());
