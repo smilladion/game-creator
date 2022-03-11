@@ -68,7 +68,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center_horizontal"
                 app:endIconMode="clear_text"
-                android:hint="Input option 1"
+                android:hint="@string/input_option_1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -84,7 +84,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center_horizontal"
                 app:endIconMode="clear_text"
-                android:hint="Input option 1"
+                android:hint="@string/input_option_2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -100,7 +100,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center_horizontal"
                 app:endIconMode="clear_text"
-                android:hint="Input option 1"
+                android:hint="@string/input_option_3"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -116,7 +116,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center_horizontal"
                 app:endIconMode="clear_text"
-                android:hint="Input option 1"
+                android:hint="@string/input_option_4"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -126,11 +126,8 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
         </LinearLayout>
-
-
-
+        
     </LinearLayout>
 
     <LinearLayout

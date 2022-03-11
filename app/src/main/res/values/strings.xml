@@ -57,6 +57,10 @@
     <string name="left_text">Left</string>
     <string name="center_text">Center</string>
     <string name="right_text">Right</string>
+    <string name="input_option_4">Input option 4</string>
+    <string name="input_option_3">Input option 3</string>
+    <string name="input_option_2">Input option 2</string>
+    <string name="input_option_1">Input option 1</string>
 
     <string-array name="game_components">
         <item>Text</item>
