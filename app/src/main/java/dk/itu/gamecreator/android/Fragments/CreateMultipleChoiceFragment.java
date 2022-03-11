@@ -67,6 +67,7 @@ public class CreateMultipleChoiceFragment extends Fragment {
         text4 = view.findViewById(R.id.input_text4);
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
+        closeButton = view.findViewById(R.id.fragment_back_button);
 
         if (component != null) {
             String[] options = component.getOptions();
@@ -81,6 +82,7 @@ public class CreateMultipleChoiceFragment extends Fragment {
         radio4.setOnClickListener(v -> setCorrect(3));
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
+        closeButton.setOnClickListener(this::onDiscardClicked);
     }
 
     public void setCorrect(int correct) {

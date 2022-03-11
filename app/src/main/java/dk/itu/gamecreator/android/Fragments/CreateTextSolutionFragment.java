@@ -64,6 +64,7 @@ public class CreateTextSolutionFragment extends Fragment {
 
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
+        closeButton.setOnClickListener(this::onDiscardClicked);
     }
 
     public void onDoneClicked(View view) {
