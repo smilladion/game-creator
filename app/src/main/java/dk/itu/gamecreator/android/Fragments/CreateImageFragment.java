@@ -34,6 +34,7 @@ public class CreateImageFragment extends Fragment {
 
     Button doneButton, discardButton;
     Button selectImageButton, takePictureButton;
+    Button closeButton;
 
     ImageView imageView;
 
@@ -69,6 +70,7 @@ public class CreateImageFragment extends Fragment {
                              Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
         Bundle bundle = getArguments();
+
         // Checks if the fragment was opened through an edit button and fetches component data
         if (bundle != null) {
             int index = bundle.getInt("componentIndex");
@@ -82,6 +84,8 @@ public class CreateImageFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         cDB = ComponentDB.getInstance();
+
+        closeButton = view.findViewById(R.id.fragment_back_button);
 
         selectImageButton = view.findViewById(R.id.select_image_button);
         takePictureButton = view.findViewById(R.id.take_picture_button);
@@ -105,6 +109,7 @@ public class CreateImageFragment extends Fragment {
          */
         doneButton.setOnClickListener(this::onDoneClicked);
         discardButton.setOnClickListener(this::onDiscardClicked);
+        closeButton.setOnClickListener(this::onDiscardClicked);
 
         rotation = imageView.getRotation();
 
@@ -222,9 +227,8 @@ public class CreateImageFragment extends Fragment {
             component.setBitmap(bitmap);
             component.setRotation(rotation);
         } else {
-            int id = cDB.getNextComponentId();
-            component = new ImageComponent(id, bitmap, rotation, width, height);
-            cDB.getCurrentGame().addComponent(component);
+            ImageComponent ic = new ImageComponent(cDB.getNextComponentId(), bitmap, rotation, width, height);
+            cDB.getCurrentGame().addComponent(ic);
         }
 
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor

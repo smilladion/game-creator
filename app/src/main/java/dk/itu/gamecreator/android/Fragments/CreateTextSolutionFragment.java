@@ -17,7 +17,7 @@ import dk.itu.gamecreator.android.Components.TextSolutionComponent;
 import dk.itu.gamecreator.android.R;
 
 public class CreateTextSolutionFragment extends Fragment {
-
+    Button closeButton;
     ComponentDB cDB;
     EditText solutionText;
     EditText buttonText;
@@ -55,6 +55,7 @@ public class CreateTextSolutionFragment extends Fragment {
         caseSensitiveBox = view.findViewById(R.id.case_sensitive_checkbox);
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
+        closeButton = view.findViewById(R.id.fragment_back_button);
 
         if (component != null) {
             solutionText.setText(component.getSolutionText());
@@ -87,13 +88,11 @@ public class CreateTextSolutionFragment extends Fragment {
                 cDB.getCurrentGame().addComponent(sc);
             }
 
-            //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
             getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
         }
     }
 
     public void onDiscardClicked(View view) {
-        //((EditorFragment) getParentFragment()).setButtonsEnabled(true);
         getParentFragmentManager().popBackStack();
     }
 }

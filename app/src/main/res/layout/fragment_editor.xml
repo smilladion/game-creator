@@ -49,11 +49,6 @@
         style="?attr/materialButtonOutlinedStyle">
     </Button>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/component_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/current_components"
         android:layout_width="match_parent"

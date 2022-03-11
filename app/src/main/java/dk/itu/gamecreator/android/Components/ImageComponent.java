@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
-import dk.itu.gamecreator.android.Components.GameComponent;
-
 public class ImageComponent extends GameComponent {
 
     private ImageView image;
@@ -27,10 +25,9 @@ public class ImageComponent extends GameComponent {
 
     public View getView(Context context) {
         image = new ImageView(context);
-        image.setImageBitmap(bitmap);
-        image.setMaxWidth(300);
-        image.setMaxHeight(300);
+        image.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 300, 300, false));
         image.setRotation(rotation);
+
         return image;
     }
 
