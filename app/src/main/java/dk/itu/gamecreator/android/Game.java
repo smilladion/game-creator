@@ -1,10 +1,10 @@
 package dk.itu.gamecreator.android;
 
 import java.util.ArrayList;
-import dk.itu.gamecreator.android.Components.ComponentI;
+import dk.itu.gamecreator.android.Components.Component;
 
 public class Game {
-    private final ArrayList<ComponentI> components;
+    private final ArrayList<Component> components;
     private int gID;
     private String name;
 
@@ -12,11 +12,11 @@ public class Game {
         components = new ArrayList<>();
     }
 
-    public ArrayList<ComponentI> getComponents() {
+    public ArrayList<Component> getComponents() {
         return components;
     }
 
-    public void addComponent(ComponentI component) {
+    public void addComponent(Component component) {
         components.add(component);
     }
 

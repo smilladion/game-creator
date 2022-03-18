@@ -12,8 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Components.ComponentI;
-import dk.itu.gamecreator.android.Components.TextComponent;
+import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
@@ -52,7 +51,7 @@ public class GameFragment extends Fragment {
         if (game.getComponents().isEmpty()) {
             text.setText("Nothing to show");
         } else {
-            for (ComponentI c: game.getComponents()) {
+            for (Component c: game.getComponents()) {
                 LinearLayout viewLayout = new LinearLayout(context);
                 View v = c.getDisplayView(context);
                 String gravity = c.getGravity();

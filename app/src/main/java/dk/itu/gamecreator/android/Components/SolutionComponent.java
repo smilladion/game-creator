@@ -3,7 +3,7 @@ package dk.itu.gamecreator.android.Components;
 import android.content.Context;
 import android.view.View;
 
-public abstract class SolutionComponent implements ComponentI {
+public abstract class SolutionComponent implements Component {
 
     private final int id;
 

@@ -5,7 +5,7 @@ import android.view.View;
 
 import androidx.fragment.app.Fragment;
 
-public interface ComponentI {
+public interface Component {
 
     /* A view can not be created before we have the context within which it is
     * going to be displayed. All information must be stored in fields of ints, String,
