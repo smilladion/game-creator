@@ -1,5 +1,6 @@
 package dk.itu.gamecreator.android.Components;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.itu.gamecreator.android.Components.SolutionComponent;
+import dk.itu.gamecreator.android.R;
 
 public class TextSolutionComponent extends SolutionComponent {
 
@@ -45,6 +47,11 @@ public class TextSolutionComponent extends SolutionComponent {
         return ll;
     }
 
+    @Override
+    public View getCreateView(Context context) {
+        return (LinearLayout) ((Activity) context).findViewById(R.id.text_solution_layout);
+    }
+
     public void checkSolution(View view, Context context) {
         String userSolution = editText.getText().toString().trim();
         if (!isCaseSensitive) {
@@ -60,11 +67,6 @@ public class TextSolutionComponent extends SolutionComponent {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
-    }
-
-    @Override
-    public View getCreateView(Context context) {
-        return null;
     }
 
     //Default is just center for the components where the user can't (yet) choose.

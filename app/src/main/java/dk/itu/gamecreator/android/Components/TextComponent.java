@@ -1,15 +1,19 @@
 package dk.itu.gamecreator.android.Components;
 
+import static android.view.Gravity.CENTER;
+
+import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import dk.itu.gamecreator.android.R;
+
 public class TextComponent extends GameComponent {
 
     private String text;
-    private LinearLayout ll;
     private float size = 25;
     private String gravity;
 
@@ -19,14 +23,14 @@ public class TextComponent extends GameComponent {
     }
 
     public View getDisplayView(Context context) {
-        ll = new LinearLayout(context);
+        LinearLayout ll = new LinearLayout(context);
         TextView tw = new TextView(context);
         ll.addView(tw);
         if (gravity != null) {
             if (gravity.equals("left")) {
                 ll.setGravity(Gravity.LEFT);
             } else if (gravity.equals("center")) {
-                ll.setGravity(Gravity.CENTER);
+                ll.setGravity(CENTER);
             } else {
                 ll.setGravity(Gravity.RIGHT);
             }
@@ -34,6 +38,11 @@ public class TextComponent extends GameComponent {
         tw.setTextSize(size);
         tw.setText(text);
         return ll;
+    }
+
+    @Override
+    public View getCreateView(Context context) {
+        return (LinearLayout) ((Activity) context).findViewById(R.id.text_layout);
     }
 
     public String getText() {
@@ -50,11 +59,6 @@ public class TextComponent extends GameComponent {
 
     public void setSize(float size) {
         this.size = size;
-    }
-
-    @Override
-    public View getCreateView(Context context) {
-        return null;
     }
 
     @Override

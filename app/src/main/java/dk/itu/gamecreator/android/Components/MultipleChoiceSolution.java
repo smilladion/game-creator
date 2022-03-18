@@ -1,11 +1,14 @@
 package dk.itu.gamecreator.android.Components;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import dk.itu.gamecreator.android.R;
 
 public class MultipleChoiceSolution extends SolutionComponent {
 
@@ -45,7 +48,7 @@ public class MultipleChoiceSolution extends SolutionComponent {
 
     @Override
     public View getCreateView(Context context) {
-        return null;
+        return (LinearLayout) ((Activity) context).findViewById(R.id.multiple_choice_layout);
     }
 
     public void checkSolution(View view, int index, Context context) {
