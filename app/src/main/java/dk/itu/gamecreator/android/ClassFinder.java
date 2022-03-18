@@ -12,8 +12,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -42,17 +42,14 @@ public final class ClassFinder {
 
     private ClassFinder() {}
 
-    public static Collection<String> find() {
+    public static Collection<Class<?>> load() {
         ClassLoader classLoader = ClassFinder.class.getClassLoader();
         Collection<String> matches = ClassFinder.find(classLoader, PACKAGE_PREFIX);
 
-        Iterator<String> iterator = matches.iterator();
+        Collection<Class<?>> loaded = new ArrayList<>();
 
-        while (iterator.hasNext()) {
-            String path = iterator.next();
-
+        for (String path : matches) {
             if (path.contains("$")) {
-                iterator.remove();
                 continue;
             }
 
@@ -60,7 +57,6 @@ public final class ClassFinder {
                 Class<?> clazz = classLoader.loadClass(path);
 
                 if (clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())) {
-                    iterator.remove();
                     continue;
                 }
 
@@ -73,16 +69,14 @@ public final class ClassFinder {
                     }
                 }
 
-                if (!valid) {
-                    iterator.remove();
+                if (valid) {
+                    loaded.add(clazz);
                 }
-            } catch (ClassNotFoundException e) {
-                iterator.remove();
+            } catch (ClassNotFoundException ignored) {
             }
         }
 
-        // Remove any duplicates using a set
-        return new HashSet<>(matches);
+        return loaded;
     }
 
     private static boolean doesExtend(Class<?> child, Class<?> parent) {
@@ -103,7 +97,7 @@ public final class ClassFinder {
             return Collections.emptyList();
         }
 
-        List<String> matches = new ArrayList<>();
+        Set<String> matches = new HashSet<>();
 
         try {
             // 1: Find the path list field on the current class loader
@@ -175,7 +169,7 @@ public final class ClassFinder {
     }
 
     public static Collection<String> find(String path, String packagePrefix) {
-        List<String> matches = new ArrayList<>();
+        Set<String> matches = new HashSet<>();
 
         // Second method to find all class names by manually loading the base apk file
         // Can be used as a fallback when the first (faster) method fails
@@ -229,7 +223,7 @@ public final class ClassFinder {
         return matches;
     }
 
-    private static void find(DexFile dexFile, String packagePrefix, List<String> matches) {
+    private static void find(DexFile dexFile, String packagePrefix, Set<String> matches) {
         Enumeration<String> dexIterator = dexFile.entries();
 
         while (dexIterator.hasMoreElements()) {
