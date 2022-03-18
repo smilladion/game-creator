@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.fragment.app.Fragment;
+
 public class ButtonGroupComponent extends SolutionComponent {
 
     private String[] texts = new String[4];
@@ -50,13 +52,19 @@ public class ButtonGroupComponent extends SolutionComponent {
         }
     }
 
-    public View getView(Context context) {
-        // THIS IS NOT DONE - needs a layout. (And to actually contain all buttons)
-        return buttons[0];
+    @Override
+    public View getDisplayView(Context context) {
+        return null;
+    }
+
+    @Override
+    public View getCreateView(Context context) {
+        return null;
     }
 
     @Override
     public String getGravity() {
         return "center";
     }
+
 }

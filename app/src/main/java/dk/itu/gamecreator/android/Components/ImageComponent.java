@@ -16,11 +16,16 @@ public class ImageComponent extends GameComponent {
         this.bitmap = bitmap;
     }
 
-    public View getView(Context context) {
+    public View getDisplayView(Context context) {
         image = new ImageView(context);
         image.setLayoutParams(new LinearLayout.LayoutParams(650, 600));
         image.setImageBitmap(bitmap);
         return image;
+    }
+
+    @Override
+    public View getCreateView(Context context) {
+        return null;
     }
 
     @Override
