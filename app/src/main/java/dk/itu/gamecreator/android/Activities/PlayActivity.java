@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import dk.itu.gamecreator.android.Adapters.GameRecyclerAdapter;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.Fragments.GameFragment;

@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
-import dk.itu.gamecreator.android.Components.Component;
+import dk.itu.gamecreator.android.Components.ComponentI;
 import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.Components.MultipleChoiceSolution;
 import dk.itu.gamecreator.android.Components.TextComponent;
@@ -33,7 +33,7 @@ public class RecyclerViewAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements ItemMoveCallback.ItemTouchHelperContract {
 
-    private final List<Component> components;
+    private final List<ComponentI> components;
     private final LayoutInflater mInflater;
     private final Context context;
 
@@ -42,7 +42,7 @@ public class RecyclerViewAdapter
     private static final int TYPE_IMAGE = 3;
     private static final int TYPE_MULTI = 4;
 
-    public RecyclerViewAdapter(Context context, List<Component> components) {
+    public RecyclerViewAdapter(Context context, List<ComponentI> components) {
         this.mInflater = LayoutInflater.from(context);
         this.components = components;
         this.context = context;
@@ -69,7 +69,7 @@ public class RecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Component component = components.get(position);
+        ComponentI component = components.get(position);
 
         if (getItemViewType(position) == TYPE_TEXT) { // TextComponent
             TextViewHolder textHolder = (TextViewHolder) holder;

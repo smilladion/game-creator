@@ -19,7 +19,7 @@ public class MultipleChoiceSolution extends SolutionComponent {
     }
 
     @Override
-    public View getView(Context context) {
+    public View getDisplayView(Context context) {
         LinearLayout outer = new LinearLayout(context);
         LinearLayout inner1 = new LinearLayout(context);
         LinearLayout inner2 = new LinearLayout(context);
@@ -41,6 +41,11 @@ public class MultipleChoiceSolution extends SolutionComponent {
         outer.addView(inner1);
         outer.addView(inner2);
         return outer;
+    }
+
+    @Override
+    public View getCreateView(Context context) {
+        return null;
     }
 
     public void checkSolution(View view, int index, Context context) {

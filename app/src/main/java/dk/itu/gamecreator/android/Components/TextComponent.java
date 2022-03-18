@@ -18,7 +18,7 @@ public class TextComponent extends GameComponent {
         this.text = text;
     }
 
-    public View getView(Context context) {
+    public View getDisplayView(Context context) {
         ll = new LinearLayout(context);
         TextView tw = new TextView(context);
         ll.addView(tw);
@@ -50,6 +50,11 @@ public class TextComponent extends GameComponent {
 
     public void setSize(float size) {
         this.size = size;
+    }
+
+    @Override
+    public View getCreateView(Context context) {
+        return null;
     }
 
     @Override

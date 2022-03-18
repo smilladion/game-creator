@@ -3,15 +3,17 @@ package dk.itu.gamecreator.android.Components;
 import android.content.Context;
 import android.view.View;
 
-import dk.itu.gamecreator.android.Components.Component;
+public abstract class SolutionComponent implements ComponentI {
 
-public abstract class SolutionComponent extends Component {
+    private final int id;
 
     public SolutionComponent(int id) {
-        super(id);
+        this.id = id;
     }
 
-    public abstract View getView(Context context);
+    public abstract View getDisplayView(Context context);
+
+    public abstract View getCreateView(Context context);
 
     public abstract String getGravity();
 }

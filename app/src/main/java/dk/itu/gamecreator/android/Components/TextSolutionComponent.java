@@ -30,7 +30,7 @@ public class TextSolutionComponent extends SolutionComponent {
         this.buttonText = buttonText;
     }
 
-    public View getView(Context context) {
+    public View getDisplayView(Context context) {
         LinearLayout ll = new LinearLayout(context);
         ll.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -60,6 +60,11 @@ public class TextSolutionComponent extends SolutionComponent {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
+    }
+
+    @Override
+    public View getCreateView(Context context) {
+        return null;
     }
 
     //Default is just center for the components where the user can't (yet) choose.
