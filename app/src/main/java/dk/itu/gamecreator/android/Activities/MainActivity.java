@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
+import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         play.setOnClickListener(this::onPlayClicked);
         create.setOnClickListener(this::onCreateClicked);
         map.setOnClickListener(this::onMapClicked);
+
+        // clazz.getConstructor(Integer.class, String.class).newInstance(51, "asdasd");
+        System.out.println("Jared: " + ClassFinder.load());
     }
 
     private void onPlayClicked(View view) {
