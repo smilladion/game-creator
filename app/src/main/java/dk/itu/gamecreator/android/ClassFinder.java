@@ -22,6 +22,8 @@ import dalvik.system.DexFile;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
 
+// CREDIT: Jared Tiala
+// ... A personal friend of ours who was glad to help us write this class.
 public final class ClassFinder {
 
     private static final Class<?> CLASS_LOADER_TYPE = BaseDexClassLoader.class;
@@ -35,6 +37,7 @@ public final class ClassFinder {
 
     private static final String PACKAGE_PREFIX = "dk.itu.gamecreator.android.Components.";
 
+    // load() only retrieves classes that extend these abstract classes
     private static final Class<?>[] VALID_PARENTS = {
             GameComponent.class,
             SolutionComponent.class
@@ -42,6 +45,7 @@ public final class ClassFinder {
 
     private ClassFinder() {}
 
+    /** Returns all component classes that extend GameComponent or SolutionComponent. */
     public static Collection<Class<?>> load() {
         ClassLoader classLoader = ClassFinder.class.getClassLoader();
         Collection<String> matches = ClassFinder.find(classLoader, PACKAGE_PREFIX);
@@ -49,6 +53,7 @@ public final class ClassFinder {
         Collection<Class<?>> loaded = new ArrayList<>();
 
         for (String path : matches) {
+            // If it's an inner class, skip it
             if (path.contains("$")) {
                 continue;
             }
@@ -56,6 +61,7 @@ public final class ClassFinder {
             try {
                 Class<?> clazz = classLoader.loadClass(path);
 
+                // If it's an interface or abstract class, skip it
                 if (clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())) {
                     continue;
                 }
@@ -69,6 +75,7 @@ public final class ClassFinder {
                     }
                 }
 
+                // If the class extends an abstract class from VALID_PARENTS, add it to the returned list
                 if (valid) {
                     loaded.add(clazz);
                 }
@@ -79,6 +86,7 @@ public final class ClassFinder {
         return loaded;
     }
 
+    /** Checks if the child class extends the parent class. */
     private static boolean doesExtend(Class<?> child, Class<?> parent) {
         while (child != null && child != Object.class) {
             if (child == parent) {
@@ -91,6 +99,7 @@ public final class ClassFinder {
         return false;
     }
 
+    /** Returns all classes within the Components package, including inner classes (such as ClickListeners). */
     public static Collection<String> find(ClassLoader classLoader, String packagePrefix) {
         // Only specific Android class loader types work with this
         if (!CLASS_LOADER_TYPE.isAssignableFrom(classLoader.getClass())) {
@@ -168,11 +177,10 @@ public final class ClassFinder {
         return matches;
     }
 
+    /** Second method to find all class names by manually loading the base apk file.
+     * Can be used as a fallback if/when the first (faster) method fails. */
     public static Collection<String> find(String path, String packagePrefix) {
         Set<String> matches = new HashSet<>();
-
-        // Second method to find all class names by manually loading the base apk file
-        // Can be used as a fallback when the first (faster) method fails
 
         try {
             // 1: Load the apk as a zip file
@@ -223,6 +231,7 @@ public final class ClassFinder {
         return matches;
     }
 
+    /** Adds all classes found within the DexFile, which are located in the Components package, to the given "matches" set. */
     private static void find(DexFile dexFile, String packagePrefix, Set<String> matches) {
         Enumeration<String> dexIterator = dexFile.entries();
 

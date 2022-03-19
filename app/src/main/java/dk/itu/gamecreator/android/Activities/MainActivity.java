@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
         create.setOnClickListener(this::onCreateClicked);
         map.setOnClickListener(this::onMapClicked);
 
+        // Create instance from class:
         // clazz.getConstructor(Integer.class, String.class).newInstance(51, "asdasd");
-        System.out.println("Jared: " + ClassFinder.load());
+
+        System.out.println("Abcdef: " + ClassFinder.load());
     }
 
     private void onPlayClicked(View view) {
