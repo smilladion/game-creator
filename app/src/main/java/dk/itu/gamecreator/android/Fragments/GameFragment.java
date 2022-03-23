@@ -54,14 +54,14 @@ public class GameFragment extends Fragment {
             for (Component c: game.getComponents()) {
                 LinearLayout viewLayout = new LinearLayout(context);
                 View v = c.getDisplayView(context);
-                String gravity = c.getGravity();
+                /*String gravity = c.getGravity();
                 if (gravity.equals("left")) {
                     viewLayout.setGravity(Gravity.LEFT);
                 } else if (gravity.equals("right")) {
                     viewLayout.setGravity(Gravity.RIGHT);
                 } else {
                     viewLayout.setGravity(Gravity.CENTER);
-                }
+                }*/
                 viewLayout.addView(v);
                 ll.addView(viewLayout);
             }

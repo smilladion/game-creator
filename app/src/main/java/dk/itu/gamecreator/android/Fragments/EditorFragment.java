@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
+import dk.itu.gamecreator.android.Components.MultipleChoiceComponent;
+import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 
@@ -79,16 +81,16 @@ public class EditorFragment extends Fragment {
             // clazz.getConstructor(Integer.class, String.class).newInstance(51, "asdasd");
             switch (componentTypes.get(position)) {
                 case "TextComponent":
-                    openComponentFragment(textFragment);
+                    testTextComponent(v);
                     break;
                 case "TextSolutionComponent":
-                    openComponentFragment(textSolutionFragment);
+                    //openComponentFragment(textSolutionFragment);
                     break;
                 case "ImageComponent":
-                    openComponentFragment(imageFragment);
+                    //openComponentFragment(imageFragment);
                     break;
                 case "MultipleChoiceComponent":
-                    openComponentFragment(multipleFragment);
+                    //openComponentFragment(multipleFragment);
                     break;
             }
 
@@ -100,6 +102,16 @@ public class EditorFragment extends Fragment {
         addComponentButton.setOnClickListener(view1 -> listPopupWindow.show());
 
         populateRecyclerView();
+    }
+
+    public void testTextComponent(View view) {
+        TextComponent component = new TextComponent(cDB.getNextComponentId());
+        cDB.setComponent(component);
+        FragmentManager fm = getParentFragmentManager();
+        fm.beginTransaction().setReorderingAllowed(true)
+                .replace(R.id.create_fragment, new CreateComponentFragment(), null)
+                .addToBackStack(null)
+                .commit();
     }
 
     public void openComponentFragment(Fragment fragment) {

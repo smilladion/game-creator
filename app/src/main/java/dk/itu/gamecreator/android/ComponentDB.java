@@ -3,6 +3,8 @@ package dk.itu.gamecreator.android;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.itu.gamecreator.android.Components.Component;
+
 public final class ComponentDB {
 
     /*
@@ -18,6 +20,8 @@ public final class ComponentDB {
     private List<Game> allGames;
     private int cID;
     private int gID;
+
+    private Component component;
 
     private ComponentDB() {
         allGames = new ArrayList<>();
@@ -68,4 +72,11 @@ public final class ComponentDB {
         return cID;
     }
 
+    public Component getComponent() {
+        return component;
+    }
+
+    public void setComponent(Component component) {
+        this.component = component;
+    }
 }

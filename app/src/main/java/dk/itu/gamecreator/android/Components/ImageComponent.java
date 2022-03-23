@@ -1,10 +1,13 @@
 package dk.itu.gamecreator.android.Components;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import dk.itu.gamecreator.android.R;
 
 public class ImageComponent extends GameComponent {
 
@@ -25,12 +28,17 @@ public class ImageComponent extends GameComponent {
 
     @Override
     public View getCreateView(Context context) {
-        return null;
+        return (LinearLayout) ((Activity) context).findViewById(R.id.image_layout);
     }
 
     @Override
     public String getGravity() {
         return "center";
+    }
+
+    @Override
+    public void saveComponent(Context context) {
+
     }
 
     public void setBitmap(Bitmap bitmap) {

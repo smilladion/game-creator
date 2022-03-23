@@ -55,7 +55,7 @@ public class CreateTextFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         closeButton = view.findViewById(R.id.fragment_back_button);
-        editText = view.findViewById(R.id.input_text);
+        editText = view.findViewById(R.id.input_text_1);
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
         toggleButton = view.findViewById(R.id.toggleButton);
@@ -75,6 +75,7 @@ public class CreateTextFragment extends Fragment {
     public void onDoneClicked(View view) {
         // If fragment was opened through edit button, then set that component's text and return
         // Otherwise create a new component and add it to the database
+        /*
         String pos;
         int buttonId = toggleButton.getCheckedButtonId();
         if (buttonId == R.id.text_left) {
@@ -112,6 +113,8 @@ public class CreateTextFragment extends Fragment {
         }
 
         getParentFragmentManager().popBackStack(); // Close fragment and go back to editor
+
+         */
     }
 
     public void onDiscardClicked(View view) {
