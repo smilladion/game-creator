@@ -7,12 +7,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class MultipleChoiceSolution extends SolutionComponent {
+public class MultipleChoiceComponent extends SolutionComponent {
 
     private String[] options;
     private int solution;
 
-    public MultipleChoiceSolution(int id, String[] options, int solution) {
+    public MultipleChoiceComponent(int id, String[] options, int solution) {
         super(id);
         this.options = options;
         this.solution = solution;

@@ -14,14 +14,13 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Components.MultipleChoiceSolution;
-import dk.itu.gamecreator.android.Components.TextSolutionComponent;
+import dk.itu.gamecreator.android.Components.MultipleChoiceComponent;
 import dk.itu.gamecreator.android.R;
 
 public class CreateMultipleChoiceFragment extends Fragment {
 
     ComponentDB cDB;
-    MultipleChoiceSolution component;
+    MultipleChoiceComponent component;
     RadioGroup radioGroup;
     RadioButton radio1;
     RadioButton radio2;
@@ -48,7 +47,7 @@ public class CreateMultipleChoiceFragment extends Fragment {
 
         if (bundle != null) {
             int index = bundle.getInt("componentIndex");
-            component = (MultipleChoiceSolution) cDB.getCurrentGame().getComponents().get(index);
+            component = (MultipleChoiceComponent) cDB.getCurrentGame().getComponents().get(index);
         }
 
         return inflater.inflate(R.layout.fragment_create_multiple_choice, container, false);
@@ -108,7 +107,7 @@ public class CreateMultipleChoiceFragment extends Fragment {
                 component.setOptions(options);
                 component.setSolution(correct);
             } else {
-                component = new MultipleChoiceSolution(cDB.getNextComponentId(), options, correct);
+                component = new MultipleChoiceComponent(cDB.getNextComponentId(), options, correct);
                 cDB.getCurrentGame().addComponent(component);
             }
             getParentFragmentManager().popBackStack();

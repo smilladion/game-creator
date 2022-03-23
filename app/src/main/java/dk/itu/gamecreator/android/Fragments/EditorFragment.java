@@ -1,23 +1,24 @@
 package dk.itu.gamecreator.android.Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
-import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.ListPopupWindow;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import dk.itu.gamecreator.android.Activities.CreateActivity;
+import java.util.ArrayList;
+
+import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
-import dk.itu.gamecreator.android.Components.MultipleChoiceSolution;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 
@@ -26,11 +27,6 @@ public class EditorFragment extends Fragment {
     ComponentDB cDB;
     RecyclerViewAdapter adapter;
     RecyclerView recyclerView;
-
-    Button createTextButton;
-    Button createTextSolutionButton;
-    Button createImageButton;
-    Button createMultipleButton;
 
     Fragment textFragment = new CreateTextFragment();
     Fragment textSolutionFragment = new CreateTextSolutionFragment();
@@ -58,23 +54,55 @@ public class EditorFragment extends Fragment {
         recyclerView = view.findViewById(R.id.current_components);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        createTextButton = view.findViewById(R.id.create_text_button);
-        createTextButton.setOnClickListener(v -> openComponentFragment(v, textFragment));
+        Button addComponentButton = view.findViewById(R.id.add_component);
+        ListPopupWindow listPopupWindow = new ListPopupWindow(view.getContext(), null,
+                com.google.android.material.R.attr.listPopupWindowStyle);
 
-        createTextSolutionButton = view.findViewById(R.id.create_text_solution_button);
-        createTextSolutionButton.setOnClickListener(v -> openComponentFragment(v, textSolutionFragment));
+        // Set button as the list popup's anchor
+        listPopupWindow.setAnchorView(addComponentButton);
 
-        createImageButton = view.findViewById(R.id.create_image_button);
-        createImageButton.setOnClickListener(v -> openComponentFragment(v, imageFragment));
+        // Get component class names using the ClassFinder
+        ArrayList<Class<?>> classes = new ArrayList<>(ClassFinder.load());
+        ArrayList<String> componentTypes = new ArrayList<>();
 
-        createMultipleButton = view.findViewById(R.id.create_multiple_button);
-        createMultipleButton.setOnClickListener(v -> openComponentFragment(v, multipleFragment));
+        for (Class<?> clazz : classes) {
+            componentTypes.add(clazz.getSimpleName());
+        }
+
+        // Set list popup's content
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.list_popup_window_item, componentTypes);
+        listPopupWindow.setAdapter(adapter);
+
+        // Respond to list popup window item click
+        listPopupWindow.setOnItemClickListener((parent, v, position, id) -> {
+            // Create instance from class:
+            // clazz.getConstructor(Integer.class, String.class).newInstance(51, "asdasd");
+            switch (componentTypes.get(position)) {
+                case "TextComponent":
+                    openComponentFragment(textFragment);
+                    break;
+                case "TextSolutionComponent":
+                    openComponentFragment(textSolutionFragment);
+                    break;
+                case "ImageComponent":
+                    openComponentFragment(imageFragment);
+                    break;
+                case "MultipleChoiceComponent":
+                    openComponentFragment(multipleFragment);
+                    break;
+            }
+
+            // Dismiss popup.
+            listPopupWindow.dismiss();
+        });
+
+        // Show list popup window on button click.
+        addComponentButton.setOnClickListener(view1 -> listPopupWindow.show());
 
         populateRecyclerView();
-
     }
 
-    public void openComponentFragment(View view, Fragment fragment) {
+    public void openComponentFragment(Fragment fragment) {
         FragmentManager fm = getParentFragmentManager();
         fm.beginTransaction().setReorderingAllowed(true)
                 .replace(R.id.create_fragment, fragment, null)

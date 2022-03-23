@@ -20,7 +20,7 @@ import java.util.List;
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.ImageComponent;
-import dk.itu.gamecreator.android.Components.MultipleChoiceSolution;
+import dk.itu.gamecreator.android.Components.MultipleChoiceComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.Components.TextSolutionComponent;
 import dk.itu.gamecreator.android.Fragments.CreateImageFragment;
@@ -133,7 +133,7 @@ public class RecyclerViewAdapter
             return TYPE_SOLUTION_TEXT;
         } else if (components.get(position) instanceof ImageComponent) {
             return TYPE_IMAGE;
-        } else if (components.get(position) instanceof MultipleChoiceSolution) {
+        } else if (components.get(position) instanceof MultipleChoiceComponent) {
             return TYPE_MULTI;
         } else {
             return -1;

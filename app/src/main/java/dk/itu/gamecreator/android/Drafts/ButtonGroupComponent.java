@@ -1,10 +1,12 @@
-package dk.itu.gamecreator.android.Components;
+package dk.itu.gamecreator.android.Drafts;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+
+import dk.itu.gamecreator.android.Components.SolutionComponent;
 
 public class ButtonGroupComponent extends SolutionComponent {
 
