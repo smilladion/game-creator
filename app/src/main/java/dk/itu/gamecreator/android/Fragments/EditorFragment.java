@@ -62,7 +62,10 @@ public class EditorFragment extends Fragment {
         ArrayList<String> componentTypes = new ArrayList<>();
 
         for (Class<?> clazz : classes) {
-            componentTypes.add(clazz.getSimpleName());
+            String name = clazz.getSimpleName();
+            String nameFormatted = name.replace("Component", "")
+                    .replaceAll("(?=[A-Z])", " ").trim();
+            componentTypes.add(nameFormatted);
         }
 
         // Set list popup's content
