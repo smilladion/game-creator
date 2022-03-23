@@ -36,6 +36,11 @@ public class ImageComponent extends GameComponent {
         return "center";
     }
 
+    @Override
+    public void saveComponent(Context context) {
+
+    }
+
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }

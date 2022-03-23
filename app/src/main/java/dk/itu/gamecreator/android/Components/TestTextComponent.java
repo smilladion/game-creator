@@ -24,4 +24,9 @@ public class TestTextComponent extends GameComponent {
     public String getGravity() {
         return null;
     }
+
+    @Override
+    public void saveComponent(Context context) {
+
+    }
 }

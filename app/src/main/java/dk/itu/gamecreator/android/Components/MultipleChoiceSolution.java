@@ -68,6 +68,11 @@ public class MultipleChoiceSolution extends SolutionComponent {
         return "center";
     }
 
+    @Override
+    public void saveComponent(Context context) {
+
+    }
+
     public String[] getOptions() {
         return options;
     }

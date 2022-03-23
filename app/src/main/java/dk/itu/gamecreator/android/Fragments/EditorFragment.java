@@ -18,6 +18,7 @@ import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
 import dk.itu.gamecreator.android.Components.MultipleChoiceSolution;
+import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 
@@ -59,7 +60,8 @@ public class EditorFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         createTextButton = view.findViewById(R.id.create_text_button);
-        createTextButton.setOnClickListener(v -> openComponentFragment(v, textFragment));
+        //createTextButton.setOnClickListener(v -> openComponentFragment(v, textFragment));
+        createTextButton.setOnClickListener(v -> testTextComponent(v));
 
         createTextSolutionButton = view.findViewById(R.id.create_text_solution_button);
         createTextSolutionButton.setOnClickListener(v -> openComponentFragment(v, textSolutionFragment));
@@ -72,6 +74,16 @@ public class EditorFragment extends Fragment {
 
         populateRecyclerView();
 
+    }
+
+    public void testTextComponent(View view) {
+        TextComponent component = new TextComponent(cDB.getNextComponentId());
+        cDB.setComponent(component);
+        FragmentManager fm = getParentFragmentManager();
+        fm.beginTransaction().setReorderingAllowed(true)
+                .replace(R.id.create_fragment, new CreateComponentFragment(), null)
+                .addToBackStack(null)
+                .commit();
     }
 
     public void openComponentFragment(View view, Fragment fragment) {

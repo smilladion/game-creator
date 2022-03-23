@@ -67,4 +67,9 @@ public class ButtonGroupComponent extends SolutionComponent {
         return "center";
     }
 
+    @Override
+    public void saveComponent(Context context) {
+
+    }
+
 }
