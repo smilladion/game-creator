@@ -19,6 +19,7 @@ public class CreateComponentFragment extends Fragment {
     Component component;
     Button doneButton;
     Button discardButton;
+    Button backButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,13 +48,19 @@ public class CreateComponentFragment extends Fragment {
         componentLayout.addView(componentView);
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
+        backButton = view.findViewById(R.id.fragment_back_button);
         doneButton.setOnClickListener(v -> onDone(v));
-
+        discardButton.setOnClickListener(v -> onDiscard(v));
+        backButton.setOnClickListener(v -> onDiscard(v));
     }
 
     public void onDone(View view) {
         component.saveComponent(this.getContext());
         cDB.getCurrentGame().addComponent(component);
+        getParentFragmentManager().popBackStack();
+    }
+
+    public void onDiscard(View view) {
         getParentFragmentManager().popBackStack();
     }
 }

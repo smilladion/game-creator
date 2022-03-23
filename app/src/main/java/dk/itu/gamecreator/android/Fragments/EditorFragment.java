@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
+import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.Components.MultipleChoiceComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.R;
@@ -87,7 +88,7 @@ public class EditorFragment extends Fragment {
                     //openComponentFragment(textSolutionFragment);
                     break;
                 case "ImageComponent":
-                    //openComponentFragment(imageFragment);
+                    testImageComponent(v);
                     break;
                 case "MultipleChoiceComponent":
                     //openComponentFragment(multipleFragment);
@@ -106,6 +107,16 @@ public class EditorFragment extends Fragment {
 
     public void testTextComponent(View view) {
         TextComponent component = new TextComponent(cDB.getNextComponentId());
+        cDB.setComponent(component);
+        FragmentManager fm = getParentFragmentManager();
+        fm.beginTransaction().setReorderingAllowed(true)
+                .replace(R.id.create_fragment, new CreateComponentFragment(), null)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public void testImageComponent(View view) {
+        ImageComponent component = new ImageComponent(cDB.getNextComponentId());
         cDB.setComponent(component);
         FragmentManager fm = getParentFragmentManager();
         fm.beginTransaction().setReorderingAllowed(true)

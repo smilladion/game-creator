@@ -62,9 +62,6 @@ public class TextComponent extends GameComponent {
 
     @Override
     public View getCreateView(Context context) {
-        //View view = (LinearLayout) ((Activity) context).findViewById(R.id.text_layout);
-        //editText = (TextInputEditText) ((Activity) context).findViewById(R.id.input_text_1);
-        //EditText editText = view.findViewById(R.id.input_text_1);
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_create_text_component, null, false);
         editText = view.findViewById(R.id.input_text_1);
         return view;

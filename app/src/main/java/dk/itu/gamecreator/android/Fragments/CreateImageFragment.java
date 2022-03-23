@@ -237,6 +237,7 @@ public class CreateImageFragment extends Fragment {
     }
 
     public void onDoneClicked(View view) {
+        /*
         if (bitmap == null) {
             Toast toast = Toast.makeText(this.getContext(),
                     "Please choose an image or discard the component", Toast.LENGTH_SHORT);
@@ -249,7 +250,7 @@ public class CreateImageFragment extends Fragment {
             ImageComponent ic = new ImageComponent(cDB.getNextComponentId(), bitmap);
             cDB.getCurrentGame().addComponent(ic);
             getParentFragmentManager().popBackStack();
-        }
+        }*/
     }
 
     public void onDiscardClicked(View view) {
