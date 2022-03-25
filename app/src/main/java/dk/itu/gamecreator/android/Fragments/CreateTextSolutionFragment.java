@@ -85,7 +85,7 @@ public class CreateTextSolutionFragment extends Fragment {
             } else {
                 String solution = solutionText.getText().toString();
                 String button = buttonText.getText().toString();
-                TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextComponentId(), solution, button, isChecked);
+                TextSolutionComponent sc = new TextSolutionComponent(cDB.getNextComponentId());
                 cDB.getCurrentGame().addComponent(sc);
             }
 
