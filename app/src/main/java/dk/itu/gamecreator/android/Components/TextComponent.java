@@ -19,11 +19,10 @@ public class TextComponent extends GameComponent {
 
     private String text = "";
     private float size = 25;
-    private String gravity = "left";
+    private int gravityButtonId;
     private TextInputEditText editText;
     private AutoCompleteTextView sizeView;
     private MaterialButtonToggleGroup toggleButton;
-    private int buttonId;
 
     public TextComponent(int id) {
         super(id);
@@ -37,19 +36,18 @@ public class TextComponent extends GameComponent {
 
         TextView tw = new TextView(context);
 
-        if (gravity != null) {
-            if (gravity.equals("left")) {
-                ll.setGravity(Gravity.LEFT);
-            } else if (gravity.equals("center")) {
-                ll.setGravity(Gravity.CENTER);
-            } else {
-                ll.setGravity(Gravity.RIGHT);
-            }
+        if (gravityButtonId == R.id.text_right) {
+            ll.setGravity(Gravity.RIGHT);
+        } else if (gravityButtonId == R.id.text_center) {
+            ll.setGravity(Gravity.CENTER);
+        } else {
+            ll.setGravity(Gravity.LEFT);
         }
 
         tw.setTextSize(size);
         tw.setText(text);
         ll.addView(tw);
+
         return ll;
     }
 
@@ -66,14 +64,7 @@ public class TextComponent extends GameComponent {
             this.text = text;
         }
 
-        buttonId = toggleButton.getCheckedButtonId();
-        if (buttonId == R.id.text_left) {
-            gravity = "left";
-        } else if (buttonId == R.id.text_right) {
-            gravity = "right";
-        } else {
-            gravity = "center";
-        }
+        gravityButtonId = toggleButton.getCheckedButtonId();
 
         String size = sizeView.getText().toString().trim();
         if (size.length() != 0) {
@@ -91,8 +82,8 @@ public class TextComponent extends GameComponent {
         editText.setText(text);
         sizeView.setText(Float.toString(size));
 
-        if (buttonId != 0) {
-            toggleButton.check(buttonId);
+        if (gravityButtonId != 0) {
+            toggleButton.check(gravityButtonId);
         } else {
             toggleButton.check(R.id.text_left);
         }
@@ -104,24 +95,7 @@ public class TextComponent extends GameComponent {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public float getSize() {
         return size;
-    }
-
-    public void setSize(float size) {
-        this.size = size;
-    }
-
-    @Override
-    public String getGravity() {
-        return gravity;
-    }
-
-    public void setGravity(String pos) {
-        this.gravity = pos;
     }
 }

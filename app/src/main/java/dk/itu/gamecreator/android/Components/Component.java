@@ -14,7 +14,6 @@ public interface Component {
     * */
     View getDisplayView(Context context);
 
-
     /**
      * Instead of inflating an XML file, reference the ID of the outermost LinearLayout in
      * the XML file you want to use for creating this component. Ie - if the ID is "text_layout"
@@ -25,9 +24,6 @@ public interface Component {
      * When you have accessed all the views you need to create the component later on return the view.
      */
     View getCreateView(Context context);
-
-    /* Might be taken out. */
-    String getGravity();
 
     /**
      * Save the different input fields / check boxes or whatever else fields that

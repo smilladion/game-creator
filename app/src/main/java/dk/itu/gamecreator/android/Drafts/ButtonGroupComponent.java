@@ -65,13 +65,7 @@ public class ButtonGroupComponent extends SolutionComponent {
     }
 
     @Override
-    public String getGravity() {
-        return "center";
-    }
-
-    @Override
     public void saveComponent(Context context) {
 
     }
-
 }

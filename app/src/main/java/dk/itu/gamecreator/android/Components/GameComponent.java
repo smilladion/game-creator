@@ -15,6 +15,6 @@ public abstract class GameComponent implements Component {
 
     public abstract View getCreateView(Context context);
 
-    public abstract String getGravity();
+    public abstract void saveComponent(Context context);
 
 }

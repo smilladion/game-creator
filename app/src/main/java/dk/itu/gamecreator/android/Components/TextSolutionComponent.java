@@ -71,12 +71,6 @@ public class TextSolutionComponent extends SolutionComponent {
         }
     }
 
-    //Default is just center for the components where the user can't (yet) choose.
-    @Override
-    public String getGravity() {
-        return "center";
-    }
-
     @Override
     public void saveComponent(Context context) {
         if (solutionText.getText().toString().trim().length() == 0) {

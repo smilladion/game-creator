@@ -115,13 +115,6 @@ public class MultipleChoiceComponent extends SolutionComponent {
         }
     }
 
-    @Override
-    public String getGravity() {
-        return "center";
-    }
-
-
-
     public String[] getOptions() {
         return options;
     }

@@ -68,11 +68,6 @@ public class ImageComponent extends GameComponent {
     }
 
     @Override
-    public String getGravity() {
-        return "center";
-    }
-
-    @Override
     public void saveComponent(Context context) {
 
     }
@@ -204,7 +199,3 @@ public class ImageComponent extends GameComponent {
         }
     }
 }
-
-
-
-
