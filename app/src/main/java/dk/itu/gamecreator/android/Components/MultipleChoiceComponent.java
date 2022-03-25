@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,6 +29,7 @@ public class MultipleChoiceComponent extends SolutionComponent {
     EditText text3;
     EditText text4;
     int correct;
+    int radioId;
 
     public MultipleChoiceComponent(int id) {
         super(id);
@@ -39,18 +41,23 @@ public class MultipleChoiceComponent extends SolutionComponent {
         String two = text2.getText().toString().trim();
         String three = text3.getText().toString().trim();
         String four = text4.getText().toString().trim();
+
         String[] options = {one, two, three, four};
+
         if (one.length() == 0
                 || two.length() == 0
                 || three.length() == 0
                 || four.length() == 0) {
             Toast toast = Toast.makeText(context,
-                    "Text fields can't be empty. Write something, or discard component", Toast.LENGTH_SHORT);
+                    "Text fields can't be empty", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+            return false;
         } else {
             this.options = options;
         }
+
+        radioId = radioGroup.getCheckedRadioButtonId();
 
         return true;
     }
@@ -58,12 +65,15 @@ public class MultipleChoiceComponent extends SolutionComponent {
     @Override
     public View getDisplayView(Context context) {
         LinearLayout outer = new LinearLayout(context);
+        outer.setOrientation(LinearLayout.VERTICAL);
+
         LinearLayout inner1 = new LinearLayout(context);
         LinearLayout inner2 = new LinearLayout(context);
-        outer.setOrientation(LinearLayout.VERTICAL);
+
         inner1.setOrientation(LinearLayout.HORIZONTAL);
         inner2.setOrientation(LinearLayout.HORIZONTAL);
-        for(int i = 0; i < options.length; i++) {
+
+        for (int i = 0; i < options.length; i++) {
             Button b = new Button(context);
             b.setText(options[i]);
             // it didnt just want 'i' in the lambda?
@@ -75,6 +85,7 @@ public class MultipleChoiceComponent extends SolutionComponent {
                 inner2.addView(b);
             }
         }
+
         outer.addView(inner1);
         outer.addView(inner2);
         return outer;
@@ -97,6 +108,15 @@ public class MultipleChoiceComponent extends SolutionComponent {
         radio2.setOnClickListener(v -> setCorrect(1));
         radio3.setOnClickListener(v -> setCorrect(2));
         radio4.setOnClickListener(v -> setCorrect(3));
+
+        if (options != null) {
+            text1.setText(options[0]);
+            text2.setText(options[1]);
+            text3.setText(options[2]);
+            text4.setText(options[3]);
+
+            radioGroup.check(radioId);
+        }
 
         return view;
     }
