@@ -23,6 +23,7 @@ import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.Components.MultipleChoiceComponent;
 import dk.itu.gamecreator.android.Components.TextComponent;
 import dk.itu.gamecreator.android.Components.TextSolutionComponent;
+import dk.itu.gamecreator.android.Fragments.CreateComponentFragment;
 import dk.itu.gamecreator.android.Fragments.CreateImageFragment;
 import dk.itu.gamecreator.android.Fragments.CreateMultipleChoiceFragment;
 import dk.itu.gamecreator.android.Fragments.CreateTextFragment;
@@ -78,7 +79,7 @@ public class RecyclerViewAdapter
             textHolder.componentText.setText(text);
 
             textHolder.deleteButton.setOnClickListener(view -> onDelete(textHolder));
-            textHolder.editButton.setOnClickListener(view -> onEdit(textHolder, CreateTextFragment.class));
+            textHolder.editButton.setOnClickListener(view -> onEdit(textHolder));
 
         } else if (getItemViewType(position) == TYPE_SOLUTION_TEXT) {
             TextSolutionViewHolder textSolutionHolder = (TextSolutionViewHolder) holder;
@@ -90,7 +91,7 @@ public class RecyclerViewAdapter
             textSolutionHolder.buttonText.setText(buttonText);
 
             textSolutionHolder.deleteButton.setOnClickListener(view -> onDelete(textSolutionHolder));
-            textSolutionHolder.editButton.setOnClickListener(view -> onEdit(textSolutionHolder, CreateTextSolutionFragment.class));
+            textSolutionHolder.editButton.setOnClickListener(view -> onEdit(textSolutionHolder));
 
         } else if (getItemViewType(position) == TYPE_IMAGE) {
             ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
@@ -100,11 +101,11 @@ public class RecyclerViewAdapter
                 imageViewHolder.imageView.setImageBitmap(bitmap);
             }
             imageViewHolder.deleteButton.setOnClickListener(view -> onDelete(imageViewHolder));
-            imageViewHolder.editButton.setOnClickListener(view -> onEdit(imageViewHolder, CreateImageFragment.class));
+            imageViewHolder.editButton.setOnClickListener(view -> onEdit(imageViewHolder));
         } else if (getItemViewType(position) == TYPE_MULTI) {
             MultiViewHolder multiViewHolder = (MultiViewHolder) holder;
             multiViewHolder.deleteButton.setOnClickListener(view -> onDelete(multiViewHolder));
-            multiViewHolder.editButton.setOnClickListener(view -> onEdit(multiViewHolder, CreateMultipleChoiceFragment.class));
+            multiViewHolder.editButton.setOnClickListener(view -> onEdit(multiViewHolder));
         }
     }
 
@@ -114,13 +115,13 @@ public class RecyclerViewAdapter
         notifyItemRangeChanged(holder.getAdapterPosition(), components.size());
     }
 
-    private void onEdit(RecyclerView.ViewHolder holder, Class<? extends Fragment> fragmentClass) {
+    private void onEdit(RecyclerView.ViewHolder holder) {
         Bundle bundle = new Bundle();
         bundle.putInt("componentIndex", holder.getAdapterPosition());
 
         CreateActivity activity = (CreateActivity) context;
         activity.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.create_fragment, fragmentClass, bundle)
+                .replace(R.id.create_fragment, CreateComponentFragment.class, bundle)
                 .addToBackStack(null)
                 .commit();
     }

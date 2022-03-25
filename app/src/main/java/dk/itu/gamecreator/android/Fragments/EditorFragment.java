@@ -41,9 +41,11 @@ public class EditorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
+
         if (cDB.getCurrentGame() == null) {
             cDB.newGame();
         }
+
         return inflater.inflate(R.layout.fragment_editor, container, false);
     }
 
@@ -76,7 +78,6 @@ public class EditorFragment extends Fragment {
 
         // Respond to list popup window item click
         listPopupWindow.setOnItemClickListener((parent, v, position, id) -> {
-
             Class<?> clazz = classes.get(position);
 
             try {
@@ -103,10 +104,6 @@ public class EditorFragment extends Fragment {
     }
 
     public void populateRecyclerView() {
-        if (cDB.getCurrentGame() == null) {
-            cDB.newGame();
-        }
-
         adapter = new RecyclerViewAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
 
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);

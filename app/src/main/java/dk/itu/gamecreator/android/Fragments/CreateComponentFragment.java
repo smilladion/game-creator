@@ -20,6 +20,7 @@ public class CreateComponentFragment extends Fragment {
     Button doneButton;
     Button discardButton;
     Button backButton;
+    Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,13 +30,16 @@ public class CreateComponentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
-        component = cDB.getComponent();
+        bundle = getArguments();
+
         // Checks if the fragment was opened through an edit button and fetches component data
-        /*
         if (bundle != null) {
             int index = bundle.getInt("componentIndex");
-            component = (TextComponent) cDB.getCurrentGame().getComponents().get(index);
-        }*/
+            component = cDB.getCurrentGame().getComponents().get(index);
+        } else {
+            component = cDB.getComponent(); // Create new component
+        }
+
         return inflater.inflate(R.layout.fragment_create_component, container, false);
 
     }
@@ -56,7 +60,11 @@ public class CreateComponentFragment extends Fragment {
 
     public void onDone(View view) {
         component.saveComponent(this.getContext());
-        cDB.getCurrentGame().addComponent(component);
+
+        if (bundle == null) {
+            cDB.getCurrentGame().addComponent(component);
+        }
+
         getParentFragmentManager().popBackStack();
     }
 
