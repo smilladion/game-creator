@@ -34,7 +34,7 @@ public class MultipleChoiceComponent extends SolutionComponent {
     }
 
     @Override
-    public void saveComponent(Context context) {
+    public boolean saveComponent(Context context) {
         String one = text1.getText().toString().trim();
         String two = text2.getText().toString().trim();
         String three = text3.getText().toString().trim();
@@ -51,6 +51,8 @@ public class MultipleChoiceComponent extends SolutionComponent {
         } else {
             this.options = options;
         }
+
+        return true;
     }
 
     @Override

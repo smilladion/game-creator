@@ -52,14 +52,15 @@ public class TextComponent extends GameComponent {
     }
 
     @Override
-    public void saveComponent(Context context) {
+    public boolean saveComponent(Context context) {
         String text = editText.getText().toString().trim();
 
         if (text.length() == 0) {
             Toast toast = Toast.makeText(context,
-                    "Text field can't be empty. Write something, or discard component", Toast.LENGTH_SHORT);
+                    "Text field can't be empty", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+            return false;
         } else {
             this.text = text;
         }
@@ -70,6 +71,8 @@ public class TextComponent extends GameComponent {
         if (size.length() != 0) {
             this.size = Float.parseFloat(size);
         }
+
+        return true;
     }
 
     @Override

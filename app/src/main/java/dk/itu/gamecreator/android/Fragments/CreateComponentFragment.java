@@ -59,13 +59,13 @@ public class CreateComponentFragment extends Fragment {
     }
 
     public void onDone(View view) {
-        component.saveComponent(this.getContext());
+        if (component.saveComponent(this.getContext())) {
+            if (bundle == null) {
+                cDB.getCurrentGame().addComponent(component);
+            }
 
-        if (bundle == null) {
-            cDB.getCurrentGame().addComponent(component);
+            getParentFragmentManager().popBackStack();
         }
-
-        getParentFragmentManager().popBackStack();
     }
 
     public void onDiscard(View view) {

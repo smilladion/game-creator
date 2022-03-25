@@ -72,7 +72,7 @@ public class TextSolutionComponent extends SolutionComponent {
     }
 
     @Override
-    public void saveComponent(Context context) {
+    public boolean saveComponent(Context context) {
         if (solutionText.getText().toString().trim().length() == 0) {
             Toast toast = Toast.makeText(context,
                     "Text field can't be empty. Write something, or discard component", Toast.LENGTH_SHORT);
@@ -83,7 +83,7 @@ public class TextSolutionComponent extends SolutionComponent {
             solutionTextS = solutionText.getText().toString();
             buttonTextS = buttonText.getText().toString();
         }
-
+        return true;
     }
 
     public String getSolutionText() {

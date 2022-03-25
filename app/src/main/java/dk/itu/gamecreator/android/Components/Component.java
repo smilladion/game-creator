@@ -30,6 +30,9 @@ public interface Component {
      * the component constructor has. These can NOT be saved as Views (Like buttons)
      * as creation of these needs a Context. Save the info in Strings/arrays/ints
      * and create the actual views in the getDisplayView method.
+     *
+     * Returns: a boolean which is true if the save was successful and false if it failed (such as
+     * unacceptable inputs)
      */
-    void saveComponent(Context context);
+    boolean saveComponent(Context context);
 }

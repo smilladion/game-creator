@@ -68,8 +68,8 @@ public class ImageComponent extends GameComponent {
     }
 
     @Override
-    public void saveComponent(Context context) {
-
+    public boolean saveComponent(Context context) {
+        return true;
     }
 
     public void openGallery(View view) {

@@ -65,7 +65,7 @@ public class ButtonGroupComponent extends SolutionComponent {
     }
 
     @Override
-    public void saveComponent(Context context) {
-
+    public boolean saveComponent(Context context) {
+        return true;
     }
 }
