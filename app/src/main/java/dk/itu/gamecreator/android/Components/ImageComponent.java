@@ -61,6 +61,8 @@ public class ImageComponent extends GameComponent {
         image = view.findViewById(R.id.preview_image_view);
         selectImageButton.setOnClickListener(this::openGallery);
         takePictureButton.setOnClickListener(this::openCamera);
+        rotateLeftButton.setOnClickListener(v -> rotate(v, ROTATE_LEFT));
+        rotateRightButton.setOnClickListener(v -> rotate(v, ROTATE_RIGHT));
 
         return view;
     }
@@ -89,7 +91,7 @@ public class ImageComponent extends GameComponent {
                 .commit();
     }
 
-    public void rotate(int direction) {
+    public void rotate(View view, int direction) {
         Matrix matrix = new Matrix();
 
         if (direction == ROTATE_LEFT) {

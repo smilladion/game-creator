@@ -89,6 +89,7 @@ public class CreateMultipleChoiceFragment extends Fragment {
     }
 
     public void onDoneClicked(View view) {
+        /*
         String one = text1.getText().toString().trim();
         String two = text2.getText().toString().trim();
         String three = text3.getText().toString().trim();
@@ -111,7 +112,7 @@ public class CreateMultipleChoiceFragment extends Fragment {
                 cDB.getCurrentGame().addComponent(component);
             }
             getParentFragmentManager().popBackStack();
-        }
+        }*/
     }
 
     public void onDiscardClicked(View view) {
