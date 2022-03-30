@@ -55,9 +55,6 @@ public class CreateActivity extends AppCompatActivity {
 
         cDB = ComponentDB.getInstance();
 
-        saveGame = findViewById(R.id.save_game_button);
-        saveGame.setOnClickListener(this::saveGame);
-
         tabLayout = findViewById(R.id.tab_layout);
         editorTab = findViewById(R.id.editor_tab);
         previewTab = findViewById(R.id.preview_tab);
