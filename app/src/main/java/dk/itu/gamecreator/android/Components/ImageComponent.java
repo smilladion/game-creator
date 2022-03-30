@@ -101,7 +101,7 @@ public class ImageComponent extends GameComponent {
             matrix.postRotate(90);
         }
 
-        if (bitmap != null) {
+        if (image.getDrawable() != null) {
             Bitmap bp = ((BitmapDrawable) image.getDrawable()).getBitmap();
             bp = Bitmap.createBitmap(bp, 0, 0, bp.getWidth(), bp.getHeight(), matrix, true);
             image.setImageBitmap(bp);
@@ -187,16 +187,8 @@ public class ImageComponent extends GameComponent {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
 
-                        // Image comes out rotated - to have it normal, do this.
-                        Matrix matrix = new Matrix();
-                        matrix.postRotate(270);
-                        bitmap = Bitmap.createBitmap(bitmap, 0, 0,
-                                bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
                         image.setImageBitmap(bitmap);
                         currentPhotoPath = saveImage(bitmap);
-
-                        //setButtonVisibility(View.VISIBLE);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
