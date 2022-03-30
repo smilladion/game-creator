@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -28,9 +29,9 @@ import dk.itu.gamecreator.android.R;
 public class ImageComponent extends GameComponent {
     private static final int GALLERY = 1, CAMERA = 2;
     private static final String IMAGE_DIRECTORY = "/comp_image";
-    static final int ROTATE_LEFT = 0, ROTATE_RIGHT = 1;
+    private static final int ROTATE_LEFT = 0, ROTATE_RIGHT = 1;
     private static ImageView image;
-    private static Bitmap bitmap;
+    private Bitmap bitmap;
     private Button selectImageButton, takePictureButton;
     private Button rotateLeftButton, rotateRightButton;
     private static Context context;
@@ -64,11 +65,16 @@ public class ImageComponent extends GameComponent {
         rotateLeftButton.setOnClickListener(v -> rotate(v, ROTATE_LEFT));
         rotateRightButton.setOnClickListener(v -> rotate(v, ROTATE_RIGHT));
 
+        if (bitmap != null) {
+            image.setImageBitmap(bitmap);
+        }
+
         return view;
     }
 
     @Override
     public boolean saveComponent(Context context) {
+        bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         return true;
     }
 
@@ -94,12 +100,12 @@ public class ImageComponent extends GameComponent {
         } else {
             matrix.postRotate(90);
         }
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        image.setImageBitmap(bitmap);
-    }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+        if (bitmap != null) {
+            Bitmap bp = ((BitmapDrawable) image.getDrawable()).getBitmap();
+            bp = Bitmap.createBitmap(bp, 0, 0, bp.getWidth(), bp.getHeight(), matrix, true);
+            image.setImageBitmap(bp);
+        }
     }
 
     public Bitmap getBitmap() {
@@ -149,7 +155,7 @@ public class ImageComponent extends GameComponent {
                 return;
             }
             if (requestCode == CAMERA) {
-                bitmap = (Bitmap) data.getExtras().get("data");
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                 image.setImageBitmap(bitmap);
                 currentPhotoPath = saveImage(bitmap);
             }
@@ -179,7 +185,7 @@ public class ImageComponent extends GameComponent {
                 if (data != null) {
                     Uri uri = data.getData();
                     try {
-                        bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
 
                         // Image comes out rotated - to have it normal, do this.
                         Matrix matrix = new Matrix();
