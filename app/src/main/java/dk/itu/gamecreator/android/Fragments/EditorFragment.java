@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import dk.itu.gamecreator.android.Adapters.ComponentRecyclerAdapter;
 import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
@@ -31,7 +32,8 @@ import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
-    RecyclerViewAdapter adapter;
+    //RecyclerViewAdapter adapter;
+    ComponentRecyclerAdapter adapter;
     RecyclerView recyclerView;
 
     Button saveGame;
@@ -167,7 +169,7 @@ public class EditorFragment extends Fragment {
             cDB.newGame();
         }
 
-        adapter = new RecyclerViewAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
+        adapter = new ComponentRecyclerAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
 
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
