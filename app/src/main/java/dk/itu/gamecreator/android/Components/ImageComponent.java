@@ -1,6 +1,5 @@
 package dk.itu.gamecreator.android.Components;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,11 +8,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -27,15 +28,16 @@ import java.io.IOException;
 import dk.itu.gamecreator.android.R;
 
 public class ImageComponent extends GameComponent {
+
     private static final int GALLERY = 1, CAMERA = 2;
     private static final String IMAGE_DIRECTORY = "/comp_image";
     private static final int ROTATE_LEFT = 0, ROTATE_RIGHT = 1;
-    private static ImageView image;
+
+    private ImageView image;
     private Bitmap bitmap;
     private Button selectImageButton, takePictureButton;
     private Button rotateLeftButton, rotateRightButton;
-    private static Context context;
-    private static String currentPhotoPath;
+    private Context context;
     private FragmentManager fragM;
 
     public ImageComponent(int id) {
@@ -74,19 +76,27 @@ public class ImageComponent extends GameComponent {
 
     @Override
     public boolean saveComponent(Context context) {
+        if (image.getDrawable() == null) {
+            Toast toast = Toast.makeText(context,
+                    "You must choose an image or discard component", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return false;
+        }
+
         bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         return true;
     }
 
     public void openGallery(View view) {
-        Fragment f = new GalleryFragment();
+        Fragment f = new GalleryFragment(context, image);
         fragM.beginTransaction()
                 .add(f, "hey")
                 .commit();
     }
 
     public void openCamera(View view) {
-        Fragment f = new CameraFragment();
+        Fragment f = new CameraFragment(image);
         fragM.beginTransaction()
                 .add(f, "hey")
                 .commit();
@@ -114,6 +124,7 @@ public class ImageComponent extends GameComponent {
 
     public static String saveImage(Bitmap bitmap) {
         File file = null;
+
         try {
             file = new File(Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
             file.createNewFile();
@@ -141,6 +152,13 @@ public class ImageComponent extends GameComponent {
      * the method 'onActivityResult'. This can only be done from Activity or Fragment.
      * */
     public static class CameraFragment extends Fragment {
+
+        private final ImageView image;
+
+        private CameraFragment(ImageView image) {
+            this.image = image;
+        }
+
         @Override
         public void onAttach(Context context) {
             super.onAttach(context);
@@ -157,7 +175,7 @@ public class ImageComponent extends GameComponent {
             if (requestCode == CAMERA) {
                 Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                 image.setImageBitmap(bitmap);
-                currentPhotoPath = saveImage(bitmap);
+                saveImage(bitmap);
             }
         }
     }
@@ -167,6 +185,15 @@ public class ImageComponent extends GameComponent {
      * the method 'onActivityResult'. This can only be done from Activity or Fragment.
      * */
     public static class GalleryFragment extends Fragment {
+
+        private final Context context;
+        private final ImageView image;
+
+        private GalleryFragment(Context context, ImageView image) {
+            this.context = context;
+            this.image = image;
+        }
+
         @Override
         public void onAttach(Context context) {
             super.onAttach(context);
@@ -188,7 +215,7 @@ public class ImageComponent extends GameComponent {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
 
                         image.setImageBitmap(bitmap);
-                        currentPhotoPath = saveImage(bitmap);
+                        saveImage(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
