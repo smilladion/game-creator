@@ -36,7 +36,7 @@ public class TextSolutionComponent extends SolutionComponent {
         ll.setOrientation(LinearLayout.HORIZONTAL);
 
         editText = new EditText(context);
-        editText.setWidth(150);
+        editText.setWidth(400);
         ll.addView(editText);
 
         Button button = new Button(context);
@@ -66,7 +66,7 @@ public class TextSolutionComponent extends SolutionComponent {
             userSolution = userSolution.toLowerCase();
             solutionTextS = solutionTextS.toLowerCase();
         }
-        
+
         if (solutionTextS.equals(userSolution)) {
             Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
