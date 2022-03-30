@@ -61,10 +61,9 @@ public class TextComponent extends GameComponent {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             return false;
-        } else {
-            this.text = text;
         }
 
+        this.text = text;
         gravityButtonId = toggleButton.getCheckedButtonId();
 
         String size = sizeView.getText().toString().trim();

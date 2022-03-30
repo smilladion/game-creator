@@ -21,13 +21,14 @@ public class TextSolutionComponent extends SolutionComponent {
     private String buttonTextS;
 
     private boolean isCaseSensitive;
-    EditText editText;
-    EditText solutionText;
-    EditText buttonText;
-    CheckBox caseSensitiveBox;
+    private EditText editText;
+    private EditText solutionText;
+    private EditText buttonText;
+    private CheckBox caseSensitiveBox;
 
     public TextSolutionComponent(int id) {
         super(id);
+        isCaseSensitive = false;
     }
 
     public View getDisplayView(Context context) {
@@ -51,6 +52,11 @@ public class TextSolutionComponent extends SolutionComponent {
         solutionText = view.findViewById(R.id.input_solution);
         buttonText = view.findViewById(R.id.input_button_text);
         caseSensitiveBox = view.findViewById(R.id.case_sensitive_checkbox);
+
+        solutionText.setText(solutionTextS);
+        buttonText.setText(buttonTextS);
+        caseSensitiveBox.setChecked(isCaseSensitive);
+
         return view;
     }
 
@@ -60,6 +66,7 @@ public class TextSolutionComponent extends SolutionComponent {
             userSolution = userSolution.toLowerCase();
             solutionTextS = solutionTextS.toLowerCase();
         }
+        
         if (solutionTextS.equals(userSolution)) {
             Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -73,16 +80,20 @@ public class TextSolutionComponent extends SolutionComponent {
 
     @Override
     public boolean saveComponent(Context context) {
-        if (solutionText.getText().toString().trim().length() == 0) {
+        String sText = solutionText.getText().toString().trim();
+        String bText = buttonText.getText().toString().trim();
+
+        if (sText.length() == 0 || bText.length() == 0) {
             Toast toast = Toast.makeText(context,
-                    "Text field can't be empty. Write something, or discard component", Toast.LENGTH_SHORT);
+                    "Text fields can't be empty", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
-        } else {
-            isCaseSensitive = caseSensitiveBox.isChecked();
-            solutionTextS = solutionText.getText().toString();
-            buttonTextS = buttonText.getText().toString();
+            return false;
         }
+
+        isCaseSensitive = caseSensitiveBox.isChecked();
+        solutionTextS = solutionText.getText().toString();
+        buttonTextS = buttonText.getText().toString();
         return true;
     }
 
