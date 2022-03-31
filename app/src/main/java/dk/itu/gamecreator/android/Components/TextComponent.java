@@ -88,6 +88,11 @@ public class TextComponent extends GameComponent {
         return gravity;
     }
 
+    @Override
+    public String getName() {
+        return "Text";
+    }
+
     public void setGravity(String pos) {
         this.gravity = pos;
     }

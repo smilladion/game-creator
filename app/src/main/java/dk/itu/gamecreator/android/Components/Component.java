@@ -29,6 +29,8 @@ public interface Component {
     /* Might be taken out. */
     String getGravity();
 
+    String getName();
+
     /**
      * Save the different input fields / check boxes or whatever else fields that
      * the component constructor has. These can NOT be saved as Views (Like buttons)

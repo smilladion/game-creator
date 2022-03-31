@@ -18,30 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import dk.itu.gamecreator.android.Adapters.ComponentRecyclerAdapter;
+import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
-import dk.itu.gamecreator.android.Components.ImageComponent;
-import dk.itu.gamecreator.android.Components.MultipleChoiceComponent;
-import dk.itu.gamecreator.android.Components.TextComponent;
+import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Dialogs.GameNameDialog;
 import dk.itu.gamecreator.android.R;
-import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 
 public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
-    //RecyclerViewAdapter adapter;
-    ComponentRecyclerAdapter adapter;
+    RecyclerViewAdapter adapter;
     RecyclerView recyclerView;
 
     Button saveGame;
-
-    Fragment textFragment = new CreateTextFragment();
-    Fragment textSolutionFragment = new CreateTextSolutionFragment();
-    Fragment imageFragment = new CreateImageFragment();
-    Fragment multipleFragment = new CreateMultipleChoiceFragment();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +51,6 @@ public class EditorFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
         recyclerView = view.findViewById(R.id.current_components);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -79,7 +69,10 @@ public class EditorFragment extends Fragment {
         ArrayList<String> componentTypes = new ArrayList<>();
 
         for (Class<?> clazz : classes) {
-            componentTypes.add(clazz.getSimpleName());
+            String name = clazz.getSimpleName();
+            String nameFormatted = name.replace("Component", "")
+                    .replaceAll("(?=[A-Z])", " ").trim();
+            componentTypes.add(nameFormatted);
         }
 
         // Set list popup's content
@@ -88,24 +81,23 @@ public class EditorFragment extends Fragment {
 
         // Respond to list popup window item click
         listPopupWindow.setOnItemClickListener((parent, v, position, id) -> {
-            // Create instance from class:
-            // clazz.getConstructor(Integer.class, String.class).newInstance(51, "asdasd");
-            switch (componentTypes.get(position)) {
-                case "TextComponent":
-                    testTextComponent(v);
-                    break;
-                case "TextSolutionComponent":
-                    //openComponentFragment(textSolutionFragment);
-                    break;
-                case "ImageComponent":
-                    testImageComponent(v);
-                    break;
-                case "MultipleChoiceComponent":
-                    //openComponentFragment(multipleFragment);
-                    break;
+
+            Class<?> clazz = classes.get(position);
+
+            try {
+                Component component = (Component) clazz.getConstructor(int.class).newInstance(cDB.getNextComponentId());
+                cDB.setComponent(component);
+
+                FragmentManager fm = getParentFragmentManager();
+                fm.beginTransaction().setReorderingAllowed(true)
+                        .replace(R.id.create_fragment, new CreateComponentFragment(), null)
+                        .addToBackStack(null)
+                        .commit();
+            } catch (ReflectiveOperationException e) {
+                e.printStackTrace();
             }
 
-            // Dismiss popup.
+            // Dismiss popup
             listPopupWindow.dismiss();
         });
 
@@ -135,41 +127,12 @@ public class EditorFragment extends Fragment {
         }
     }
 
-    public void testTextComponent(View view) {
-        TextComponent component = new TextComponent(cDB.getNextComponentId());
-        cDB.setComponent(component);
-        FragmentManager fm = getParentFragmentManager();
-        fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.create_fragment, new CreateComponentFragment(), null)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    public void testImageComponent(View view) {
-        ImageComponent component = new ImageComponent(cDB.getNextComponentId());
-        cDB.setComponent(component);
-        FragmentManager fm = getParentFragmentManager();
-        fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.create_fragment, new CreateComponentFragment(), null)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    public void openComponentFragment(Fragment fragment) {
-        FragmentManager fm = getParentFragmentManager();
-        fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.create_fragment, fragment, null)
-                .addToBackStack(null)
-                .commit();
-    }
-
     public void populateRecyclerView() {
-
         if (cDB.getCurrentGame() == null) {
             cDB.newGame();
         }
 
-        adapter = new ComponentRecyclerAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
+        adapter = new RecyclerViewAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
 
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);

@@ -70,6 +70,11 @@ public class ButtonGroupComponent extends SolutionComponent {
     }
 
     @Override
+    public String getName() {
+        return "Alexander!";
+    }
+
+    @Override
     public void saveComponent(Context context) {
 
     }

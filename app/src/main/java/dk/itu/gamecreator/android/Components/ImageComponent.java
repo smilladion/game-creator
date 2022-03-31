@@ -59,7 +59,11 @@ public class ImageComponent extends GameComponent {
         rotateLeftButton = view.findViewById(R.id.rotate_left_button);
         rotateRightButton = view.findViewById(R.id.rotate_right_button);
         image = view.findViewById(R.id.preview_image_view);
-        selectImageButton.setOnClickListener(v -> testGallery(v, context));
+        selectImageButton.setOnClickListener(this::openGallery);
+        takePictureButton.setOnClickListener(this::openCamera);
+        rotateLeftButton.setOnClickListener(v -> rotate(v, ROTATE_LEFT));
+        rotateRightButton.setOnClickListener(v -> rotate(v, ROTATE_RIGHT));
+
         return view;
     }
 
@@ -69,12 +73,104 @@ public class ImageComponent extends GameComponent {
     }
 
     @Override
+    public String getName() {
+        return "Image";
+    }
+
+    @Override
     public void saveComponent(Context context) {
 
     }
 
+    public void openGallery(View view) {
+        Fragment f = new GalleryFragment();
+        fragM.beginTransaction()
+                .add(f, "hey")
+                .commit();
+    }
+
+    public void openCamera(View view) {
+        Fragment f = new CameraFragment();
+        fragM.beginTransaction()
+                .add(f, "hey")
+                .commit();
+    }
+
+    public void rotate(View view, int direction) {
+        Matrix matrix = new Matrix();
+
+        if (direction == ROTATE_LEFT) {
+            matrix.postRotate(-90);
+        } else {
+            matrix.postRotate(90);
+        }
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        image.setImageBitmap(bitmap);
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public static String saveImage(Bitmap bitmap) {
+        File file = null;
+        try {
+            file = new File(Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+            file.createNewFile();
+
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bytes);
+            byte[] bitmapdata = bytes.toByteArray();
+
+            FileOutputStream fstream = new FileOutputStream(file);
+            fstream.write(bitmapdata);
+            fstream.flush();
+            fstream.close();
+            return file.getAbsolutePath();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //returns null
+            return file.getAbsolutePath();
+        }
+    }
+
+    /**
+     * Inner class CameraFragment - it has to be used in order to open an Activity (implicit
+     * activity 'camera'. In order to use it, it is required to use startActivityForResult, and override
+     * the method 'onActivityResult'. This can only be done from Activity or Fragment.
+     * */
+    public static class CameraFragment extends Fragment {
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA);
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode,
+                                     Intent data) {
+            if (resultCode == getActivity().RESULT_CANCELED) {
+                return;
+            }
+            if (requestCode == CAMERA) {
+                bitmap = (Bitmap) data.getExtras().get("data");
+                image.setImageBitmap(bitmap);
+                currentPhotoPath = saveImage(bitmap);
+            }
+        }
+    }
+    /**
+     * Inner class GalleryFragment - it has to be used in order to open an Activity (implicit
+     * activity 'gallery'. In order to use it, it is required to use startActivityForResult, and override
+     * the method 'onActivityResult'. This can only be done from Activity or Fragment.
+     * */
     public static class GalleryFragment extends Fragment {
-        //Context context;
         @Override
         public void onAttach(Context context) {
             super.onAttach(context);
@@ -111,107 +207,9 @@ public class ImageComponent extends GameComponent {
                 }
             }
         }
-
-        public String saveImage(Bitmap bitmap) {
-            File file = null;
-            try {
-                file = new File(Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-                file.createNewFile();
-
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bytes);
-                byte[] bitmapdata = bytes.toByteArray();
-
-                FileOutputStream fstream = new FileOutputStream(file);
-                fstream.write(bitmapdata);
-                fstream.flush();
-                fstream.close();
-                return file.getAbsolutePath();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                //returns null
-                return file.getAbsolutePath();
-            }
-        }
     }
+}
 
-    public void testGallery(View view, Context context) {
-        Fragment f = new GalleryFragment();
-        fragM.beginTransaction()
-                .add(f, "hey")
-                .commit();
-        }
 
-        public void openGallery (View view, Context context){
-            Intent intent = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            if (context instanceof Activity) {
-                ((Activity) context).startActivityForResult(intent, GALLERY);
-            }
-            //startActivityForResult(intent, GALLERY);
-        }
 
-        public void openCamera (View view){
-            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            if (context instanceof Activity) {
-                ((Activity) context).startActivityForResult(intent, CAMERA);
-            }
-        }
-    /*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == getActivity().RESULT_CANCELED) {
-            return;
-        }
-        if (requestCode == GALLERY) {
-            if (data != null) {
-                Uri uri = data.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-
-                    // Image comes out rotated - to have it normal, do this.
-                    Matrix matrix = new Matrix();
-                    matrix.postRotate(270);
-                    bitmap = Bitmap.createBitmap(bitmap, 0, 0,
-                            bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
-                    image.setImageBitmap(bitmap);
-                    currentPhotoPath = saveImage(bitmap);
-
-                    //setButtonVisibility(View.VISIBLE);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } else if (requestCode == CAMERA) {
-            bitmap = (Bitmap) data.getExtras().get("data");
-            image.setImageBitmap(bitmap);
-            currentPhotoPath = saveImage(bitmap);
-
-            //setButtonVisibility(View.VISIBLE);
-        }
-    }*/
-
-        public void rotate ( int direction){
-            Matrix matrix = new Matrix();
-
-            if (direction == ROTATE_LEFT) {
-                matrix.postRotate(-90);
-            } else {
-                matrix.postRotate(90);
-            }
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            image.setImageBitmap(bitmap);
-        }
-
-        public void setBitmap (Bitmap bitmap){
-            this.bitmap = bitmap;
-        }
-
-        public Bitmap getBitmap () {
-            return bitmap;
-        }
-    }
 
