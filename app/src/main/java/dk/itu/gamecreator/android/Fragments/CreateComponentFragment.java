@@ -56,7 +56,8 @@ public class CreateComponentFragment extends Fragment {
 
     public void onDone(View view) {
         component.saveComponent(this.getContext());
-        cDB.getCurrentGame().addComponent(component);
+        cDB.getCurrentStage().addGameComponent(component);
+        //cDB.getCurrentGame().addComponent(component);
         getParentFragmentManager().popBackStack();
     }
 

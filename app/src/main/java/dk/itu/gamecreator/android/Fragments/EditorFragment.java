@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.ListPopupWindow;
@@ -17,20 +18,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import dk.itu.gamecreator.android.Adapters.ExpandableListAdapter;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
+import dk.itu.gamecreator.android.Adapters.StageRecycler;
 import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Dialogs.GameNameDialog;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.Stage;
 
 public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
-    RecyclerViewAdapter adapter;
+    StageRecycler adapter;
     RecyclerView recyclerView;
+    ExpandableListView expandableListView;
+    ExpandableListAdapter expandableListAdapter;
+    List<String> stageNames = new ArrayList<>();
+    HashMap<Stage, List<Component>> map = new HashMap<>();
 
     Button saveGame;
 
@@ -51,59 +61,30 @@ public class EditorFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        recyclerView = view.findViewById(R.id.current_components);
+        recyclerView = view.findViewById(R.id.current_stages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        expandableListView = view.findViewById(R.id.expandableListView);
+        for (Stage s : cDB.getCurrentGame().getStages()) {
+            stageNames.add(s.getName());
+            map.put(s, s.getGameComponents());
+        }
+        expandableListAdapter = new ExpandableListAdapter(getContext(), stageNames, map);
+        expandableListView.setAdapter(expandableListAdapter);
 
         saveGame = view.findViewById(R.id.save_game_button);
         saveGame.setOnClickListener(this::saveGame);
 
         Button addStageButton = view.findViewById(R.id.add_stage);
-        ListPopupWindow listPopupWindow = new ListPopupWindow(view.getContext(), null,
-                com.google.android.material.R.attr.listPopupWindowStyle);
+        addStageButton.setOnClickListener(this::newStage);
 
-        // Set button as the list popup's anchor
-        listPopupWindow.setAnchorView(addComponentButton);
+        populateRecyclerView();
+    }
 
-        // Get component class names using the ClassFinder
-        ArrayList<Class<?>> classes = new ArrayList<>(ClassFinder.load());
-        ArrayList<String> componentTypes = new ArrayList<>();
-
-        for (Class<?> clazz : classes) {
-            String name = clazz.getSimpleName();
-            String nameFormatted = name.replace("Component", "")
-                    .replaceAll("(?=[A-Z])", " ").trim();
-            componentTypes.add(nameFormatted);
-        }
-
-        // Set list popup's content
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.list_popup_window_item, componentTypes);
-        listPopupWindow.setAdapter(adapter);
-
-        // Respond to list popup window item click
-        listPopupWindow.setOnItemClickListener((parent, v, position, id) -> {
-
-            Class<?> clazz = classes.get(position);
-
-            try {
-                Component component = (Component) clazz.getConstructor(int.class).newInstance(cDB.getNextComponentId());
-                cDB.setComponent(component);
-
-                FragmentManager fm = getParentFragmentManager();
-                fm.beginTransaction().setReorderingAllowed(true)
-                        .replace(R.id.create_fragment, new CreateComponentFragment(), null)
-                        .addToBackStack(null)
-                        .commit();
-            } catch (ReflectiveOperationException e) {
-                e.printStackTrace();
-            }
-
-            // Dismiss popup
-            listPopupWindow.dismiss();
-        });
-
-        // Show list popup window on button click.
-        addComponentButton.setOnClickListener(view1 -> listPopupWindow.show());
-
+    public void newStage(View view) {
+        Stage stage = new Stage();
+        cDB.setCurrentStage(stage);
+        cDB.getCurrentGame().addStage(stage);
         populateRecyclerView();
     }
 
@@ -127,17 +108,31 @@ public class EditorFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        System.out.println("HEY");
+        super.onResume();
+        populateRecyclerView();
+    }
+
     public void populateRecyclerView() {
         if (cDB.getCurrentGame() == null) {
             cDB.newGame();
         }
 
-        adapter = new RecyclerViewAdapter(this.getContext(), cDB.getCurrentGame().getComponents());
+        for (Stage s : cDB.getCurrentGame().getStages()) {
+            stageNames.add(s.getName());
+            map.put(s, s.getGameComponents());
+        }
+        expandableListAdapter = new ExpandableListAdapter(getContext(), stageNames, map);
+        expandableListView.setAdapter(expandableListAdapter);
 
+        adapter = new StageRecycler(this.getContext(), cDB.getCurrentGame().getStages(), getParentFragmentManager());
+        /*
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
-
+*/
         recyclerView.setAdapter(adapter);
     }
 }

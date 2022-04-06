@@ -10,7 +10,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/game_card"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:focusable="true">
 

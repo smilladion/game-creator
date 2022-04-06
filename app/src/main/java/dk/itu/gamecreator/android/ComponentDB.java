@@ -17,9 +17,11 @@ public final class ComponentDB {
 
     private static ComponentDB instance = null;
     private Game currentGame = null;
+    private Stage currentStage = null;
     private List<Game> allGames;
     private int cID;
     private int gID;
+    private int sID;
 
     private Component component;
 
@@ -27,6 +29,7 @@ public final class ComponentDB {
         allGames = new ArrayList<>();
         cID = 0;
         gID = 0;
+        sID = 0;
     }
 
     public static ComponentDB getInstance() {
@@ -50,6 +53,14 @@ public final class ComponentDB {
         }
     }
 
+    public void setCurrentStage(Stage stage) {
+        this.currentStage = stage;
+    }
+
+    public Stage getCurrentStage() {
+        return currentStage;
+    }
+
     public List<Game> getAllGames() {
         return allGames;
     }
@@ -70,6 +81,11 @@ public final class ComponentDB {
     public int getNextComponentId() {
         cID = cID + 1;
         return cID;
+    }
+
+    public int getNextStageID() {
+        sID = sID + 1;
+        return sID;
     }
 
     public Component getComponent() {
