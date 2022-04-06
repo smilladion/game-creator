@@ -89,8 +89,15 @@ public class EditorFragment extends Fragment {
     }
 
     public void saveGame(View view) {
-        if (cDB.getCurrentGame().getComponents().isEmpty()) {
-            Toast toast = Toast.makeText(this.getContext(), "Add a game component to create a game!", Toast.LENGTH_SHORT);
+        boolean isEmpty = false;
+        for (Stage s : cDB.getCurrentGame().getStages()) {
+            if (s.getGameComponents().isEmpty()) {
+                isEmpty = true;
+            }
+            break;
+        }
+        if (isEmpty) {
+            Toast toast = Toast.makeText(this.getContext(), "One of your stages has no components. A stage can not be empty.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
@@ -110,7 +117,6 @@ public class EditorFragment extends Fragment {
 
     @Override
     public void onResume() {
-        System.out.println("HEY");
         super.onResume();
         populateRecyclerView();
     }
