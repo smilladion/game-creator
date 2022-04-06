@@ -10,6 +10,8 @@
     <string name="image">Image</string>
     <string name="multiple">Multiple choice</string>
 
+    <string name="add_stage">Add stage</string>
+
     <string name="done">Done</string>
     <string name="discard">Discard</string>
 

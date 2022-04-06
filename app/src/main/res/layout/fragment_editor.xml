@@ -13,10 +13,10 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/add_component"
+            android:id="@+id/add_stage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_component"
+            android:text="@string/add_stage"
             style="?attr/materialButtonOutlinedStyle" />
 
     </LinearLayout>
@@ -26,7 +26,7 @@
         android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/current_components"
+        android:id="@+id/current_stages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

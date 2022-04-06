@@ -57,7 +57,7 @@ public class EditorFragment extends Fragment {
         saveGame = view.findViewById(R.id.save_game_button);
         saveGame.setOnClickListener(this::saveGame);
 
-        Button addComponentButton = view.findViewById(R.id.add_component);
+        Button addStageButton = view.findViewById(R.id.add_stage);
         ListPopupWindow listPopupWindow = new ListPopupWindow(view.getContext(), null,
                 com.google.android.material.R.attr.listPopupWindowStyle);
 
