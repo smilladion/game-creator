@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
 public class MultipleChoiceComponent extends SolutionComponent {
@@ -28,6 +29,7 @@ public class MultipleChoiceComponent extends SolutionComponent {
     EditText text3;
     EditText text4;
     int correct;
+    Game game;
 
     public MultipleChoiceComponent(int id) {
         super(id);
@@ -113,6 +115,7 @@ public class MultipleChoiceComponent extends SolutionComponent {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
+        game.startNextStage();
     }
 
     @Override

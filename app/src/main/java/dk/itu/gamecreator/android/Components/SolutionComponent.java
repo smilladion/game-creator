@@ -16,9 +16,21 @@ public abstract class SolutionComponent implements Component {
         this.id = id;
     }
 
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
     public abstract View getDisplayView(Context context);
 
     public abstract View getCreateView(Context context);
+
+    public void onStageDone() {
+        game.startNextStage();
+    }
 
     public abstract String getGravity();
 }

@@ -36,11 +36,11 @@ public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
     StageRecycler adapter;
-    RecyclerView recyclerView;
+    //RecyclerView recyclerView;
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
-    List<String> stageNames = new ArrayList<>();
-    HashMap<Stage, List<Component>> map = new HashMap<>();
+    List<Stage> stages = new ArrayList<>();
+    HashMap<String, List<Component>> map = new HashMap<>();
 
     Button saveGame;
 
@@ -61,16 +61,12 @@ public class EditorFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        recyclerView = view.findViewById(R.id.current_stages);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        //recyclerView = view.findViewById(R.id.current_stages);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         expandableListView = view.findViewById(R.id.expandableListView);
-        for (Stage s : cDB.getCurrentGame().getStages()) {
-            stageNames.add(s.getName());
-            map.put(s, s.getGameComponents());
-        }
-        expandableListAdapter = new ExpandableListAdapter(getContext(), stageNames, map);
-        expandableListView.setAdapter(expandableListAdapter);
+        //expandableListAdapter = new ExpandableListAdapter(getContext(), stageNames, map);
+        //expandableListView.setAdapter(expandableListAdapter);
 
         saveGame = view.findViewById(R.id.save_game_button);
         saveGame.setOnClickListener(this::saveGame);
@@ -83,6 +79,7 @@ public class EditorFragment extends Fragment {
 
     public void newStage(View view) {
         Stage stage = new Stage();
+        stage.setId(cDB.getNextStageID());
         cDB.setCurrentStage(stage);
         cDB.getCurrentGame().addStage(stage);
         populateRecyclerView();
@@ -126,19 +123,20 @@ public class EditorFragment extends Fragment {
             cDB.newGame();
         }
 
+        stages.clear();
         for (Stage s : cDB.getCurrentGame().getStages()) {
-            stageNames.add(s.getName());
-            map.put(s, s.getGameComponents());
+            stages.add(s);
+            map.put(s.getName(), s.getGameComponents());
         }
-        expandableListAdapter = new ExpandableListAdapter(getContext(), stageNames, map);
+        expandableListAdapter = new ExpandableListAdapter(getContext(), stages, map, getParentFragmentManager());
         expandableListView.setAdapter(expandableListAdapter);
 
-        adapter = new StageRecycler(this.getContext(), cDB.getCurrentGame().getStages(), getParentFragmentManager());
+        //adapter = new StageRecycler(this.getContext(), cDB.getCurrentGame().getStages(), getParentFragmentManager());
         /*
         ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 */
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
     }
 }

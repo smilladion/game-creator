@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
 public class ImageComponent extends GameComponent {
@@ -97,15 +98,17 @@ public class ImageComponent extends GameComponent {
     }
 
     public void rotate(View view, int direction) {
-        Matrix matrix = new Matrix();
+        if (bitmap != null) {
+            Matrix matrix = new Matrix();
 
-        if (direction == ROTATE_LEFT) {
-            matrix.postRotate(-90);
-        } else {
-            matrix.postRotate(90);
+            if (direction == ROTATE_LEFT) {
+                matrix.postRotate(-90);
+            } else {
+                matrix.postRotate(90);
+            }
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            image.setImageBitmap(bitmap);
         }
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        image.setImageBitmap(bitmap);
     }
 
     public void setBitmap(Bitmap bitmap) {

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
@@ -24,6 +25,7 @@ public class GameFragment extends Fragment {
     TextView text;
     Context context;
     Game game;
+    Stage currentStage;
 
     @Override
     public void onAttach(Context context) {
@@ -49,6 +51,26 @@ public class GameFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ll = view.findViewById(R.id.game_layout);
         text = view.findViewById(R.id.text);
+
+        final Observer<Stage> stageObserver = new Observer<Stage>() {
+            @Override
+            public void onChanged(Stage stage) {
+                nextStage();
+            }
+        };
+
+        game.getcStage().observe(this.getViewLifecycleOwner(), stageObserver);
+
+        Stage s = game.getStages().get(0);
+        currentStage = s;
+
+        for (Component c: s.getGameComponents()) {
+            LinearLayout viewLayout = new LinearLayout(context);
+            View v = c.getDisplayView(context);
+            viewLayout.addView(v);
+            ll.addView(viewLayout);
+        }
+        /*
         for (Stage s : game.getStages()) {
             for (Component c: s.getGameComponents()) {
                 LinearLayout viewLayout = new LinearLayout(context);
@@ -60,10 +82,19 @@ public class GameFragment extends Fragment {
                 viewLayout.setGravity(Gravity.RIGHT);
             } else {
                 viewLayout.setGravity(Gravity.CENTER);
-            }*/
-                viewLayout.addView(v);
-                ll.addView(viewLayout);
             }
+                viewLayout.addView(v);
+                ll.addView(viewLayout); */
+    }
+
+    public void nextStage() {
+        Stage s = currentStage.getNextStage();
+        for (Component c: s.getGameComponents()) {
+            LinearLayout viewLayout = new LinearLayout(context);
+            View v = c.getDisplayView(context);
+            viewLayout.addView(v);
+            ll.removeAllViews();
+            ll.addView(viewLayout);
         }
     }
 }

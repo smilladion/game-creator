@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
 
+import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
 public class TextComponent extends GameComponent {

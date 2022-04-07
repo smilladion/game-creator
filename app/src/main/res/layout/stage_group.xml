@@ -2,15 +2,14 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
         android:id="@+id/stage_name"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textColor="@android:color/black"
         android:paddingTop="10dp"
         android:paddingBottom="10dp" />
 
@@ -18,6 +17,7 @@
         android:id="@+id/add_component_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:focusable="false"
         android:text="@string/add_component"
         android:layout_marginHorizontal="5dp"
         style="?attr/materialButtonOutlinedStyle"/>

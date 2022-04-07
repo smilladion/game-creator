@@ -94,7 +94,7 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     public void saveGame(View view) {
-        if (cDB.getCurrentGame().getComponents().isEmpty()) {
+        if (cDB.getCurrentGame().getStages().isEmpty()) {
             Toast toast = Toast.makeText(this, "Add a game component to create a game!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();

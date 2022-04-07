@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.itu.gamecreator.android.Components.SolutionComponent;
+import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
 public class TextSolutionComponent extends SolutionComponent {
@@ -25,6 +26,7 @@ public class TextSolutionComponent extends SolutionComponent {
     EditText solutionText;
     EditText buttonText;
     CheckBox caseSensitiveBox;
+    Game game;
 
     public TextSolutionComponent(int id) {
         super(id);
