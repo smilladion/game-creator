@@ -1,6 +1,5 @@
 package dk.itu.gamecreator.android.Components;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,7 +22,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
 public class ImageComponent extends GameComponent {
@@ -36,7 +34,7 @@ public class ImageComponent extends GameComponent {
     private Button rotateLeftButton, rotateRightButton;
     private static Context context;
     private static String currentPhotoPath;
-    private FragmentManager fragM;
+    private FragmentManager fragmentManager;
 
     public ImageComponent(int id) {
         super(id);
@@ -53,13 +51,16 @@ public class ImageComponent extends GameComponent {
     @Override
     public View getCreateView(Context context) {
         this.context = context;
-        this.fragM = ((FragmentActivity) context).getSupportFragmentManager();
+        this.fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_create_image_component, null, false);
+
         selectImageButton = view.findViewById(R.id.select_image_button);
         takePictureButton = view.findViewById(R.id.take_picture_button);
         rotateLeftButton = view.findViewById(R.id.rotate_left_button);
         rotateRightButton = view.findViewById(R.id.rotate_right_button);
         image = view.findViewById(R.id.preview_image_view);
+
         selectImageButton.setOnClickListener(this::openGallery);
         takePictureButton.setOnClickListener(this::openCamera);
         rotateLeftButton.setOnClickListener(v -> rotate(v, ROTATE_LEFT));
@@ -84,16 +85,16 @@ public class ImageComponent extends GameComponent {
     }
 
     public void openGallery(View view) {
-        Fragment f = new GalleryFragment();
-        fragM.beginTransaction()
-                .add(f, "hey")
+        Fragment galleryFragment = new GalleryFragment();
+        fragmentManager.beginTransaction()
+                .add(galleryFragment, "hey")
                 .commit();
     }
 
     public void openCamera(View view) {
-        Fragment f = new CameraFragment();
-        fragM.beginTransaction()
-                .add(f, "hey")
+        Fragment cameraFragment = new CameraFragment();
+        fragmentManager.beginTransaction()
+                .add(cameraFragment, "hey")
                 .commit();
     }
 
@@ -203,7 +204,6 @@ public class ImageComponent extends GameComponent {
                         image.setImageBitmap(bitmap);
                         currentPhotoPath = saveImage(bitmap);
 
-                        //setButtonVisibility(View.VISIBLE);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

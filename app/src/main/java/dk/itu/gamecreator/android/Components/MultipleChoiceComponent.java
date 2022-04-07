@@ -19,17 +19,16 @@ public class MultipleChoiceComponent extends SolutionComponent {
 
     private String[] options;
 
-    RadioGroup radioGroup;
-    RadioButton radio1;
-    RadioButton radio2;
-    RadioButton radio3;
-    RadioButton radio4;
-    EditText text1;
-    EditText text2;
-    EditText text3;
-    EditText text4;
-    int correct;
-    Game game;
+    private RadioGroup radioGroup;
+    private RadioButton radio1;
+    private RadioButton radio2;
+    private RadioButton radio3;
+    private RadioButton radio4;
+    private EditText text1;
+    private EditText text2;
+    private EditText text3;
+    private EditText text4;
+    private int correct;
 
     public MultipleChoiceComponent(int id) {
         super(id);
@@ -66,7 +65,7 @@ public class MultipleChoiceComponent extends SolutionComponent {
         for(int i = 0; i < options.length; i++) {
             Button b = new Button(context);
             b.setText(options[i]);
-            // it didnt just want 'i' in the lambda?
+            // it didn't just want 'i' in the lambda?
             int finalI = i;
             b.setOnClickListener(view -> checkSolution(view, finalI, context));
             if (i < 2) {
@@ -110,12 +109,12 @@ public class MultipleChoiceComponent extends SolutionComponent {
             Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+            setSolved(true);
         } else {
             Toast toast = Toast.makeText(context, "Incorrect", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
-        game.startNextStage();
     }
 
     @Override

@@ -23,7 +23,7 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final List<Game> games;
     private final LayoutInflater mInflater;
     private final Context context;
-    ComponentDB cDB;
+    private ComponentDB cDB;
 
     public GameRecyclerAdapter(Context context, List<Game> games) {
         this.mInflater = LayoutInflater.from(context);

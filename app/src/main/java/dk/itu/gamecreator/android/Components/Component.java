@@ -38,4 +38,6 @@ public interface Component {
      * and create the actual views in the getDisplayView method.
      */
     void saveComponent(Context context);
+
+    boolean isSolutionComponent();
 }

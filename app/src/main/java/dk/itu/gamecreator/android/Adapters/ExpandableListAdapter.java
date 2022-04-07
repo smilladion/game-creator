@@ -2,6 +2,7 @@ package dk.itu.gamecreator.android.Adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
@@ -38,8 +40,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.context = context;
         this.stages = stages;
         this.map = map;
-        cDB = ComponentDB.getInstance();
         this.fragmentManager = fragmentManager;
+
+        cDB = ComponentDB.getInstance();
     }
 
     @Override
@@ -65,8 +68,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView componentName = convertView.findViewById(R.id.component_name);
         componentName.setText(component.getName());
+
         Button editButton = convertView.findViewById(R.id.edit_button);
         Button deleteButton = convertView.findViewById(R.id.delete_button);
+        editButton.setOnClickListener(v -> onEdit(listPosition, expandedListPosition));
+        deleteButton.setOnClickListener(v -> onDelete(listPosition, expandedListPosition));
+
         LinearLayout componentLayout = convertView.findViewById(R.id.component_layout);
         componentLayout.removeAllViews();
         View componentView = component.getDisplayView(context);
@@ -110,6 +117,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView listTitleTextView = convertView.findViewById(R.id.stage_name);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(s.getName());
+
         Button addComponent = convertView.findViewById(R.id.add_component_button);
 
         ListPopupWindow listPopupWindow = new ListPopupWindow(context, null,
@@ -173,5 +181,22 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
+    }
+
+    private void onDelete(int listPosition, int expandedListPosition) {
+        String stageName = stages.get(listPosition).getName();
+        map.get(stageName).remove(expandedListPosition);
+        notifyDataSetChanged();
+    }
+
+    private void onEdit(int listPosition, int expandedListPosition) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("componentIndex", expandedListPosition);
+
+        CreateActivity activity = (CreateActivity) context;
+        activity.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.create_fragment, CreateComponentFragment.class, bundle)
+                .addToBackStack(null)
+                .commit();
     }
 }

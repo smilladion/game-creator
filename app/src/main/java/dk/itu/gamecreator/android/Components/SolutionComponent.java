@@ -9,28 +9,40 @@ import dk.itu.gamecreator.android.Stage;
 public abstract class SolutionComponent implements Component {
 
     private final int id;
-    private Stage stage;
-    private Game game;
+    private boolean isSolved = false;
+    private SolvedListener solvedListener;
 
     public SolutionComponent(int id) {
         this.id = id;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public Game getGame() {
-        return game;
     }
 
     public abstract View getDisplayView(Context context);
 
     public abstract View getCreateView(Context context);
 
-    public void onStageDone() {
-        game.startNextStage();
+    public abstract String getGravity();
+
+    @Override
+    public boolean isSolutionComponent() {
+        return true;
     }
 
-    public abstract String getGravity();
+    public boolean isSolved() {
+        return isSolved;
+    }
+
+    public void setSolved(boolean solved) {
+        isSolved = solved;
+        if (solved) {
+            solvedListener.onChange();
+        }
+    }
+
+    public void addSolvedListener(SolvedListener solvedListener) {
+        this.solvedListener = solvedListener;
+    }
+
+    public interface SolvedListener {
+        void onChange();
+    }
 }

@@ -23,8 +23,7 @@ public class TextComponent extends GameComponent {
     private String text;
     private float size = 25;
     private String gravity;
-    TextInputEditText editText;
-    //MaterialButtonToggleGroup toggleButton;
+    private TextInputEditText editText;
 
     public TextComponent(int id) {
         super(id);

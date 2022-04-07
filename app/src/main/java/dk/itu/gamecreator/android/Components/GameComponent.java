@@ -13,6 +13,11 @@ public abstract class GameComponent implements Component {
         this.id = id;
     }
 
+    @Override
+    public boolean isSolutionComponent() {
+        return false;
+    }
+
     public abstract View getDisplayView(Context context);
 
     public abstract View getCreateView(Context context);

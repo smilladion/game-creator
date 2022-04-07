@@ -22,29 +22,28 @@ public class TextSolutionComponent extends SolutionComponent {
     private String buttonTextS;
 
     private boolean isCaseSensitive;
-    EditText editText;
-    EditText solutionText;
-    EditText buttonText;
-    CheckBox caseSensitiveBox;
-    Game game;
+    private EditText editText;
+    private EditText solutionText;
+    private EditText buttonText;
+    private CheckBox caseSensitiveBox;
 
     public TextSolutionComponent(int id) {
         super(id);
     }
 
     public View getDisplayView(Context context) {
-        LinearLayout ll = new LinearLayout(context);
-        ll.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout outerLayout = new LinearLayout(context);
+        outerLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         editText = new EditText(context);
         editText.setWidth(150);
-        ll.addView(editText);
+        outerLayout.addView(editText);
 
         Button button = new Button(context);
         button.setText(buttonTextS);
-        ll.addView(button);
+        outerLayout.addView(button);
         button.setOnClickListener(view -> checkSolution(view, context));
-        return ll;
+        return outerLayout;
     }
 
     @Override
@@ -66,6 +65,7 @@ public class TextSolutionComponent extends SolutionComponent {
             Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+            setSolved(true);
         } else {
             Toast toast = Toast.makeText(context, "Incorrect", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);

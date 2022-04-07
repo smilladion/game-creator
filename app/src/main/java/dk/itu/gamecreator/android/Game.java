@@ -7,24 +7,11 @@ import dk.itu.gamecreator.android.Components.Component;
 
 public class Game {
     private final ArrayList<Stage> stages;
-    private Stage currentStage;
     private int gID;
     private String name;
-    private MutableLiveData<Stage> cStage;
-
-    public MutableLiveData<Stage> getcStage() {
-        if (cStage == null) {
-            cStage = new MutableLiveData<Stage>();
-        }
-        return cStage;
-    }
 
     public Game() {
         stages = new ArrayList<>();
-    }
-
-    public void startNextStage() {
-        currentStage = currentStage.getNextStage();
     }
 
     public ArrayList<Stage> getStages() { return stages; }

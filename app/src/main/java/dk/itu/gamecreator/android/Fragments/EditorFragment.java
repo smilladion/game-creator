@@ -5,28 +5,18 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.ListPopupWindow;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import dk.itu.gamecreator.android.Adapters.ExpandableListAdapter;
-import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
-import dk.itu.gamecreator.android.Adapters.StageRecycler;
-import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Adapters.ItemMoveCallback;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Dialogs.GameNameDialog;
 import dk.itu.gamecreator.android.R;
@@ -34,15 +24,12 @@ import dk.itu.gamecreator.android.Stage;
 
 public class EditorFragment extends Fragment {
 
-    ComponentDB cDB;
-    StageRecycler adapter;
-    //RecyclerView recyclerView;
-    ExpandableListView expandableListView;
-    ExpandableListAdapter expandableListAdapter;
-    List<Stage> stages = new ArrayList<>();
-    HashMap<String, List<Component>> map = new HashMap<>();
-
-    Button saveGame;
+    private ComponentDB cDB;
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListAdapter;
+    private List<Stage> stages = new ArrayList<>();
+    private HashMap<String, List<Component>> map = new HashMap<>();
+    private Button saveGame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,12 +48,7 @@ public class EditorFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        //recyclerView = view.findViewById(R.id.current_stages);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
         expandableListView = view.findViewById(R.id.expandableListView);
-        //expandableListAdapter = new ExpandableListAdapter(getContext(), stageNames, map);
-        //expandableListView.setAdapter(expandableListAdapter);
 
         saveGame = view.findViewById(R.id.save_game_button);
         saveGame.setOnClickListener(this::saveGame);
@@ -74,15 +56,18 @@ public class EditorFragment extends Fragment {
         Button addStageButton = view.findViewById(R.id.add_stage);
         addStageButton.setOnClickListener(this::newStage);
 
-        populateRecyclerView();
+        populateExpandableListView();
     }
 
     public void newStage(View view) {
         Stage stage = new Stage();
         stage.setId(cDB.getNextStageID());
+        if (cDB.getCurrentStage() != null) {
+            cDB.getCurrentStage().setNextStage(stage);
+        }
         cDB.setCurrentStage(stage);
         cDB.getCurrentGame().addStage(stage);
-        populateRecyclerView();
+        populateExpandableListView();
     }
 
     public void saveGame(View view) {
@@ -115,10 +100,10 @@ public class EditorFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        populateRecyclerView();
+        populateExpandableListView();
     }
 
-    public void populateRecyclerView() {
+    public void populateExpandableListView() {
         if (cDB.getCurrentGame() == null) {
             cDB.newGame();
         }
@@ -131,12 +116,6 @@ public class EditorFragment extends Fragment {
         expandableListAdapter = new ExpandableListAdapter(getContext(), stages, map, getParentFragmentManager());
         expandableListView.setAdapter(expandableListAdapter);
 
-        //adapter = new StageRecycler(this.getContext(), cDB.getCurrentGame().getStages(), getParentFragmentManager());
-        /*
-        ItemTouchHelper.Callback callback = new ItemMoveCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
-*/
-        //recyclerView.setAdapter(adapter);
+        // Possibly implement the item touch call back - see old version of app for implementation.
     }
 }

@@ -11,7 +11,6 @@ public class Stage {
     private Stage nextStage;
     private List<Component> gameComponents;
     private SolutionComponent solutionComponent;
-    private String name;
     private int id;
 
     public Stage() {
