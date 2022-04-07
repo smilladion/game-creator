@@ -44,9 +44,6 @@
         <activity
             android:name=".Activities.GameActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".Activities.MapActivity"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".Activities.MapsActivity"
