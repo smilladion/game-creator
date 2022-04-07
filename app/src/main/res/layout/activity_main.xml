@@ -24,6 +24,7 @@
         android:id="@+id/create_button"
         android:text="@string/create_game"
         android:textSize="60sp"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="center" />
 
     <Button
@@ -32,7 +33,6 @@
         android:id="@+id/map_button"
         android:text="MAP"
         android:textSize="60sp"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+        android:layout_gravity="center" />
 
 </LinearLayout>

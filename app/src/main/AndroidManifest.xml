@@ -20,6 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GameCreator">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".Activities.MainActivity"
             android:exported="true">
@@ -42,6 +46,10 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.MapActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".Activities.MapsActivity"
             android:screenOrientation="portrait"/>
 
     </application>

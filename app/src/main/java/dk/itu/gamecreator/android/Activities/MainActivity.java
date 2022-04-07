@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import dk.itu.gamecreator.android.Activities.CreateActivity;
-import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onMapClicked(View view) {
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 }
