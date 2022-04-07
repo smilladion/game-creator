@@ -36,7 +36,7 @@ public class TextSolutionComponent extends SolutionComponent {
         ll.setOrientation(LinearLayout.HORIZONTAL);
 
         editText = new EditText(context);
-        editText.setWidth(400);
+        editText.setWidth(300);
         ll.addView(editText);
 
         Button button = new Button(context);
