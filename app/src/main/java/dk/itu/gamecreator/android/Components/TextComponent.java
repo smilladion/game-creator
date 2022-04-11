@@ -64,6 +64,9 @@ public class TextComponent extends GameComponent {
     public View getCreateView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_create_text_component, null, false);
         editText = view.findViewById(R.id.input_text_1);
+        if (text != null) {
+            editText.setText(text);
+        }
         return view;
     }
 

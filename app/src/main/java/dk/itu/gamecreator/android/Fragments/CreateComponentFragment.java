@@ -22,6 +22,7 @@ public class CreateComponentFragment extends Fragment {
     Button discardButton;
     Button backButton;
     Bundle bundle;
+    boolean isEdit = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class CreateComponentFragment extends Fragment {
         if (bundle != null) {
             int index = bundle.getInt("componentIndex");
             component = cDB.getCurrentStage().getGameComponents().get(index);
+            isEdit = true;
         } else {
             component = cDB.getComponent(); // Create new component
         }
@@ -63,7 +65,9 @@ public class CreateComponentFragment extends Fragment {
         if (component.isSolutionComponent()) {
             cDB.getCurrentStage().setSolutionComponent((SolutionComponent) component);
         }
-        cDB.getCurrentStage().addGameComponent(component);
+        if (!isEdit) {
+            cDB.getCurrentStage().addGameComponent(component);
+        }
         getParentFragmentManager().popBackStack();
     }
 

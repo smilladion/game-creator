@@ -16,11 +16,13 @@ import androidx.appcompat.widget.ListPopupWindow;
 import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ClassFinder;
+import dk.itu.gamecreator.android.ClassFinder2;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Fragments.CreateComponentFragment;
@@ -119,26 +121,45 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         listTitleTextView.setText(s.getName());
 
         Button addComponent = convertView.findViewById(R.id.add_component_button);
+        Button addSolutionComponent = convertView.findViewById(R.id.add_solution_component_button);
+        if (s.getSolutionComponent() != null) {
+            addSolutionComponent.setEnabled(false);
+        }
 
+        // Get component class names using the ClassFinder
+        ArrayList<ArrayList<Class<?>>> classes = new ArrayList<>(ClassFinder2.load());
+        ArrayList<String> gameComponents = new ArrayList<>();
+        ArrayList<String> solutionComponents = new ArrayList<>();
+
+        for (Class<?> clazz : classes.get(0)) {
+            String name = clazz.getSimpleName();
+            String nameFormatted = name.replace("Component", "")
+                    .replaceAll("(?=[A-Z])", " ").trim();
+            gameComponents.add(nameFormatted);
+        }
+
+        for (Class<?> clazz : classes.get(1)) {
+            String name = clazz.getSimpleName();
+            String nameFormatted = name.replace("Component", "")
+                    .replaceAll("(?=[A-Z])", " ").trim();
+            solutionComponents.add(nameFormatted);
+        }
+
+        createPopUp(addComponent, gameComponents, classes.get(0), s);
+        createPopUp(addSolutionComponent, solutionComponents, classes.get(1), s);
+
+        return convertView;
+    }
+
+    public void createPopUp(Button button, List<String> componentNames, ArrayList<Class<?>> classes, Stage s) {
         ListPopupWindow listPopupWindow = new ListPopupWindow(context, null,
                 com.google.android.material.R.attr.listPopupWindowStyle);
 
         // Set button as the list popup's anchor
-        listPopupWindow.setAnchorView(addComponent);
-
-        // Get component class names using the ClassFinder
-        ArrayList<Class<?>> classes = new ArrayList<>(ClassFinder.load());
-        ArrayList<String> componentTypes = new ArrayList<>();
-
-        for (Class<?> clazz : classes) {
-            String name = clazz.getSimpleName();
-            String nameFormatted = name.replace("Component", "")
-                    .replaceAll("(?=[A-Z])", " ").trim();
-            componentTypes.add(nameFormatted);
-        }
+        listPopupWindow.setAnchorView(button);
 
         // Set list popup's content
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.list_popup_window_item, componentTypes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.list_popup_window_item, componentNames);
         listPopupWindow.setAdapter(adapter);
 
         // Respond to list popup window item click
@@ -150,7 +171,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             try {
                 Component component = (Component) clazz.getConstructor(int.class).newInstance(cDB.getNextComponentId());
                 cDB.setComponent(component);
-                System.out.println("COMPONENT NAME! = " + component.getName());
 
                 FragmentManager fm = fragmentManager;
                 fm.beginTransaction().setReorderingAllowed(true)
@@ -167,10 +187,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         // Has something to do with the way ExpandableList works. (As the whole field is
         // actually a button that expands / minimises the list.
-        addComponent.setFocusable(false);
+        button.setFocusable(false);
         // Show list popup window on button click.
-        addComponent.setOnClickListener(view1 -> listPopupWindow.show());
-        return convertView;
+        button.setOnClickListener(view1 -> listPopupWindow.show());
     }
 
     @Override

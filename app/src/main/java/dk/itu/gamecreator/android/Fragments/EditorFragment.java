@@ -72,14 +72,23 @@ public class EditorFragment extends Fragment {
 
     public void saveGame(View view) {
         boolean isEmpty = false;
+        ArrayList<String> stageNames = new ArrayList<>();
+
         for (Stage s : cDB.getCurrentGame().getStages()) {
-            if (s.getGameComponents().isEmpty()) {
-                isEmpty = true;
+            if (s.getSolutionComponent() == null) {
+                stageNames.add(s.getName());
             }
-            break;
         }
-        if (isEmpty) {
-            Toast toast = Toast.makeText(this.getContext(), "One of your stages has no components. A stage can not be empty.", Toast.LENGTH_SHORT);
+
+        if (!stageNames.isEmpty()) {
+
+            String s = "";
+            for (String str : stageNames) {
+                s = s + str + "";
+            }
+
+            Toast toast = Toast.makeText(this.getContext(),
+                    "The following stages have no solution component: " + s, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
