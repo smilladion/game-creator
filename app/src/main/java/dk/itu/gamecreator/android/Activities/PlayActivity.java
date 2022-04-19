@@ -43,6 +43,10 @@ public class PlayActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.current_games);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         populateRecyclerView();
+
+        for (Game g : cDB.getAllGames()) {
+            System.out.println(g.getName() + ": " + g.getLocation());
+        }
     }
 
     // Using this method makes sure that the game name updates when editing it

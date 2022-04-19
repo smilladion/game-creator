@@ -1,15 +1,12 @@
 package dk.itu.gamecreator.android.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +22,7 @@ import dk.itu.gamecreator.android.Fragments.ConfigFragment;
 import dk.itu.gamecreator.android.Fragments.EditorFragment;
 import dk.itu.gamecreator.android.Fragments.GameFragment;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.Util;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -104,14 +102,18 @@ public class CreateActivity extends AppCompatActivity {
         } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
             GameNameDialog.getDialog(this);
         } else {
-            cDB.saveGame();
-            cDB.newGame();
+            Util.requestCurrentLocation(this, location -> {
+                cDB.getCurrentGame().setLocation(location);
 
-            finish();
+                cDB.saveGame();
+                cDB.newGame();
 
-            Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+                finish();
+
+                Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            });
         }
     }
 

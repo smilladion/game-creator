@@ -1,5 +1,7 @@
 package dk.itu.gamecreator.android;
 
+import android.location.Location;
+
 import java.util.ArrayList;
 import dk.itu.gamecreator.android.Components.Component;
 
@@ -7,6 +9,7 @@ public class Game {
     private final ArrayList<Component> components;
     private int gID;
     private String name;
+    private Location location;
 
     public Game() {
         components = new ArrayList<>();
@@ -34,5 +37,13 @@ public class Game {
 
     public String getName() {
         return name;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
