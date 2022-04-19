@@ -16,12 +16,12 @@ import dk.itu.gamecreator.android.R;
 
 public class CreateComponentFragment extends Fragment {
 
-    ComponentDB cDB;
-    Component component;
-    Button doneButton;
-    Button discardButton;
-    Button backButton;
-    Bundle bundle;
+    private ComponentDB cDB;
+    private Component component;
+    private Button doneButton;
+    private Button discardButton;
+    private Button backButton;
+    private Bundle bundle;
     boolean isEdit = false;
 
     @Override

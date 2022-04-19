@@ -52,6 +52,4 @@ public class Stage {
     public String getName() {
         return "Stage " + id;
     }
-
-
 }

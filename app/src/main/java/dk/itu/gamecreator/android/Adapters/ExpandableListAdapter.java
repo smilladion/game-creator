@@ -1,6 +1,7 @@
 package dk.itu.gamecreator.android.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.ListPopupWindow;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -122,8 +125,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         Button addComponent = convertView.findViewById(R.id.add_component_button);
         Button addSolutionComponent = convertView.findViewById(R.id.add_solution_component_button);
+        Button deleteStage = convertView.findViewById(R.id.delete_stage);
+
+        deleteStage.setOnClickListener(v -> onDeleteStage(listPosition));
+
         if (s.getSolutionComponent() != null) {
             addSolutionComponent.setEnabled(false);
+        } else {
+            addSolutionComponent.setEnabled(true);
         }
 
         // Get component class names using the ClassFinder
@@ -203,6 +212,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     private void onDelete(int listPosition, int expandedListPosition) {
+        Stage s = cDB.getCurrentStage();
+        Component c = (Component) s.getGameComponents().get(expandedListPosition);
+
+        if (c.isSolutionComponent()) {
+            s.setSolutionComponent(null);
+        }
+
         String stageName = stages.get(listPosition).getName();
         map.get(stageName).remove(expandedListPosition);
         notifyDataSetChanged();
@@ -217,5 +233,34 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .replace(R.id.create_fragment, CreateComponentFragment.class, bundle)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void onDeleteStage(int listPosition) {
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+        builder.setMessage("Delete stage?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteStage(listPosition);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        })
+        .show();
+
+
+    }
+
+    private void deleteStage(int listPosition) {
+        String stageName = stages.get(listPosition).getName();
+        map.remove(stageName);
+        stages.remove(listPosition);
+        cDB.getCurrentGame().getStages().remove(listPosition);
+        notifyDataSetChanged();
     }
 }

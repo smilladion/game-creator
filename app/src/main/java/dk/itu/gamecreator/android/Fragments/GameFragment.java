@@ -2,6 +2,7 @@ package dk.itu.gamecreator.android.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
@@ -51,26 +53,32 @@ public class GameFragment extends Fragment {
         gameLayout = view.findViewById(R.id.game_layout);
         text = view.findViewById(R.id.text);
 
-        Stage s = game.getStages().get(0);
-        currentStage = s;
-        setSolvedListener(s);
+        if (!game.getStages().isEmpty()) {
 
-        for (Component c: s.getGameComponents()) {
-            LinearLayout viewLayout = new LinearLayout(context);
-            View v = c.getDisplayView(context);
-            viewLayout.addView(v);
-            gameLayout.addView(viewLayout);
+            Stage s = game.getStages().get(0);
+            currentStage = s;
+            setSolvedListener(s);
+
+            for (Component c : s.getGameComponents()) {
+                LinearLayout viewLayout = new LinearLayout(context);
+                viewLayout.setGravity(Gravity.CENTER);
+                View v = c.getDisplayView(context);
+                viewLayout.addView(v);
+                gameLayout.addView(viewLayout);
+            }
         }
     }
 
     public void setSolvedListener(Stage s) {
         SolutionComponent solutionComponent = s.getSolutionComponent();
-        solutionComponent.addSolvedListener(new SolutionComponent.SolvedListener() {
-            @Override
-            public void onChange() {
-                nextStage();
-            }
-        });
+        if (solutionComponent != null) {
+            solutionComponent.addSolvedListener(new SolutionComponent.SolvedListener() {
+                @Override
+                public void onChange() {
+                    nextStage();
+                }
+            });
+        }
     }
 
     public void nextStage() {
@@ -84,6 +92,15 @@ public class GameFragment extends Fragment {
                 gameLayout.removeAllViews();
                 gameLayout.addView(viewLayout);
             }
+        } else {
+            endGame();
         }
+    }
+
+    public void endGame() {
+        FragmentManager fm = getParentFragmentManager();
+        fm.beginTransaction().setReorderingAllowed(true)
+                .replace(R.id.game_fragment, new GameFinishedFragment())
+                .commit();
     }
 }
