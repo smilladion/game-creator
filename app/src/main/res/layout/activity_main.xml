@@ -27,12 +27,4 @@
         android:layout_marginBottom="20dp"
         android:layout_gravity="center" />
 
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/map_button"
-        android:text="MAP"
-        android:textSize="60sp"
-        android:layout_gravity="center" />
-
 </LinearLayout>

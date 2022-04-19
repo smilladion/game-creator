@@ -29,7 +29,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         cDB = ComponentDB.getInstance();
 
         // Action bar
-        setTitle("Game Editor");
+        setTitle("World Map");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Button play;
     private Button create;
-    private Button map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
         play = findViewById(R.id.play_button);
         create = findViewById(R.id.create_button);
-        map = findViewById(R.id.map_button);
 
         requestPermissions();
 
         play.setOnClickListener(this::onPlayClicked);
         create.setOnClickListener(this::onCreateClicked);
-        map.setOnClickListener(this::onMapClicked);
     }
 
     private void requestPermissions() {
@@ -75,11 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void onCreateClicked(View view) {
         Intent intent = new Intent(this, CreateActivity.class);
-        startActivity(intent);
-    }
-
-    private void onMapClicked(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 }

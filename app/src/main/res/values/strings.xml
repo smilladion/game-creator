@@ -62,6 +62,7 @@
     <string name="input_option_2">Input option 2</string>
     <string name="input_option_1">Input option 1</string>
     <string name="add_component">Add Component</string>
+    <string name="view_map">View Map</string>
 
     <string-array name="game_components">
         <item>Text</item>
