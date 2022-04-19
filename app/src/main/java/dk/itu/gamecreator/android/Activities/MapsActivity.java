@@ -2,6 +2,7 @@ package dk.itu.gamecreator.android.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -41,8 +42,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * This is where we can add markers or lines, add listeners or move the camera.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -51,10 +51,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        for (Game g : cDB.getAllGames()) {
-            LatLng location = new LatLng(g.getLocation().getLatitude(), g.getLocation().getLongitude());
-            mMap.addMarker(new MarkerOptions().position(location).title(g.getName()));
+        for (Game game : cDB.getAllGames()) {
+            LatLng location = new LatLng(game.getLocation().getLatitude(), game.getLocation().getLongitude());
+            mMap.addMarker(new MarkerOptions().position(location).title(game.getName()).snippet("Click to play"));
         }
+
+        mMap.setOnInfoWindowClickListener(marker -> {
+            for (Game game : cDB.getAllGames()) {
+                if (game.getName().equals(marker.getTitle())) {
+                    cDB.setCurrentGame(game);
+                    Intent intent = new Intent(this, GameActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     // Used for the back button in the action bar
