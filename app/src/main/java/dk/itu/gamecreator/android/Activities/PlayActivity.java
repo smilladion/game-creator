@@ -19,7 +19,6 @@ public class PlayActivity extends AppCompatActivity {
 
     private LinearLayout ll;
     private ComponentDB cDB;
-    private Button mapButton;
 
     private GameRecyclerAdapter adapter;
     private RecyclerView recyclerView;
@@ -36,12 +35,9 @@ public class PlayActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ll = findViewById(R.id.game_layout);
-        mapButton = findViewById(R.id.map_button);
 
         recyclerView = findViewById(R.id.current_games);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        mapButton.setOnClickListener(this::onMapClicked);
 
         populateRecyclerView();
     }
@@ -58,11 +54,6 @@ public class PlayActivity extends AppCompatActivity {
     public void populateRecyclerView() {
         adapter = new GameRecyclerAdapter(this, cDB.getAllGames());
         recyclerView.setAdapter(adapter);
-    }
-
-    private void onMapClicked(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
     }
 
     // Used for the back button in the title bar
