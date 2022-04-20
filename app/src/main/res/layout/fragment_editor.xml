@@ -21,9 +21,25 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/current_components"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/save_game_button"
+        android:text="@string/save_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="20dp"
+        android:backgroundTint="@color/white"
+        style="?attr/materialButtonOutlinedStyle"/>
+
+    </RelativeLayout>
 </LinearLayout>

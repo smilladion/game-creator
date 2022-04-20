@@ -1,11 +1,13 @@
 package dk.itu.gamecreator.android.Fragments;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.ListPopupWindow;
 import androidx.fragment.app.Fragment;
@@ -23,14 +25,17 @@ import dk.itu.gamecreator.android.Components.ImageComponent;
 import dk.itu.gamecreator.android.Components.MultipleChoiceComponent;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.TextComponent;
+import dk.itu.gamecreator.android.Dialogs.GameNameDialog;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
+import dk.itu.gamecreator.android.Util;
 
 public class EditorFragment extends Fragment {
 
     ComponentDB cDB;
     RecyclerViewAdapter adapter;
     RecyclerView recyclerView;
+    Button saveGame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,9 @@ public class EditorFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.current_components);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        saveGame = view.findViewById(R.id.save_game_button);
+        saveGame.setOnClickListener(this::saveGame);
 
         Button addComponentButton = view.findViewById(R.id.add_component);
         ListPopupWindow listPopupWindow = new ListPopupWindow(view.getContext(), null,
@@ -101,6 +109,29 @@ public class EditorFragment extends Fragment {
         addComponentButton.setOnClickListener(view1 -> listPopupWindow.show());
 
         populateRecyclerView();
+    }
+
+    public void saveGame(View view) {
+        if (cDB.getCurrentGame().getComponents().isEmpty()) {
+            Toast toast = Toast.makeText(this.getContext(), "Add a game component to create a game!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
+            GameNameDialog.getDialog(this.getContext());
+        } else {
+            Util.requestCurrentLocation(this.getContext(), location -> {
+                cDB.getCurrentGame().setLocation(location);
+
+                cDB.saveGame();
+                cDB.newGame();
+
+                this.getActivity().finish();
+
+                Toast toast = Toast.makeText(this.getContext(), "Game saved!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            });
+        }
     }
 
     public void populateRecyclerView() {

@@ -31,8 +31,6 @@ public class CreateActivity extends AppCompatActivity {
     TabItem previewTab;
     TabItem configTab;
 
-    Button saveGame;
-
     Fragment editorFragment = new EditorFragment();
     Fragment previewFragment = new GameFragment();
     Fragment configFragment = new ConfigFragment();
@@ -52,9 +50,6 @@ public class CreateActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
 
         cDB = ComponentDB.getInstance();
-
-        saveGame = findViewById(R.id.save_game_button);
-        saveGame.setOnClickListener(this::saveGame);
 
         tabLayout = findViewById(R.id.tab_layout);
         editorTab = findViewById(R.id.editor_tab);
@@ -92,29 +87,6 @@ public class CreateActivity extends AppCompatActivity {
         fm.beginTransaction().setReorderingAllowed(true)
                 .add(R.id.create_fragment, editorFragment, null)
                 .commit();
-    }
-
-    public void saveGame(View view) {
-        if (cDB.getCurrentGame().getComponents().isEmpty()) {
-            Toast toast = Toast.makeText(this, "Add a game component to create a game!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
-            GameNameDialog.getDialog(this);
-        } else {
-            Util.requestCurrentLocation(this, location -> {
-                cDB.getCurrentGame().setLocation(location);
-
-                cDB.saveGame();
-                cDB.newGame();
-
-                finish();
-
-                Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            });
-        }
     }
 
     // Used for the back button in the action bar
