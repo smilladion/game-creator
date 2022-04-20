@@ -57,7 +57,6 @@ public class GameFragment extends Fragment {
 
             Stage s = game.getStages().get(0);
             currentStage = s;
-            setSolvedListener(s);
 
             for (Component c : s.getGameComponents()) {
                 LinearLayout viewLayout = new LinearLayout(context);
@@ -66,6 +65,7 @@ public class GameFragment extends Fragment {
                 viewLayout.addView(v);
                 gameLayout.addView(viewLayout);
             }
+            setSolvedListener(s);
         }
     }
 
@@ -83,15 +83,17 @@ public class GameFragment extends Fragment {
 
     public void nextStage() {
         Stage s = currentStage.getNextStage();
+        currentStage = s;
         if (s != null) {
-            setSolvedListener(s);
+            gameLayout.removeAllViews();
             for (Component c : s.getGameComponents()) {
                 LinearLayout viewLayout = new LinearLayout(context);
+                viewLayout.setGravity(Gravity.CENTER);
                 View v = c.getDisplayView(context);
                 viewLayout.addView(v);
-                gameLayout.removeAllViews();
                 gameLayout.addView(viewLayout);
             }
+            setSolvedListener(s);
         } else {
             endGame();
         }

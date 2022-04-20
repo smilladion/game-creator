@@ -121,7 +121,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView listTitleTextView = convertView.findViewById(R.id.stage_name);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText(s.getName());
+        listTitleTextView.setText("Stage");
 
         Button addComponent = convertView.findViewById(R.id.add_component_button);
         Button addSolutionComponent = convertView.findViewById(R.id.add_solution_component_button);
@@ -252,8 +252,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
         })
         .show();
-
-
     }
 
     private void deleteStage(int listPosition) {
