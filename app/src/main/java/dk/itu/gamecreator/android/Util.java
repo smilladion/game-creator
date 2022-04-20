@@ -24,7 +24,7 @@ public class Util {
         FusedLocationProviderClient locationProvider = LocationServices.getFusedLocationProviderClient(context);
 
         // Android Studio complains about this line but it should still work
-        locationProvider.getCurrentLocation(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY, null)
+        locationProvider.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, null)
                 .addOnSuccessListener(location -> {
                     if (location == null) {
                         return;
