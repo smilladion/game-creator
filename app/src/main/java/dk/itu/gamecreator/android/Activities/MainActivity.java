@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         // We don't have permissions, so we need to request them
         ActivityCompat.requestPermissions(
                 this,
-                new String[]{
+                new String[] {
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_BACKGROUND_LOCATION

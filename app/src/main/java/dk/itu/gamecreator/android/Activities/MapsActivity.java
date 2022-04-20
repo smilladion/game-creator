@@ -1,10 +1,15 @@
 package dk.itu.gamecreator.android.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,11 +21,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.Util;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     ComponentDB cDB;
+
+    private static final int DEFAULT_ZOOM = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            Util.requestCurrentLocation(this, location -> {
+                if (location != null) {
+                    mMap.setMyLocationEnabled(true);
+                    mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(location.getLatitude(), location.getLongitude()), DEFAULT_ZOOM));
+                }
+            });
+        }
+
+
     }
 
     // Used for the back button in the action bar
