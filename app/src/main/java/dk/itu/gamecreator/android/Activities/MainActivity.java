@@ -3,21 +3,13 @@ package dk.itu.gamecreator.android.Activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-import java.util.function.Consumer;
 
 import dk.itu.gamecreator.android.R;
 
@@ -27,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button play;
     private Button create;
-    private Button map;
+    private Button myGames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
         play = findViewById(R.id.play_button);
         create = findViewById(R.id.create_button);
-        map = findViewById(R.id.map_button);
+        myGames = findViewById(R.id.my_games_button);
 
         requestPermissions();
 
         play.setOnClickListener(this::onPlayClicked);
         create.setOnClickListener(this::onCreateClicked);
-        map.setOnClickListener(this::onMapClicked);
+        myGames.setOnClickListener(this::OnMyGamesClicked);
     }
 
     private void requestPermissions() {
@@ -69,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onPlayClicked(View view) {
-        Intent intent = new Intent(this, PlayActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 
@@ -78,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void onMapClicked(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
+    private void OnMyGamesClicked(View view) {
+        Intent intent = new Intent(this, PlayActivity.class);
         startActivity(intent);
     }
 }
