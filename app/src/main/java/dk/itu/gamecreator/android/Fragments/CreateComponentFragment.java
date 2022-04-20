@@ -11,16 +11,18 @@ import androidx.fragment.app.Fragment;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
+import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.R;
 
 public class CreateComponentFragment extends Fragment {
 
-    ComponentDB cDB;
-    Component component;
-    Button doneButton;
-    Button discardButton;
-    Button backButton;
-    Bundle bundle;
+    private ComponentDB cDB;
+    private Component component;
+    private Button doneButton;
+    private Button discardButton;
+    private Button backButton;
+    private Bundle bundle;
+    boolean isEdit = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,13 +37,13 @@ public class CreateComponentFragment extends Fragment {
         // Checks if the fragment was opened through an edit button and fetches component data
         if (bundle != null) {
             int index = bundle.getInt("componentIndex");
-            component = cDB.getCurrentGame().getComponents().get(index);
+            component = cDB.getCurrentStage().getGameComponents().get(index);
+            isEdit = true;
         } else {
             component = cDB.getComponent(); // Create new component
         }
 
         return inflater.inflate(R.layout.fragment_create_component, container, false);
-
     }
 
     @Override
@@ -59,13 +61,14 @@ public class CreateComponentFragment extends Fragment {
     }
 
     public void onDone(View view) {
-        if (component.saveComponent(this.getContext())) {
-            if (bundle == null) {
-                cDB.getCurrentGame().addComponent(component);
-            }
-
-            getParentFragmentManager().popBackStack();
+        component.saveComponent(this.getContext());
+        if (component.isSolutionComponent()) {
+            cDB.getCurrentStage().setSolutionComponent((SolutionComponent) component);
         }
+        if (!isEdit) {
+            cDB.getCurrentStage().addGameComponent(component);
+        }
+        getParentFragmentManager().popBackStack();
     }
 
     public void onDiscard(View view) {

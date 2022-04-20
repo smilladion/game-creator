@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
 
+import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
 public class TextComponent extends GameComponent {
@@ -77,6 +78,7 @@ public class TextComponent extends GameComponent {
     @Override
     public View getCreateView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_create_text_component, null, false);
+
         editText = view.findViewById(R.id.input_text_1);
         sizeView = view.findViewById(R.id.input_size);
         toggleButton = view.findViewById(R.id.toggleButton);
@@ -91,6 +93,11 @@ public class TextComponent extends GameComponent {
         }
 
         return view;
+    }
+
+    @Override
+    public String getName() {
+        return "Text";
     }
 
     public String getText() {

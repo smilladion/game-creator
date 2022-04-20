@@ -12,7 +12,8 @@
         android:layout_marginBottom="20dp"
         android:divider="@drawable/divider"
         android:showDividers="middle"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/text"

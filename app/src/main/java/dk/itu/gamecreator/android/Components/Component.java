@@ -34,5 +34,10 @@ public interface Component {
      * Returns: a boolean which is true if the save was successful and false if it failed (such as
      * unacceptable inputs)
      */
+
     boolean saveComponent(Context context);
+
+    boolean isSolutionComponent();
+
+    String getName();
 }

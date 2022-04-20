@@ -7,6 +7,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import dk.itu.gamecreator.android.Components.SolutionComponent;
+import dk.itu.gamecreator.android.Game;
 
 public class ButtonGroupComponent extends SolutionComponent {
 
@@ -67,5 +68,10 @@ public class ButtonGroupComponent extends SolutionComponent {
     @Override
     public boolean saveComponent(Context context) {
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return "Button Group";
     }
 }

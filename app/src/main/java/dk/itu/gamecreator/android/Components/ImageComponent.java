@@ -56,12 +56,15 @@ public class ImageComponent extends GameComponent {
     public View getCreateView(Context context) {
         this.context = context;
         this.fragM = ((FragmentActivity) context).getSupportFragmentManager();
+
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_create_image_component, null, false);
+
         selectImageButton = view.findViewById(R.id.select_image_button);
         takePictureButton = view.findViewById(R.id.take_picture_button);
         rotateLeftButton = view.findViewById(R.id.rotate_left_button);
         rotateRightButton = view.findViewById(R.id.rotate_right_button);
         image = view.findViewById(R.id.preview_image_view);
+
         selectImageButton.setOnClickListener(this::openGallery);
         takePictureButton.setOnClickListener(this::openCamera);
         rotateLeftButton.setOnClickListener(v -> rotate(v, ROTATE_LEFT));
@@ -72,6 +75,11 @@ public class ImageComponent extends GameComponent {
         }
 
         return view;
+    }
+
+    @Override
+    public String getName() {
+        return "Image";
     }
 
     @Override
@@ -215,7 +223,9 @@ public class ImageComponent extends GameComponent {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
 
                         image.setImageBitmap(bitmap);
+
                         saveImage(bitmap);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

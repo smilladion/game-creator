@@ -1,6 +1,5 @@
 package dk.itu.gamecreator.android.Components;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,10 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.R;
 
 public class TextSolutionComponent extends SolutionComponent {
@@ -32,18 +28,19 @@ public class TextSolutionComponent extends SolutionComponent {
     }
 
     public View getDisplayView(Context context) {
-        LinearLayout ll = new LinearLayout(context);
-        ll.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout outerLayout = new LinearLayout(context);
+        outerLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         editText = new EditText(context);
         editText.setWidth(300);
-        ll.addView(editText);
+
+        outerLayout.addView(editText);
 
         Button button = new Button(context);
         button.setText(buttonTextS);
-        ll.addView(button);
+        outerLayout.addView(button);
         button.setOnClickListener(view -> checkSolution(view, context));
-        return ll;
+        return outerLayout;
     }
 
     @Override
@@ -71,6 +68,7 @@ public class TextSolutionComponent extends SolutionComponent {
             Toast toast = Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+            setSolved(true);
         } else {
             Toast toast = Toast.makeText(context, "Incorrect", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -95,6 +93,11 @@ public class TextSolutionComponent extends SolutionComponent {
         solutionTextS = solutionText.getText().toString();
         buttonTextS = buttonText.getText().toString();
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return "Question";
     }
 
     public String getSolutionText() {

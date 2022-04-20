@@ -10,6 +10,12 @@
     <string name="image">Image</string>
     <string name="multiple">Multiple choice</string>
 
+    <string name="text_component">Text</string>
+
+    <string name="add_stage">Add stage</string>
+    <string name="add_solution_component">+ Solution</string>
+    <string name="add_component">+ Component</string>
+
     <string name="done">Done</string>
     <string name="discard">Discard</string>
 
@@ -45,6 +51,9 @@
     <string name="number_of_tries">Number of tries:&#032;</string>
     <string name="change">CHANGE</string>
 
+    <string name="finish_game">Finish</string>
+    <string name="play_again">Play again</string>
+
     <string-array name="difficulty_array">
         <item>Easy</item>
         <item>Medium</item>
@@ -61,9 +70,10 @@
     <string name="input_option_3">Input option 3</string>
     <string name="input_option_2">Input option 2</string>
     <string name="input_option_1">Input option 1</string>
-    <string name="add_component">Add Component</string>
-    <string name="view_map">View Map</string>
+
     <string name="my_games">MY GAMES</string>
+
+    <string name="delete_stage">X</string>
 
     <string-array name="game_components">
         <item>Text</item>
