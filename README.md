@@ -21,16 +21,16 @@ Make sure you have Android Studio downloaded on your computer.
 2. In the folder "Components", create a new Component and give at a unique name.
 3. Have it extend GameComponent or SolutionComponent.
 
-5. Create an XML-layout file for how your component will be created. (Or decide to make it programatically - not recommended)
+4. Create an XML-layout file for how your component will be created. (Or decide to make it programatically - not recommended)
 
-4. Make sure to implement all required functions: 
+5. Make sure to implement all required functions: 
   - a. getCreateView()
   - b. getDisplayView()
   - c. saveGame()
   - d. getName()
   
   
-5. Test it!
+6. Test it!
   - a. Run the app. Go to 'Create', and find your component (It will be under "+ Component" or "+ Solution" depending on which one you have made.)
   - b. Click it, and it should take you to where the Component is created. This is what is returned from getCreateView. 
   - c. Make sure that it works, and that it does not let you finish if all required information is not given. 
