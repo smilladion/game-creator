@@ -86,7 +86,7 @@ public class EditorFragment extends Fragment {
 
         /** Setting all stages to have the following stage as nextStage.
          * This is already done on creation, (and thus used for preview!)
-         * But is broken is user deletes a stage.
+         * But is broken if user deletes a stage.
          * */
         for (int i = 0; i < cDB.getCurrentGame().getStages().size(); i++) {
             if (i == (cDB.getCurrentGame().getStages().size()-1)) {

@@ -62,6 +62,7 @@ public class CreateComponentFragment extends Fragment {
 
     public void onDone(View view) {
         component.saveComponent(this.getContext());
+        // if component.isReadyToSave
         if (component.isSolutionComponent()) {
             cDB.getCurrentStage().setSolutionComponent((SolutionComponent) component);
         }
