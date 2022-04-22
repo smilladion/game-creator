@@ -114,6 +114,13 @@ public void checkSolution(View view, Context context) {
     }
 ```
 
+If the result of checkSolution is positive, the app will handle the behaviour. If it is incorrect, you should make a toast as shown above, to let the user know it was incorrect.
+
+### What then?
+You have created your Component, you have removed any print statements from your code, and made it look nice and clean.
+Then you have tested it, and tested it again.
+Now you can create a pull request.
+
 
 
     
