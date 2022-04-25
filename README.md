@@ -18,8 +18,9 @@ Steps to contribute:
 Make sure you have Android Studio downloaded on your computer. (https://developer.android.com/studio)
 
 1. Fork this project, and open it in Android Studio. 
-2. In the folder "Components", create a new Component and give at a unique name.
-3. Have it extend GameComponent or SolutionComponent.
+2. If you are not yet familiar with the app, run the game in the emulator or on your Android device. Try to create some different Components, and create a game. 
+3. In the folder "Components", create a new Component and give at a unique name.
+4. Have it extend GameComponent or SolutionComponent.
 
 4. Create an XML-layout file for how your component will be created. (Or decide to make it programatically - not recommended)
 
