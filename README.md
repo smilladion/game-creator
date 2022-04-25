@@ -125,9 +125,11 @@ Now you can create a pull request.
 ### Q&A
 
 Q: Why Java?
+
 A: Our app makes use of Java Reflection. This makes it possible to create a Component, add have it shown in the app, without having to hard-code anything. Java Reflection finds all classes that extend either GameComponent or SolutionComponent, and can create instances of them. 
 
 Q: I want to be able to open the Camera app or Gallery in the getCreateView(), how can I do that?
+
 A: This is a bit complicated, as your Component class is not an Activity or a Fragment. It is howver possible, have a look at the ImageComponent to see how we did it.
 
 
