@@ -19,7 +19,7 @@ Make sure you have Android Studio downloaded on your computer. (https://develope
 
 1. Fork this project, and open it in Android Studio. 
 2. If you are not yet familiar with the app, run the game in the emulator or on your Android device. Try to create some different Components, and create a game. 
-3. In the folder "Components", create a new Component and give at a unique name.
+3. In the folder "Components", create a new Java file and give at a unique name.
 4. Have it extend GameComponent or SolutionComponent.
 
 4. Create an XML-layout file for how your component will be created. (Or decide to make it programatically - not recommended)
@@ -121,6 +121,14 @@ If the result of checkSolution is positive, the app will handle the behaviour. I
 You have created your Component, you have removed any print statements from your code, and made it look nice and clean.
 Then you have tested it, and tested it again.
 Now you can create a pull request.
+
+### Q&A
+
+Q: Why Java?
+A: Our app makes use of Java Reflection. This makes it possible to create a Component, add have it shown in the app, without having to hard-code anything. Java Reflection finds all classes that extend either GameComponent or SolutionComponent, and can create instances of them. 
+
+Q: I want to be able to open the Camera app or Gallery in the getCreateView(), how can I do that?
+A: This is a bit complicated, as your Component class is not an Activity or a Fragment. It is howver possible, have a look at the ImageComponent to see how we did it.
 
 
 
