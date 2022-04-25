@@ -17,7 +17,7 @@ Steps to contribute:
 
 Make sure you have Android Studio downloaded on your computer. 
 
-1. Clone this project, and open it in Android Studio. 
+1. Fork this project, and open it in Android Studio. 
 2. In the folder "Components", create a new Component and give at a unique name.
 3. Have it extend GameComponent or SolutionComponent.
 
