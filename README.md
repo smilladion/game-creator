@@ -15,7 +15,7 @@ You can create your own Game - or Solution Components and add them to this proje
 
 Steps to contribute:
 
-Make sure you have Android Studio downloaded on your computer. 
+Make sure you have Android Studio downloaded on your computer. (https://developer.android.com/studio)
 
 1. Fork this project, and open it in Android Studio. 
 2. In the folder "Components", create a new Component and give at a unique name.
