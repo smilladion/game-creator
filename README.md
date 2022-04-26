@@ -74,9 +74,10 @@ toast.show();
 return false;
 ```
     
-If everything is there and correctly filled out, save the data to the class fields, i.e.:
+If everything is there and correctly filled out, save the data to the class fields and return true, i.e.:
 ```java
 String buttonText = editText.getText().trim().toString();
+return true;
 ```
 
 IMPORTANT: You can NOT save your data as a View. The views will be created when the component is ready to be displayed - in the getDisplayView() method. Views can only be created in the context where they are used. You will have to save your data as strings, integers, arrays etc. In getDisplayView, you will create the actual UI of the component.
