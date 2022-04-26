@@ -1,8 +1,13 @@
-package dk.itu.gamecreator.android.Components;
+package dk.itu.gamecreator.android.Drafts;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
+
+import dk.itu.gamecreator.android.Components.SolutionComponent;
+import dk.itu.gamecreator.android.Game;
 
 public class ButtonGroupComponent extends SolutionComponent {
 
@@ -50,13 +55,23 @@ public class ButtonGroupComponent extends SolutionComponent {
         }
     }
 
-    public View getView(Context context) {
-        // THIS IS NOT DONE - needs a layout. (And to actually contain all buttons)
-        return buttons[0];
+    @Override
+    public View getDisplayView(Context context) {
+        return null;
     }
 
     @Override
-    public String getGravity() {
-        return "center";
+    public View getCreateView(Context context) {
+        return null;
+    }
+
+    @Override
+    public boolean saveComponent(Context context) {
+        return true;
+    }
+
+    @Override
+    public String getName() {
+        return "Button Group";
     }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft">
+
+        <TextView
+            android:id="@+id/stage_name"
+            android:text="TEST"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="188dp"
+            android:layout_marginHorizontal="5dp" />
+
+            <Button
+                android:id="@+id/delete_stage"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="50dp"
+                android:focusable="false"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_stage" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft">
+
+            <Button
+                android:id="@+id/add_component_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:text="@string/add_component"
+                android:layout_marginHorizontal="5dp"
+                style="?attr/materialButtonOutlinedStyle"/>
+
+            <Button
+                android:id="@+id/add_solution_component_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:text="@string/add_solution_component"
+                android:layout_marginHorizontal="5dp"
+                style="?attr/materialButtonOutlinedStyle"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

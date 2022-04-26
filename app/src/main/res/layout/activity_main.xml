@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/play_button"
         android:text="@string/play_game"
-        android:textSize="60sp"
+        android:textSize="45sp"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center" />
 
@@ -23,16 +23,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/create_button"
         android:text="@string/create_game"
-        android:textSize="60sp"
+        android:textSize="45sp"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="center" />
 
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/map_button"
-        android:text="MAP"
-        android:textSize="60sp"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+        android:id="@+id/my_games_button"
+        android:text="@string/my_games"
+        android:textSize="45sp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center" />
 
 </LinearLayout>

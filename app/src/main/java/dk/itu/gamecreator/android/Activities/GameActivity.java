@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.Fragments.GameFragment;

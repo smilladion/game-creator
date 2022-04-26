@@ -12,7 +12,6 @@
         android:text="@string/text"
         android:textStyle="bold"
         android:textSize="17sp"
-        android:textColor="@color/white"
         android:background="@color/purple_500"
         android:paddingVertical="2dp"
         android:paddingHorizontal="5dp"

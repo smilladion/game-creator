@@ -3,25 +3,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/fragment_back_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:drawableLeft="@drawable/ic_close_x"
-        android:background="?android:attr/selectableItemBackground">
-
-    </com.google.android.material.button.MaterialButton>
-
-<LinearLayout
+    android:id="@+id/image_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:layout_marginTop="30dp">
+    android:gravity="center">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -56,11 +42,12 @@
         <ImageView
             android:id="@+id/preview_image_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="250dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:cropToPadding="false"
             android:layout_gravity="center_horizontal"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -110,30 +97,5 @@
             style="?attr/materialButtonOutlinedStyle"/>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/done_button"
-            android:text="@string/done"
-            android:layout_marginHorizontal="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:id="@+id/discard_button"
-            android:text="@string/discard"
-            android:layout_marginHorizontal="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-    </LinearLayout>
-
-</LinearLayout>
 
 </LinearLayout>

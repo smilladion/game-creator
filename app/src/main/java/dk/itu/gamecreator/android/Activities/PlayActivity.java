@@ -8,41 +8,37 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import dk.itu.gamecreator.android.Adapters.GameRecyclerAdapter;
-import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 import dk.itu.gamecreator.android.ComponentDB;
-import dk.itu.gamecreator.android.Components.Component;
-import dk.itu.gamecreator.android.Components.GameComponent;
-import dk.itu.gamecreator.android.Components.SolutionComponent;
-import dk.itu.gamecreator.android.Fragments.GameFragment;
-import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 
 public class PlayActivity extends AppCompatActivity {
 
-    LinearLayout ll;
-    ComponentDB cDB;
+    private LinearLayout ll;
+    private ComponentDB cDB;
 
-    GameRecyclerAdapter adapter;
-    RecyclerView recyclerView;
+    private GameRecyclerAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        cDB = ComponentDB.getInstance();
+
         // Action bar
         setTitle("My Games");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ll = findViewById(R.id.game_layout);
-        cDB = ComponentDB.getInstance();
+
         recyclerView = findViewById(R.id.current_games);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         populateRecyclerView();
     }
 
