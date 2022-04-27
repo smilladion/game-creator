@@ -84,7 +84,7 @@ return true;
 IMPORTANT: You can NOT save your data as a View. The views will be created when the component is ready to be displayed - in the getDisplayView() method. Views can only be created in the context where they are used. You will have to save your data as strings, integers, arrays etc. In getDisplayView, you will create the actual UI of the component.
 
 #### getDisplayView(Context context):
-The component has been created, and now it needs to be displayed in a game.
+The component has been created, and now it needs to be displayed in a game. This method returns the view of the component that the player sees and interacts with. This view has to be defined programmatically, rather than as an XML file as was done in getCreateView, due to the layout contents being dependent on what the user chose when creating the component.
 
 First, create a layout:
 ```java
