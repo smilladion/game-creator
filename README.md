@@ -24,6 +24,7 @@ Make sure you have Android Studio downloaded on your computer. (https://develope
 3. In the folder "Components", create a new Java file and give it a unique name.
 
 4. Have it extend GameComponent or SolutionComponent.
+    - The constructor of your component should only take an id and call super(id), as required by the superclass - and nothing else.
 
 5. Create an XML layout file that defines how your component will be created by the user (or decide to make it programatically - not recommended).
 
