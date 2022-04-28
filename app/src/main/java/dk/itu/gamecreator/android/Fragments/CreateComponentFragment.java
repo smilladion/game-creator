@@ -61,14 +61,18 @@ public class CreateComponentFragment extends Fragment {
     }
 
     public void onDone(View view) {
-        component.saveComponent(this.getContext());
-        if (component.isSolutionComponent()) {
-            cDB.getCurrentStage().setSolutionComponent((SolutionComponent) component);
+        /**saveComponent returns false if any required fields are missing input.
+         * The component itself takes care of making a specific error message.
+         */
+        if (component.saveComponent(this.getContext())) {
+            if (component.isSolutionComponent()) {
+                cDB.getCurrentStage().setSolutionComponent((SolutionComponent) component);
+            }
+            if (!isEdit) {
+                cDB.getCurrentStage().addGameComponent(component);
+            }
+            getParentFragmentManager().popBackStack();
         }
-        if (!isEdit) {
-            cDB.getCurrentStage().addGameComponent(component);
-        }
-        getParentFragmentManager().popBackStack();
     }
 
     public void onDiscard(View view) {
