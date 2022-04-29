@@ -31,7 +31,7 @@ Make sure you have Android Studio downloaded on your computer. (https://develope
 6. Make sure to implement all required functions: 
     - getCreateView(Context context)
     - getDisplayView(Context context)
-    - saveGame()
+    - saveComponent()
     - getName()
     - (if SolutionComponent) checkSolution(..., ..., Context context)
   
@@ -64,7 +64,7 @@ editText = view.findViewById(R.id.edit_text);
 ```
 If you need to change any text, do it here, and then return the view.
 
-#### saveGame():
+#### saveComponent():
 This method is being called from the UI handling your createView. It makes sure that the user's choices for the creation of your component is stored in the component object.
 
 Check that all required fields are completed and filled out by the user, and if anything is missing, display an error message and return false like this:
@@ -77,7 +77,7 @@ return false;
     
 If everything is there and correctly filled out, save the data to the class fields and return true, i.e.:
 ```java
-String buttonText = editText.getText().trim().toString();
+String buttonText = editText.getText().toString().trim();
 return true;
 ```
 
@@ -110,7 +110,7 @@ If it is a SolutionComponent you are making, you have to implement a checkSoluti
 
 It is in the getDisplayView method that you determine when checkSolution should be called, and with which arguments. Here is an example with a simple question and input SolutionComponent:
 ```java
-public void checkSolution(View view, Context context) {
+private void checkSolution(View view, Context context) {
         String userSolution = editText.getText().toString().trim();
         if (!isCaseSensitive) {
             userSolution = userSolution.toLowerCase();
