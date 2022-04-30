@@ -26,7 +26,7 @@ Make sure you have Android Studio downloaded on your computer. (https://develope
 4. Have it extend GameComponent or SolutionComponent.
     - The constructor of your component should only take an id and call super(id), as required by the superclass - and nothing else.
 
-5. Create an XML layout file that defines how your component will be created by the user (or decide to make it programatically - not recommended).
+5. Create two XML layout files with one defining how your component will be created by the user, and the other how the component looks when playing a game (or decide to make them programatically - not recommended).
 
 6. Make sure to implement all required functions: 
     - getCreateView(Context context)
@@ -63,6 +63,26 @@ editText = view.findViewById(R.id.edit_text);
 ```
 If you need to change any text, do it here, and then return the view.
 
+#### getDisplayView(Context context):
+The component has been created, and now it needs to be displayed in a game. This method returns the view of the component that the player sees and interacts with. 
+Once again, we recommend that you implement this by creating an XML layout file (res/layout). An example of how to do this can be seen in the description of getCreateView() above. In case you want to create the layout programmatically, we will provide an example on how to do so here.
+
+First, create a layout:
+```java
+LinearLayout linearLayout = new LinearLayout(context);
+```
+Now you can code what the component will look like, and assign your saved data to the various buttons, textViews etc, and add them all to the layout:
+```java
+TextView textView = new TextView(context);
+textView.setText(text);
+linearLayout.addView(textView);
+return linearLayout;
+```
+If the user should be able to interact with the component, this is the function where you set listeners. They can be made like this:
+```java
+button.setOnClickListener(view -> myFunction(view, context));
+```
+
 #### saveComponent():
 This method is being called from the UI handling your createView. It makes sure that the user's choices for the creation of your component is stored in the component object.
 
@@ -81,25 +101,6 @@ return true;
 ```
 
 IMPORTANT: You can NOT save your data as a View. The views will be created when the component is ready to be displayed - in the getDisplayView() method. Views can only be created in the context where they are used. You will have to save your data as strings, integers, arrays etc. In getDisplayView, you will create the actual UI of the component.
-
-#### getDisplayView(Context context):
-The component has been created, and now it needs to be displayed in a game. This method returns the view of the component that the player sees and interacts with. This view has to be defined programmatically, rather than as an XML file as was done in getCreateView, due to the layout contents being dependent on what the user chose when creating the component.
-
-First, create a layout:
-```java
-LinearLayout linearLayout = new LinearLayout(context);
-```
-Now you can code what the component will look like, and assign your saved data to the various buttons, textViews etc, and add them all to the layout:
-```java
-TextView textView = new TextView(context);
-textView.setText(text);
-linearLayout.addView(textView);
-return linearLayout;
-```
-If the user should be able to interact with the component, this is the function where you set listeners. They can be made like this:
-```java
-button.setOnClickListener(view -> myFunction(view, context));
-```
 
 #### checkSolution(arg1 a, arg2 b, Context context)
 If it is a SolutionComponent you are making, you have to implement a checkSolution() function. This is not part of the abstract super class, as the different components need different arguments.
