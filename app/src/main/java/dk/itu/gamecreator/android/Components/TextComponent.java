@@ -95,11 +95,6 @@ public class TextComponent extends GameComponent {
         return view;
     }
 
-    @Override
-    public String getName() {
-        return "Text";
-    }
-
     public String getText() {
         return text;
     }

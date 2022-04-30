@@ -19,12 +19,10 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
-import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ClassFinder2;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
@@ -73,7 +71,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView componentName = convertView.findViewById(R.id.component_name);
-        componentName.setText(component.getName());
+        componentName.setText(ClassFinder2.nameForClass(component.getClass()));
 
         Button editButton = convertView.findViewById(R.id.edit_button);
         Button deleteButton = convertView.findViewById(R.id.delete_button);
@@ -142,17 +140,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         ArrayList<String> solutionComponents = new ArrayList<>();
 
         for (Class<?> clazz : classes.get(0)) {
-            String name = clazz.getSimpleName();
-            String nameFormatted = name.replace("Component", "")
-                    .replaceAll("(?=[A-Z])", " ").trim();
-            gameComponents.add(nameFormatted);
+            gameComponents.add(ClassFinder2.nameForClass(clazz));
         }
 
         for (Class<?> clazz : classes.get(1)) {
-            String name = clazz.getSimpleName();
-            String nameFormatted = name.replace("Component", "")
-                    .replaceAll("(?=[A-Z])", " ").trim();
-            solutionComponents.add(nameFormatted);
+            solutionComponents.add(ClassFinder2.nameForClass(clazz));
         }
 
         createPopUp(addComponent, gameComponents, classes.get(0), s);

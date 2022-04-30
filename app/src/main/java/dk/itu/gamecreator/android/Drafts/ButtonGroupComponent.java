@@ -69,9 +69,4 @@ public class ButtonGroupComponent extends SolutionComponent {
     public boolean saveComponent(Context context) {
         return true;
     }
-
-    @Override
-    public String getName() {
-        return "Button Group";
-    }
 }

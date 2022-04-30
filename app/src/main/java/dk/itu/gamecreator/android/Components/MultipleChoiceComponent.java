@@ -121,11 +121,6 @@ public class MultipleChoiceComponent extends SolutionComponent {
         return view;
     }
 
-    @Override
-    public String getName() {
-        return "Multiple choice";
-    }
-
     public void setCorrect(int correct) {
         this.correct = correct;
     }

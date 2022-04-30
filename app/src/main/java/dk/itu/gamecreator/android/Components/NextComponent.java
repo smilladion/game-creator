@@ -42,8 +42,4 @@ public class NextComponent extends SolutionComponent {
         return view;
     }
 
-    @Override
-    public String getName() {
-        return "Next";
-    }
 }

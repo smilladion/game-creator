@@ -47,8 +47,4 @@ public abstract class GameComponent implements Component {
      * */
     public abstract boolean saveComponent(Context context);
 
-    /**
-     * Give your component a name that is descriptive.
-     * */
-    public abstract String getName();
 }

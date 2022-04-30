@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.Collections;
 import java.util.List;
+
+import dk.itu.gamecreator.android.ClassFinder2;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.R;
 
@@ -39,7 +41,7 @@ public class RecyclerViewAdapter
         ComponentViewHolder componentHolder = (ComponentViewHolder) holder;
         View componentView = component.getDisplayView(context);
         componentHolder.layout.addView(componentView);
-        componentHolder.componentName.setText(component.getName());
+        componentHolder.componentName.setText(ClassFinder2.nameForClass(component.getClass()));
     }
 
     @Override

@@ -272,4 +272,11 @@ public final class ClassFinder2 {
             }
         }
     }
+
+    public static String nameForClass(Class<?> clazz) {
+        String name = clazz.getSimpleName();
+
+        return name.replace("Component", "")
+                .replaceAll("(?=[A-Z])", " ").trim();
+    }
 }

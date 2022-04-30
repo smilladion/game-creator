@@ -78,11 +78,6 @@ public class ImageComponent extends GameComponent {
     }
 
     @Override
-    public String getName() {
-        return "Image";
-    }
-
-    @Override
     public boolean saveComponent(Context context) {
         if (image.getDrawable() == null) {
             Toast toast = Toast.makeText(context,

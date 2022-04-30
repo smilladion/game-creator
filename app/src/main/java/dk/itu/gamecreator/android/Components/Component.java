@@ -36,8 +36,4 @@ public interface Component {
      * */
     boolean saveComponent(Context context);
 
-    /**
-     * Give your component a name that is descriptive.
-     * */
-    String getName();
 }

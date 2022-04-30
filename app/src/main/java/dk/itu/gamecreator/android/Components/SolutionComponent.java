@@ -46,11 +46,6 @@ public abstract class SolutionComponent implements Component {
      * */
     public abstract boolean saveComponent(Context context);
 
-    /**
-     * Give your component a name that is descriptive.
-     * */
-    public abstract String getName();
-
     public boolean isSolved() {
         return isSolved;
     }

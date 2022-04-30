@@ -95,11 +95,6 @@ public class TextSolutionComponent extends SolutionComponent {
         return true;
     }
 
-    @Override
-    public String getName() {
-        return "Question";
-    }
-
     public String getSolutionText() {
         return solutionTextS;
     }
