@@ -32,7 +32,6 @@ Make sure you have Android Studio downloaded on your computer. (https://develope
     - getCreateView(Context context)
     - getDisplayView(Context context)
     - saveComponent()
-    - getName()
     - (if SolutionComponent) checkSolution(..., ..., Context context)
   
   
@@ -101,9 +100,6 @@ If the user should be able to interact with the component, this is the function 
 ```java
 button.setOnClickListener(view -> myFunction(view, context));
 ```
-
-#### getName()
-Here you return the name of your component as a string. It should be descriptive, but not too long and detailed. This name is displayed in the editor when the user adds your component to their game.
 
 #### checkSolution(arg1 a, arg2 b, Context context)
 If it is a SolutionComponent you are making, you have to implement a checkSolution() function. This is not part of the abstract super class, as the different components need different arguments.
