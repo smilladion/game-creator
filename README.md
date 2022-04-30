@@ -11,4 +11,5 @@ Goal:
 - To make people look at the world differently, and getting inspired by our surroundings to create small games for the community of users.
 
 ### Want to contribute?
+Did you know that you can make your own Game Components?
 See CONTRIBUTE.md!
