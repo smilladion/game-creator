@@ -9,3 +9,6 @@ We want to investigate how to create an environment that allows non-programmers 
 Goal:
 - To have a functioning Android mobile application, where users can create their own location-based mini-games or puzzles using their surroundings, and where other users can solve or play those games by traveling to the specific location.
 - To make people look at the world differently, and getting inspired by our surroundings to create small games for the community of users.
+
+### Want to contribute?
+See CONTRIBUTE.md!
