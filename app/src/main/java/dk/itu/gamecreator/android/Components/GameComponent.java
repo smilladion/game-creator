@@ -18,11 +18,6 @@ public abstract class GameComponent implements Component {
         this.id = id;
     }
 
-    @Override
-    public boolean isSolutionComponent() {
-        return false;
-    }
-
     /**
      * Return a view of how the component will look like when in a game.
      * Start by creating an outer layout (LinearLayout for example), and

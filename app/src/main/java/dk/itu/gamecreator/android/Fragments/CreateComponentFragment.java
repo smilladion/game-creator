@@ -65,7 +65,7 @@ public class CreateComponentFragment extends Fragment {
          * The component itself takes care of making a specific error message.
          */
         if (component.saveComponent(this.getContext())) {
-            if (component.isSolutionComponent()) {
+            if (component instanceof SolutionComponent) {
                 cDB.getCurrentStage().setSolutionComponent((SolutionComponent) component);
             }
             if (!isEdit) {

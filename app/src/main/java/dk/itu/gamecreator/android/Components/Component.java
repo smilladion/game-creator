@@ -36,8 +36,6 @@ public interface Component {
      * */
     boolean saveComponent(Context context);
 
-    boolean isSolutionComponent();
-
     /**
      * Give your component a name that is descriptive.
      * */

@@ -28,6 +28,7 @@ import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ClassFinder2;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
+import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.Fragments.CreateComponentFragment;
 import dk.itu.gamecreator.android.Stage;
 import dk.itu.gamecreator.android.R;
@@ -215,7 +216,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         Stage s = cDB.getCurrentStage();
         Component c = (Component) s.getGameComponents().get(expandedListPosition);
 
-        if (c.isSolutionComponent()) {
+        if (c instanceof SolutionComponent) {
             s.setSolutionComponent(null);
         }
 

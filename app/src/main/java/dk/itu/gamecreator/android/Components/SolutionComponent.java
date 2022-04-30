@@ -51,11 +51,6 @@ public abstract class SolutionComponent implements Component {
      * */
     public abstract String getName();
 
-    @Override
-    public boolean isSolutionComponent() {
-        return true;
-    }
-
     public boolean isSolved() {
         return isSolved;
     }
