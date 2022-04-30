@@ -12,4 +12,4 @@ Goal:
 
 ### Want to contribute?
 Did you know that you can make your own Game Components?
-See CONTRIBUTE.md!
+See CONTRIBUTING.md!
