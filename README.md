@@ -46,6 +46,7 @@ Description of these functions can be found in the documentation in the code, an
 
 #### getCreateView(Context context):
 This method returns the view where the user creates the component. This will usually consist of a mix of TextView, EditText, Button, CheckBox etc. The view gathers all the information that will later be displayed in the game.
+
 We recommend that you implement this by creating an XML layout file (res/layout). Have a look at other layout files for inspiration. You can even copy another XML file and change the views as needed.
 
 After creating the XML file you inflate it in getCreateView:
@@ -65,6 +66,7 @@ If you need to change any text, do it here, and then return the view.
 
 #### getDisplayView(Context context):
 The component has been created, and now it needs to be displayed in a game. This method returns the view of the component that the player sees and interacts with. 
+
 Once again, we recommend that you implement this by creating an XML layout file (res/layout). An example of how to do this can be seen in the description of getCreateView() above. In case you want to create the layout programmatically, we will provide an example on how to do so here.
 
 First, create a layout:
