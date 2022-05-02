@@ -136,3 +136,8 @@ A: Our app makes use of Java Reflection. This makes it possible to create a sing
 Q: I want to be able to open the Camera app or Gallery in getCreateView(), how can I do that?
 
 A: This is a bit complicated, as your component class is not an Activity or a Fragment. It is however possible - have a look at the ImageComponent class to see how we did it.
+
+Q: I don't understand the difference between GameComponent and SolutionComponent.
+
+A: A GameComponent is purely visual, and is simply an element you add to the game - it can be a block of text, an image etc. A SolutionComponent is what needs to be solved to progress to the next stage of the game. Therefor, a stage can only have 1 SolutionComponent.
+
