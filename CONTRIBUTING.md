@@ -55,7 +55,8 @@ editText = view.findViewById(R.id.edit_text);
 If you need to change any text, do it here, and then return the view.
 
 #### getDisplayView(Context context):
-![displayView](https://user-images.githubusercontent.com/58038765/166239313-acea08cb-f72c-4c55-b894-36c06693741a.jpg)
+<img src="https://user-images.githubusercontent.com/58038765/166239313-acea08cb-f72c-4c55-b894-36c06693741a.jpg" width="200" />
+
 The component has been created, and now it needs to be displayed in a game. This method returns the view of the component that the player sees and interacts with. (See picture above)
 
 Once again, we recommend that you implement this by creating an XML layout file (res/layout). An example of how to do this can be seen in the description of getCreateView() above. In case you want to create the layout programmatically, we will provide an example on how to do so here.
