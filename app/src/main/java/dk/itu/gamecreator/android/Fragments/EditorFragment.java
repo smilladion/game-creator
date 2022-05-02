@@ -74,7 +74,6 @@ public class EditorFragment extends Fragment {
         populateExpandableListView();
     }
 
-
     public void saveGame(View view) {
         ArrayList<String> stageNames = new ArrayList<>();
 
@@ -84,19 +83,7 @@ public class EditorFragment extends Fragment {
             }
         }
 
-        /** Setting all stages to have the following stage as nextStage.
-         * This is already done on creation, (and thus used for preview!)
-         * But is broken if user deletes a stage.
-         * */
-        for (int i = 0; i < cDB.getCurrentGame().getStages().size(); i++) {
-            if (i == (cDB.getCurrentGame().getStages().size()-1)) {
-                cDB.getCurrentGame().getStages().get(i).setNextStage(null);
-            } else {
-                cDB.getCurrentGame().getStages().get(i).setNextStage(
-                        cDB.getCurrentGame().getStages().get(i + 1)
-                );
-            }
-        }
+        cDB.setNextStages();
 
         if (!stageNames.isEmpty()) {
             String s = "";

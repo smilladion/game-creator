@@ -54,6 +54,22 @@ public final class ComponentDB {
         }
     }
 
+    public void setNextStages() {
+        /** Setting all stages to have the following stage as nextStage.
+         * This is already done on creation, (and thus used for preview!)
+         * But is broken if user deletes a stage.
+         * */
+        for (int i = 0; i < currentGame.getStages().size(); i++) {
+            if (i == (currentGame.getStages().size()-1)) {
+                currentGame.getStages().get(i).setNextStage(null);
+            } else {
+                currentGame.getStages().get(i).setNextStage(
+                        currentGame.getStages().get(i + 1)
+                );
+            }
+        }
+    }
+
     public void setCurrentStage(Stage stage) {
         this.currentStage = stage;
     }

@@ -64,6 +64,7 @@ public class CreateActivity extends AppCompatActivity {
                 if (pos == 0) {
                     frag = editorFragment;
                 } else if (pos == 1) {
+                    cDB.setNextStages();
                     frag = previewFragment;
                 } else if (pos == 2) {
                     frag = configFragment;

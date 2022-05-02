@@ -56,6 +56,7 @@ public class GameFinishedFragment extends Fragment {
     }
 
     public void finish() {
+        cDB.setCurrentGame(null);
         Intent intent = new Intent(this.getContext(), MainActivity.class);
         startActivity(intent);
     }
