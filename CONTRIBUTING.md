@@ -34,7 +34,7 @@ Description of these functions can be found in the documentation in the code, an
 
 
 #### getCreateView(Context context):
-![createView](https://user-images.githubusercontent.com/58038765/166239088-f2d95418-b86c-4589-a44e-30423f416707.jpg)
+<img src="https://user-images.githubusercontent.com/58038765/166239088-f2d95418-b86c-4589-a44e-30423f416707.jpg" width="200" />
 This method returns the view where the user creates the component. (See picture above - only what is inside the red markings is returned. The app handles the rest - meaning, you do not have to add any navigation buttons) This will usually consist of a mix of TextView, EditText, Button, CheckBox etc. The view gathers all the information that will later be displayed in the game.
 
 We recommend that you implement this by creating an XML layout file (res/layout). Have a look at other layout files for inspiration. You can even copy another XML file and change the views as needed.
