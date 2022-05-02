@@ -120,7 +120,7 @@ private void checkSolution(View view, Context context) {
 
 If the result of checkSolution is positive, the app will handle the behaviour. If it is incorrect, you should make a toast as shown above, to let the user know it was incorrect.
 
-The most important thing here is to call setSolved(true) when the user has answered correctly. If you don't want to make a separate checkSolution function to handle it like in this example, you can also do it directly in getDisplayView.
+The most important thing here is to call setSolved(true) when the user has answered correctly. This notifies the fragment handling the game that the current stage has been solved, and startes the next stage. If you don't want to make a separate checkSolution function to handle it like in this example, you can also do it directly in getDisplayView.
 
 ### What then?
 You have created your component, you have removed any print statements from your code, and made it look nice and clean.
