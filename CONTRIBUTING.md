@@ -32,8 +32,10 @@ Make sure you have Android Studio downloaded on your computer. (https://develope
 
 Description of these functions can be found in the documentation in the code, and you can look to existing components for inspiration. If you need further help, more detailed descriptions can be found below:
 
+
 #### getCreateView(Context context):
-This method returns the view where the user creates the component. This will usually consist of a mix of TextView, EditText, Button, CheckBox etc. The view gathers all the information that will later be displayed in the game.
+![createView](https://user-images.githubusercontent.com/58038765/166239088-f2d95418-b86c-4589-a44e-30423f416707.jpg)
+This method returns the view where the user creates the component. (See picture above - only what is inside the red markings is returned. The app handles the rest - meaning, you do not have to add any navigation buttons) This will usually consist of a mix of TextView, EditText, Button, CheckBox etc. The view gathers all the information that will later be displayed in the game.
 
 We recommend that you implement this by creating an XML layout file (res/layout). Have a look at other layout files for inspiration. You can even copy another XML file and change the views as needed.
 
@@ -53,7 +55,8 @@ editText = view.findViewById(R.id.edit_text);
 If you need to change any text, do it here, and then return the view.
 
 #### getDisplayView(Context context):
-The component has been created, and now it needs to be displayed in a game. This method returns the view of the component that the player sees and interacts with. 
+![displayView](https://user-images.githubusercontent.com/58038765/166239313-acea08cb-f72c-4c55-b894-36c06693741a.jpg)
+The component has been created, and now it needs to be displayed in a game. This method returns the view of the component that the player sees and interacts with. (See picture above)
 
 Once again, we recommend that you implement this by creating an XML layout file (res/layout). An example of how to do this can be seen in the description of getCreateView() above. In case you want to create the layout programmatically, we will provide an example on how to do so here.
 
