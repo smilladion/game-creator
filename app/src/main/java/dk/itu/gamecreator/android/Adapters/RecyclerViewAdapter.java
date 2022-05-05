@@ -31,7 +31,7 @@ public class RecyclerViewAdapter
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recycler_text, parent, false);
+        View view = mInflater.inflate(R.layout.component_group, parent, false);
         return new ComponentViewHolder(view);
     }
 

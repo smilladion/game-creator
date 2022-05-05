@@ -74,6 +74,7 @@
     <string name="my_games">MY GAMES</string>
 
     <string name="delete_stage">X</string>
+    <string name="stage">Stage</string>
 
     <string-array name="game_components">
         <item>Text</item>
