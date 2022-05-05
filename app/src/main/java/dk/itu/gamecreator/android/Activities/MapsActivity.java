@@ -56,7 +56,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         for (Game game : cDB.getAllGames()) {
             LatLng location = new LatLng(game.getLocation().getLatitude(), game.getLocation().getLongitude());
-            mMap.addMarker(new MarkerOptions().position(location).title(game.getName()).snippet("Click here to play"));
+            mMap.addMarker(new MarkerOptions()
+                    .position(location)
+                    .title(game.getName())
+                    .snippet("Click here to play"));
         }
 
         mMap.setOnInfoWindowClickListener(marker -> {

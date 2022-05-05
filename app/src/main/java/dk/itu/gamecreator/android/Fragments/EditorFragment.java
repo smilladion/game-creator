@@ -33,6 +33,7 @@ public class EditorFragment extends Fragment {
     private HashMap<String, List<Component>> map = new HashMap<>();
     private Button saveGame;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

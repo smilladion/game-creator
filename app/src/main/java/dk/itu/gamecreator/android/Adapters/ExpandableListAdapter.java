@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -118,6 +119,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         Stage s = (Stage) getGroup(listPosition);
+        ExpandableListView elv = (ExpandableListView) parent;
+
+        if (s.isExpanded()) {
+            elv.expandGroup(listPosition);
+            notifyDataSetChanged();
+        }
 
         TextView listTitleTextView = convertView.findViewById(R.id.stage_name);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
@@ -176,6 +183,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
             Class<?> clazz = classes.get(pos);
             cDB.setCurrentStage(s);
+            s.setExpanded(true);
 
             try {
                 Component component = (Component) clazz.getConstructor(int.class).newInstance(cDB.getNextComponentId());
@@ -209,6 +217,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
+    }
+
+    @Override
+    public void onGroupCollapsed(int groupPosition) {
+        Stage s = (Stage) getGroup(groupPosition);
+        s.setExpanded(false);
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        Stage s = (Stage) getGroup(groupPosition);
+        s.setExpanded(true);
     }
 
     private void onDelete(int listPosition, int expandedListPosition) {

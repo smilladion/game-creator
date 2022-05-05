@@ -15,8 +15,13 @@ import java.util.function.Consumer;
 
 public class Util {
     public static boolean requestCurrentLocation(Context context, Consumer<Location> callback) {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                context, Manifest.permission.ACCESS_FINE_LOCATION
+        ) != PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(
+                            context, Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                    ){
             // We do not have location permissions so the request failed
             return false;
         }
