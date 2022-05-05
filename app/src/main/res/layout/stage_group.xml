@@ -5,41 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/purple_700"
-    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft">
+    android:background="@color/purple_700">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft">
 
         <TextView
             android:id="@+id/stage_name"
             android:text="@string/stage"
+            android:textSize="16sp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="188dp"
+            android:layout_marginTop="14dp"
             android:layout_marginHorizontal="5dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_stage"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_alignParentRight="true"
             android:focusable="false"
+            android:layout_marginRight="28dp"
             android:drawableLeft="@drawable/baseline_close_white_20"
             android:background="?android:attr/selectableItemBackground">
         </com.google.android.material.button.MaterialButton>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
         <Button
             android:id="@+id/add_component_button"
