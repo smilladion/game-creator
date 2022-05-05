@@ -9,7 +9,6 @@
     <TextView
         android:id="@+id/component_name"
         android:text="@string/text"
-        android:textStyle="bold"
         android:background="@drawable/boxborder"
         android:textSize="17sp"
         android:paddingVertical="2dp"
