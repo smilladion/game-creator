@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:layout_marginTop="12dp"
     android:id="@+id/game_component_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -18,7 +19,6 @@
             android:layout_height="wrap_content"
             android:text="@string/add_stage"
             style="?attr/materialButtonOutlinedStyle" />
-
     </LinearLayout>
 
     <RelativeLayout
@@ -27,14 +27,17 @@
 
         <ExpandableListView
             android:id="@+id/expandableListView"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-            android:divider="@android:color/white"
-            android:layout_margin="10dp"
-            android:dividerHeight="5dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:childDivider="@color/white"
-            android:groupIndicator="@drawable/settings_selector" />
+            android:divider="@android:color/white"
+            android:dividerHeight="5dp"
+            android:groupIndicator="@drawable/settings_selector"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/current_stages"

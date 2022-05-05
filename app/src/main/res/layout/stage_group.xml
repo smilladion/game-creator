@@ -1,65 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/layout_bg">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft">
-
-        <TextView
-            android:id="@+id/stage_name"
-            android:text="@string/stage"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:layout_marginHorizontal="5dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/delete_stage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:focusable="false"
-            android:layout_marginRight="28dp"
-            android:drawableLeft="@drawable/baseline_close_white_20"
-            android:background="?android:attr/selectableItemBackground">
-        </com.google.android.material.button.MaterialButton>
-
-    </RelativeLayout>
+    android:background="@drawable/layout_bg"
+    android:orientation="horizontal" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft" >
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/stage_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#?"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/add_component_button"
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/purple_500"
-            android:focusable="false"
+            android:padding="0dp"
             android:text="@string/add_component"
-            android:layout_marginHorizontal="5dp" />
+            android:textSize="12sp"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="8dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/add_solution_component_button"
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/purple_500"
-            android:focusable="false"
+            android:padding="0dp"
             android:text="@string/add_solution_component"
-            android:layout_marginHorizontal="5dp" />
-    </LinearLayout>
+            android:textSize="12sp"
+            android:focusable="false" />
 
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/delete_stage"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="12dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:icon="@drawable/baseline_close_white_20"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="14dp"
+            android:focusable="false" />
+    </LinearLayout>
 </LinearLayout>

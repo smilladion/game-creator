@@ -28,8 +28,8 @@ import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.Fragments.CreateComponentFragment;
-import dk.itu.gamecreator.android.Stage;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.Stage;
 
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -121,19 +121,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView listTitleTextView = convertView.findViewById(R.id.stage_name);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText("Stage");
+        listTitleTextView.setText("#" + (listPosition + 1));
 
         Button addComponent = convertView.findViewById(R.id.add_component_button);
         Button addSolutionComponent = convertView.findViewById(R.id.add_solution_component_button);
         Button deleteStage = convertView.findViewById(R.id.delete_stage);
 
         deleteStage.setOnClickListener(v -> onDeleteStage(listPosition));
-
-        if (s.getSolutionComponent() != null) {
-            addSolutionComponent.setEnabled(false);
-        } else {
-            addSolutionComponent.setEnabled(true);
-        }
 
         // Get component class names using the ClassFinder
         ArrayList<ArrayList<Class<?>>> classes = new ArrayList<>(ClassFinder2.load());
@@ -146,6 +140,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         for (Class<?> clazz : classes.get(1)) {
             solutionComponents.add(ClassFinder2.nameForClass(clazz));
+        }
+
+        if (s.getSolutionComponent() != null) {
+            addSolutionComponent.setEnabled(false);
+        } else {
+            addSolutionComponent.setEnabled(true);
         }
 
         createPopUp(addComponent, gameComponents, classes.get(0), s);
