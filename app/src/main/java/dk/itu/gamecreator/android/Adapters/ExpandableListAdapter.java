@@ -81,6 +81,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         LinearLayout componentLayout = convertView.findViewById(R.id.component_layout);
         componentLayout.removeAllViews();
         View componentView = component.getDisplayView(context);
+        setViewAndChildrenEnabled(componentView, false);
         componentLayout.addView(componentView);
 
         return convertView;
@@ -151,6 +152,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         createPopUp(addSolutionComponent, solutionComponents, classes.get(1), s);
 
         return convertView;
+    }
+
+    // Source for this method: https://stackoverflow.com/a/28509431
+    private static void setViewAndChildrenEnabled(View view, boolean enabled) {
+        view.setEnabled(enabled);
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                setViewAndChildrenEnabled(child, enabled);
+            }
+        }
     }
 
     public void createPopUp(Button button, List<String> componentNames, ArrayList<Class<?>> classes, Stage s) {
