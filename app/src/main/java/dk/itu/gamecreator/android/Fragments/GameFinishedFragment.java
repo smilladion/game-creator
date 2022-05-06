@@ -61,5 +61,4 @@ public class GameFinishedFragment extends Fragment {
         Intent intent = new Intent(this.getContext(), MapsActivity.class);
         startActivity(intent);
     }
-
 }

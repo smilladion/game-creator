@@ -35,20 +35,17 @@ public class GameNameDialog {
             if (gameNameText != null && !gameNameText.trim().equals("")) {
                 cDB.getCurrentGame().setName(gameName.getText().toString());
 
-                Util.requestCurrentLocation(context, location -> {
-                    cDB.getCurrentGame().setLocation(location);
+                cDB.saveGame();
+                cDB.newGame();
 
-                    cDB.saveGame();
-                    cDB.newGame();
+                dialog.dismiss();
 
-                    dialog.dismiss();
+                ((CreateActivity) context).finish();
 
-                    ((CreateActivity) context).finish();
+                Toast toast = Toast.makeText(context, "Game saved!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
 
-                    Toast toast = Toast.makeText(context, "Game saved!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                });
             } else {
                 gameName.setError("Game name cannot be blank");
                 gameName.requestFocus();

@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.Util;
 
 public class MainActivity extends AppCompatActivity {
 

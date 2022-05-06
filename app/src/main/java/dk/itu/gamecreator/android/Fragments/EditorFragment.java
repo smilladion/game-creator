@@ -48,6 +48,10 @@ public class EditorFragment extends Fragment {
             cDB.newGame();
         }
 
+        Util.requestCurrentLocation(this.getContext(), location -> {
+            cDB.getCurrentGame().setLocation(location);
+        });
+
         return inflater.inflate(R.layout.fragment_editor, container, false);
     }
 
@@ -100,18 +104,14 @@ public class EditorFragment extends Fragment {
         } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
             GameNameDialog.getDialog(this.getContext());
         } else {
-            Util.requestCurrentLocation(this.getContext(), location -> {
-                cDB.getCurrentGame().setLocation(location);
+            cDB.saveGame();
+            cDB.newGame();
 
-                cDB.saveGame();
-                cDB.newGame();
+            this.getActivity().finish();
 
-                this.getActivity().finish();
-
-                Toast toast = Toast.makeText(this.getContext(), "Game saved!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            });
+            Toast toast = Toast.makeText(this.getContext(), "Game saved!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
     }
 
