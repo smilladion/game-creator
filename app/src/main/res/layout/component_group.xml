@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,15 +12,55 @@
         android:layout_marginHorizontal="15dp"
         android:background="@drawable/boxborder">
 
-        <TextView
-            android:id="@+id/component_name"
-            android:text="@string/text"
-            android:background="@drawable/boxborder_text"
-            android:textSize="17sp"
-            android:paddingVertical="2dp"
-            android:paddingHorizontal="5dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/boxborder_text">
+
+            <TextView
+                android:id="@+id/component_name"
+                android:text="@string/text"
+                android:textSize="17sp"
+                android:layout_gravity="center"
+                android:paddingVertical="2dp"
+                android:paddingHorizontal="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/edit_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    app:icon="@drawable/ic_baseline_create_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="20dp"
+                    app:iconTint="#626262"
+                    android:focusable="false" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/delete_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    app:icon="@drawable/ic_baseline_delete_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="20dp"
+                    app:iconTint="#626262"
+                    android:focusable="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/component_layout"
@@ -33,22 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/delete_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete"
-                android:layout_marginHorizontal="5dp"
-                style="?attr/materialButtonOutlinedStyle"/>
-
-            <Button
-                android:id="@+id/edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit"
-                android:layout_marginHorizontal="5dp"
-                style="?attr/materialButtonOutlinedStyle"/>
 
         </LinearLayout>
 
