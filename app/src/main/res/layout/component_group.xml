@@ -35,18 +35,18 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit"
-                android:layout_marginHorizontal="5dp"
-                style="?attr/materialButtonOutlinedStyle"/>
-
-            <Button
                 android:id="@+id/delete_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete"
+                android:layout_marginHorizontal="5dp"
+                style="?attr/materialButtonOutlinedStyle"/>
+
+            <Button
+                android:id="@+id/edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
                 android:layout_marginHorizontal="5dp"
                 style="?attr/materialButtonOutlinedStyle"/>
 
