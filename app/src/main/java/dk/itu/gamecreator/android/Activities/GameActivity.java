@@ -22,7 +22,7 @@ public class GameActivity extends AppCompatActivity {
 
     ComponentDB cDB;
     FragmentManager fm;
-    Fragment gameFragment = new GameFragment();
+    Fragment gameFragment = new GameFragment(R.id.game_fragment, false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package dk.itu.gamecreator.android.Components;
+package dk.itu.gamecreator.android.Drafts;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.R;
 
 public class ButtonOrderComponent extends SolutionComponent {

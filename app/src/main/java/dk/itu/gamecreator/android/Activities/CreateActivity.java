@@ -26,17 +26,17 @@ import dk.itu.gamecreator.android.Util;
 
 public class CreateActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    TabItem editorTab;
-    TabItem previewTab;
-    TabItem configTab;
+    private TabLayout tabLayout;
+    private TabItem editorTab;
+    private TabItem previewTab;
+    private TabItem configTab;
 
-    Fragment editorFragment = new EditorFragment();
-    Fragment previewFragment = new GameFragment();
-    Fragment configFragment = new ConfigFragment();
+    private Fragment editorFragment = new EditorFragment();
+    private Fragment previewFragment = new GameFragment(R.id.create_fragment, true);
+    private Fragment configFragment = new ConfigFragment();
 
-    ComponentDB cDB;
-    FragmentManager fm;
+    private ComponentDB cDB;
+    private FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
