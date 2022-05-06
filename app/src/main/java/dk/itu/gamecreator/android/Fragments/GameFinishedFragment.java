@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import dk.itu.gamecreator.android.Activities.GameActivity;
 import dk.itu.gamecreator.android.Activities.MainActivity;
+import dk.itu.gamecreator.android.Activities.MapsActivity;
 import dk.itu.gamecreator.android.Activities.PlayActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.R;
@@ -57,7 +58,7 @@ public class GameFinishedFragment extends Fragment {
 
     public void finish() {
         cDB.setCurrentGame(null);
-        Intent intent = new Intent(this.getContext(), MainActivity.class);
+        Intent intent = new Intent(this.getContext(), MapsActivity.class);
         startActivity(intent);
     }
 
