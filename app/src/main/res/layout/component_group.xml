@@ -14,7 +14,7 @@
         <TextView
             android:id="@+id/component_name"
             android:text="@string/text"
-            android:background="@drawable/boxborder"
+            android:background="@drawable/boxborder_text"
             android:textSize="17sp"
             android:paddingVertical="2dp"
             android:paddingHorizontal="5dp"
