@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="#?"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <Space
             android:layout_width="0dp"
@@ -65,10 +65,10 @@
             android:layout_height="match_parent"
             android:layout_marginRight="12dp"
             android:background="?android:attr/selectableItemBackground"
-            app:icon="@drawable/baseline_close_white_20"
+            app:icon="@drawable/ic_baseline_delete_24"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
-            app:iconSize="14dp"
+            app:iconSize="18dp"
             android:focusable="false" />
     </LinearLayout>
 </LinearLayout>
