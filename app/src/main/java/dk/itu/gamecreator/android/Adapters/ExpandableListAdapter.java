@@ -176,6 +176,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         // Set list popup's content
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.list_popup_window_item, componentNames);
         listPopupWindow.setAdapter(adapter);
+        listPopupWindow.setWidth(400);
 
         // Respond to list popup window item click
         listPopupWindow.setOnItemClickListener((par, v, pos, id) -> {
