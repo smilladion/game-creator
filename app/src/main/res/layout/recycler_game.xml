@@ -71,7 +71,7 @@
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:iconSize="26dp"
-                    app:iconTint="@color/purple_500"
+                    app:iconTint="@color/primaryColor"
                     android:focusable="false" />
 
             </LinearLayout>
