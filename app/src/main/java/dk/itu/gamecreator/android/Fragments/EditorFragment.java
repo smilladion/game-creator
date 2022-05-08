@@ -31,7 +31,6 @@ public class EditorFragment extends Fragment {
     private ExpandableListAdapter expandableListAdapter;
     private List<Stage> stages = new ArrayList<>();
     private HashMap<String, List<Component>> map = new HashMap<>();
-    private Button saveGame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,9 +53,6 @@ public class EditorFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         expandableListView = view.findViewById(R.id.expandableListView);
 
-        saveGame = view.findViewById(R.id.save_game_button);
-        saveGame.setOnClickListener(this::saveGame);
-
         Button addStageButton = view.findViewById(R.id.add_stage);
         addStageButton.setOnClickListener(this::newStage);
 
@@ -72,59 +68,6 @@ public class EditorFragment extends Fragment {
         cDB.setCurrentStage(stage);
         cDB.getCurrentGame().addStage(stage);
         populateExpandableListView();
-    }
-
-
-    public void saveGame(View view) {
-        ArrayList<String> stageNames = new ArrayList<>();
-
-        for (Stage s : cDB.getCurrentGame().getStages()) {
-            if (s.getSolutionComponent() == null) {
-                stageNames.add(s.getName());
-            }
-        }
-
-        /** Setting all stages to have the following stage as nextStage.
-         * This is already done on creation, (and thus used for preview!)
-         * But is broken if user deletes a stage.
-         * */
-        for (int i = 0; i < cDB.getCurrentGame().getStages().size(); i++) {
-            if (i == (cDB.getCurrentGame().getStages().size()-1)) {
-                cDB.getCurrentGame().getStages().get(i).setNextStage(null);
-            } else {
-                cDB.getCurrentGame().getStages().get(i).setNextStage(
-                        cDB.getCurrentGame().getStages().get(i + 1)
-                );
-            }
-        }
-
-        if (!stageNames.isEmpty()) {
-            String s = "";
-
-            for (String str : stageNames) {
-                s = s + str + "";
-            }
-
-            Toast toast = Toast.makeText(this.getContext(),
-                    "The following stages have no solution component: " + s, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
-            GameNameDialog.getDialog(this.getContext());
-        } else {
-            Util.requestCurrentLocation(this.getContext(), location -> {
-                cDB.getCurrentGame().setLocation(location);
-
-                cDB.saveGame();
-                cDB.newGame();
-
-                this.getActivity().finish();
-
-                Toast toast = Toast.makeText(this.getContext(), "Game saved!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            });
-        }
     }
 
     @Override

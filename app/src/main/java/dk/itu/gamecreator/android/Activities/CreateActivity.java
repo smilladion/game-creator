@@ -2,6 +2,7 @@ package dk.itu.gamecreator.android.Activities;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
 import dk.itu.gamecreator.android.ComponentDB;
 
 import dk.itu.gamecreator.android.Dialogs.GameNameDialog;
@@ -22,6 +25,7 @@ import dk.itu.gamecreator.android.Fragments.ConfigFragment;
 import dk.itu.gamecreator.android.Fragments.EditorFragment;
 import dk.itu.gamecreator.android.Fragments.GameFragment;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.Stage;
 import dk.itu.gamecreator.android.Util;
 
 public class CreateActivity extends AppCompatActivity {
@@ -89,14 +93,79 @@ public class CreateActivity extends AppCompatActivity {
                 .commit();
     }
 
-    // Used for the back button in the action bar
+    // Used for the buttons in the action bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
             finish();
             return true;
         }
 
+        if (id == R.id.save_button) {
+            saveGame();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    // Creates the save button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.create_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void saveGame() {
+        ArrayList<String> stageNames = new ArrayList<>();
+
+        for (Stage s : cDB.getCurrentGame().getStages()) {
+            if (s.getSolutionComponent() == null) {
+                stageNames.add(s.getName());
+            }
+        }
+
+        /** Setting all stages to have the following stage as nextStage.
+         * This is already done on creation, (and thus used for preview!)
+         * But is broken if user deletes a stage.
+         * */
+        for (int i = 0; i < cDB.getCurrentGame().getStages().size(); i++) {
+            if (i == (cDB.getCurrentGame().getStages().size()-1)) {
+                cDB.getCurrentGame().getStages().get(i).setNextStage(null);
+            } else {
+                cDB.getCurrentGame().getStages().get(i).setNextStage(
+                        cDB.getCurrentGame().getStages().get(i + 1)
+                );
+            }
+        }
+
+        if (!stageNames.isEmpty()) {
+            String s = "";
+
+            for (String str : stageNames) {
+                s = s + str + "";
+            }
+
+            Toast toast = Toast.makeText(this,
+                    "The following stages have no solution component: " + s, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
+            GameNameDialog.getDialog(this);
+        } else {
+            Util.requestCurrentLocation(this, location -> {
+                cDB.getCurrentGame().setLocation(location);
+
+                cDB.saveGame();
+                cDB.newGame();
+
+                finish();
+
+                Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            });
+        }
     }
 }
