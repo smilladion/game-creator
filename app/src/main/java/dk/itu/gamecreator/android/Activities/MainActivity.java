@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("Game Creator");
+        setTitle("PuzzleVerse");
 
         play = findViewById(R.id.play_button);
         create = findViewById(R.id.create_button);
