@@ -58,7 +58,13 @@ public class GameFinishedFragment extends Fragment {
 
     public void finish() {
         cDB.setCurrentGame(null);
-        Intent intent = new Intent(this.getContext(), MapsActivity.class);
+        Intent intent;
+        if (cDB.isInMyGames()) {
+            cDB.setInMyGames(false);
+            intent = new Intent(this.getContext(), PlayActivity.class);
+        } else {
+            intent = new Intent(this.getContext(), MapsActivity.class);
+        }
         startActivity(intent);
     }
 }

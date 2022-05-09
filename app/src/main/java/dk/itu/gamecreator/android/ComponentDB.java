@@ -23,6 +23,8 @@ public final class ComponentDB {
     private int gID;
     private int sID;
 
+    private boolean isInMyGames;
+
     private Component component;
 
     private ComponentDB() {
@@ -111,5 +113,13 @@ public final class ComponentDB {
 
     public void setComponent(Component component) {
         this.component = component;
+    }
+
+    public boolean isInMyGames() {
+        return isInMyGames;
+    }
+
+    public void setInMyGames(boolean inMyGames) {
+        isInMyGames = inMyGames;
     }
 }

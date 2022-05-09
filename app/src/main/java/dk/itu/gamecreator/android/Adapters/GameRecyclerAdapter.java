@@ -56,6 +56,7 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void onPlay(Game game) {
         cDB.setCurrentGame(game);
+        cDB.setInMyGames(true);
         Intent intent = new Intent(context, GameActivity.class);
         context.startActivity(intent);
     }
