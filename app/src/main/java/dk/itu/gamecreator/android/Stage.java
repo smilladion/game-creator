@@ -13,6 +13,8 @@ public class Stage {
     private SolutionComponent solutionComponent;
     private int id;
 
+    private boolean isExpanded;
+
     public Stage() {
         gameComponents = new ArrayList<>();
     }
@@ -51,5 +53,13 @@ public class Stage {
 
     public String getName() {
         return "Stage " + id;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 }

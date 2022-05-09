@@ -27,6 +27,17 @@ public class GameFragment extends Fragment {
     private Context context;
     private Game game;
     private Stage currentStage;
+    private int parentFragmentRef;
+    private boolean isPreview;
+
+    public GameFragment(int parentFragmentRef, boolean isPreview) {
+        super();
+        /**
+         * We need to know what fragment to replace when the game finishes since this fragment is used in different places.
+         * */
+        this.parentFragmentRef = parentFragmentRef;
+        this.isPreview = isPreview;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -101,8 +112,14 @@ public class GameFragment extends Fragment {
 
     public void endGame() {
         FragmentManager fm = getParentFragmentManager();
+        Fragment fragment;
+        if (isPreview) {
+            fragment = new GameFinishedFragmentPreview();
+        } else {
+            fragment = new GameFinishedFragment();
+        }
         fm.beginTransaction().setReorderingAllowed(true)
-                .replace(R.id.game_fragment, new GameFinishedFragment())
+                .replace(parentFragmentRef, fragment)
                 .commit();
     }
 }

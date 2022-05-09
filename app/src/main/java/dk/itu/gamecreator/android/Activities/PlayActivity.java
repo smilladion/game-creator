@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,8 @@ public class PlayActivity extends AppCompatActivity {
     private GameRecyclerAdapter adapter;
     private RecyclerView recyclerView;
 
+    private TextView noGameText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +39,16 @@ public class PlayActivity extends AppCompatActivity {
 
         ll = findViewById(R.id.game_layout);
 
+        noGameText = findViewById(R.id.text_no_games);
+
         recyclerView = findViewById(R.id.current_games);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        if (cDB.getAllGames().isEmpty()) {
+            noGameText.setText("You have not made any games yet.");
+        } else {
+            noGameText.setVisibility(View.GONE);
+        }
 
         populateRecyclerView();
     }

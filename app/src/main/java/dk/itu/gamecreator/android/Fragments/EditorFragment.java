@@ -32,6 +32,7 @@ public class EditorFragment extends Fragment {
     private List<Stage> stages = new ArrayList<>();
     private HashMap<String, List<Component>> map = new HashMap<>();
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,10 @@ public class EditorFragment extends Fragment {
         if (cDB.getCurrentGame() == null) {
             cDB.newGame();
         }
+
+        Util.requestCurrentLocation(this.getContext(), location -> {
+            cDB.getCurrentGame().setLocation(location);
+        });
 
         return inflater.inflate(R.layout.fragment_editor, container, false);
     }
