@@ -254,6 +254,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private void onEdit(int listPosition, int expandedListPosition) {
         Bundle bundle = new Bundle();
         bundle.putInt("componentIndex", expandedListPosition);
+        cDB.setCurrentStage(cDB.getCurrentGame().getStages().get(listPosition));
 
         CreateActivity activity = (CreateActivity) context;
         activity.getSupportFragmentManager().beginTransaction()
