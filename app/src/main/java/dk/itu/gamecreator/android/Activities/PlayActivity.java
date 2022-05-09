@@ -34,6 +34,7 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
 
         // Action bar
         setTitle("My Games");

@@ -34,6 +34,8 @@ public class CreateComponentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         bundle = getArguments();
 
+        VM = ViewModel.getInstance();
+
         // Checks if the fragment was opened through an edit button and fetches component data
         if (bundle != null) {
             int index = bundle.getInt("componentIndex");

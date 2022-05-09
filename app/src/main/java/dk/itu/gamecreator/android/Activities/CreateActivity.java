@@ -40,7 +40,6 @@ public class CreateActivity extends AppCompatActivity {
     private Fragment previewFragment = new GameFragment(R.id.create_fragment, true);
     private Fragment configFragment = new ConfigFragment();
 
-    private ComponentDB cDB;
     private ViewModel VM;
     private FragmentManager fm;
 
@@ -55,7 +54,6 @@ public class CreateActivity extends AppCompatActivity {
 
         fm = getSupportFragmentManager();
 
-        cDB = ComponentDB.getInstance();
         VM = ViewModel.getInstance();
 
         tabLayout = findViewById(R.id.tab_layout);
