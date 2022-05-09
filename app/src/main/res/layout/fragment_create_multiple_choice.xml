@@ -6,41 +6,43 @@
     android:id="@+id/multiple_choice_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center">
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkedButton="@+id/radio_button_1">
-
-        <RadioButton
-            android:id="@+id/radio_button_1"
-            android:layout_width="match_parent"
-            android:layout_height="70dp" />
-
-        <RadioButton
-            android:id="@+id/radio_button_2"
-            android:layout_width="match_parent"
-            android:layout_height="70dp" />
-
-        <RadioButton
-            android:id="@+id/radio_button_3"
-            android:layout_width="match_parent"
-            android:layout_height="70dp" />
-
-        <RadioButton
-            android:id="@+id/radio_button_4"
-            android:layout_width="match_parent"
-            android:layout_height="70dp" />
-
-    </RadioGroup>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/checkbox_layout">
+
+        <CheckBox
+            android:id="@+id/checkbox_1"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp" />
+        <CheckBox
+            android:id="@+id/checkbox_2"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp" />
+        <CheckBox
+            android:id="@+id/checkbox_3"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp" />
+        <CheckBox
+            android:id="@+id/checkbox_4"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/textview_layout">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text1"
@@ -107,5 +109,49 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/delete_button_layout">
+
+        <Button
+            android:id="@+id/delete_option_1"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="X"/>
+        <Button
+            android:id="@+id/delete_option_2"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="X"/>
+        <Button
+            android:id="@+id/delete_option_3"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="X"/>
+        <Button
+            android:id="@+id/delete_option_4"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="X"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        style="?attr/materialButtonOutlinedStyle"
+        android:id="@+id/add_extra_option"
+        android:text="@string/add_option"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="0dp"
+        />
 
 </LinearLayout>

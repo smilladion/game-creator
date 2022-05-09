@@ -40,6 +40,8 @@
 
     <string name="input_text">Input text:</string>
 
+    <string name="add_option">Add an extra option</string>
+
     <string name="correct_solution">Input what the correct solution is:</string>
     <string name="button_text_input">Input what the button should say:</string>
     

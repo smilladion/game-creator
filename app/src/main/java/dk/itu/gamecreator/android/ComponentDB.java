@@ -45,7 +45,7 @@ public final class ComponentDB {
 
     public void saveGame() {
         //If this was a game being edited, and already has an id.
-        if (currentGame.getgID() != 0) {
+        if (currentGame.getgID() > 0) {
             currentGame = null;
         } else {
             currentGame.setID(getNextgID());
