@@ -18,11 +18,12 @@ import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Stage;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class GameFragment extends Fragment {
 
     private LinearLayout gameLayout;
-    private ComponentDB cDB;
+    private ViewModel VM;
     private TextView text;
     private Context context;
     private Game game;
@@ -53,8 +54,8 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        cDB = ComponentDB.getInstance();
-        game = cDB.getCurrentGame();
+        VM = ViewModel.getInstance();
+        game = VM.getCurrentGame();
 
         return inflater.inflate(R.layout.fragment_game, container, false);
     }

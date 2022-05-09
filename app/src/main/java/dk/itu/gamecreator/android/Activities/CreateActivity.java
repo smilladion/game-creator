@@ -27,6 +27,7 @@ import dk.itu.gamecreator.android.Fragments.GameFragment;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Stage;
 import dk.itu.gamecreator.android.Util;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -40,6 +41,7 @@ public class CreateActivity extends AppCompatActivity {
     private Fragment configFragment = new ConfigFragment();
 
     private ComponentDB cDB;
+    private ViewModel VM;
     private FragmentManager fm;
 
     @Override
@@ -54,6 +56,7 @@ public class CreateActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
 
         cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
 
         tabLayout = findViewById(R.id.tab_layout);
         editorTab = findViewById(R.id.editor_tab);
@@ -68,7 +71,7 @@ public class CreateActivity extends AppCompatActivity {
                 if (pos == 0) {
                     frag = editorFragment;
                 } else if (pos == 1) {
-                    cDB.setNextStages();
+                    VM.setNextStages();
                     frag = previewFragment;
                 } else if (pos == 2) {
                     frag = configFragment;
@@ -121,7 +124,7 @@ public class CreateActivity extends AppCompatActivity {
     public void saveGame() {
         ArrayList<String> stageNames = new ArrayList<>();
 
-        for (Stage s : cDB.getCurrentGame().getStages()) {
+        for (Stage s : VM.getCurrentGame().getStages()) {
             if (s.getSolutionComponent() == null) {
                 stageNames.add(s.getName());
             }
@@ -131,12 +134,12 @@ public class CreateActivity extends AppCompatActivity {
          * This is already done on creation, (and thus used for preview!)
          * But is broken if user deletes a stage.
          * */
-        for (int i = 0; i < cDB.getCurrentGame().getStages().size(); i++) {
-            if (i == (cDB.getCurrentGame().getStages().size()-1)) {
-                cDB.getCurrentGame().getStages().get(i).setNextStage(null);
+        for (int i = 0; i < VM.getCurrentGame().getStages().size(); i++) {
+            if (i == (VM.getCurrentGame().getStages().size()-1)) {
+                VM.getCurrentGame().getStages().get(i).setNextStage(null);
             } else {
-                cDB.getCurrentGame().getStages().get(i).setNextStage(
-                        cDB.getCurrentGame().getStages().get(i + 1)
+                VM.getCurrentGame().getStages().get(i).setNextStage(
+                        VM.getCurrentGame().getStages().get(i + 1)
                 );
             }
         }
@@ -152,14 +155,14 @@ public class CreateActivity extends AppCompatActivity {
                     "The following stages have no solution component: " + s, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
-        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
+        } else if (VM.getCurrentGame().getName() == null || VM.getCurrentGame().getName().trim().equals("")) {
             GameNameDialog.getDialog(this);
         } else {
             Util.requestCurrentLocation(this, location -> {
-                cDB.getCurrentGame().setLocation(location);
+                VM.getCurrentGame().setLocation(location);
 
-                cDB.saveGame();
-                cDB.newGame();
+                VM.saveGame();
+                VM.newGame();
 
                 finish();
 

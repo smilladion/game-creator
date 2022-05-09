@@ -17,12 +17,14 @@ import androidx.fragment.app.Fragment;
 
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class ConfigFragment extends Fragment {
 
-    ComponentDB cDB;
-    EditText nameGameEdit;
-    Button editLocationButton;
+    private ComponentDB cDB;
+    private ViewModel VM;
+    private EditText nameGameEdit;
+    private Button editLocationButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,10 @@ public class ConfigFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
 
         nameGameEdit = view.findViewById(R.id.game_name);
-        nameGameEdit.setText(cDB.getCurrentGame().getName());
+        nameGameEdit.setText(VM.getCurrentGame().getName());
         nameGameEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
@@ -50,7 +53,7 @@ public class ConfigFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                cDB.getCurrentGame().setName(s.toString());
+                VM.getCurrentGame().setName(s.toString());
             }
         });
 

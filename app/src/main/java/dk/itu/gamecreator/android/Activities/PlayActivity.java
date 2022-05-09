@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import dk.itu.gamecreator.android.Adapters.GameRecyclerAdapter;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class PlayActivity extends AppCompatActivity {
 
     private LinearLayout ll;
     private ComponentDB cDB;
+    private ViewModel VM;
 
     private GameRecyclerAdapter adapter;
     private RecyclerView recyclerView;
@@ -71,7 +73,7 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            cDB.setCurrentGame(null);
+            VM.setCurrentGame(null);
             finish();
             return true;
         }

@@ -13,11 +13,12 @@ import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Util;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class GameNameDialog {
 
     public static AlertDialog getDialog(Context context) {
-        ComponentDB cDB = ComponentDB.getInstance();
+        ViewModel VM = ViewModel.getInstance();
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(context)
             .setTitle("Game name:")
@@ -33,10 +34,10 @@ public class GameNameDialog {
             String gameNameText = gameName.getText().toString();
 
             if (gameNameText != null && !gameNameText.trim().equals("")) {
-                cDB.getCurrentGame().setName(gameName.getText().toString());
+                VM.getCurrentGame().setName(gameName.getText().toString());
 
-                cDB.saveGame();
-                cDB.newGame();
+                VM.saveGame();
+                VM.newGame();
 
                 dialog.dismiss();
 

@@ -17,6 +17,7 @@ import dk.itu.gamecreator.android.Activities.MapsActivity;
 import dk.itu.gamecreator.android.Activities.PlayActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class GameFinishedFragment extends Fragment {
 
@@ -26,6 +27,7 @@ public class GameFinishedFragment extends Fragment {
     private Button playAgainButton;
 
     private ComponentDB cDB;
+    private ViewModel VM;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class GameFinishedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
         return inflater.inflate(R.layout.fragment_game_finished, container, false);
     }
 
@@ -57,10 +60,10 @@ public class GameFinishedFragment extends Fragment {
     }
 
     public void finish() {
-        cDB.setCurrentGame(null);
+        VM.setCurrentGame(null);
         Intent intent;
-        if (cDB.isInMyGames()) {
-            cDB.setInMyGames(false);
+        if (VM.isInMyGames()) {
+            VM.setInMyGames(false);
             intent = new Intent(this.getContext(), PlayActivity.class);
         } else {
             intent = new Intent(this.getContext(), MapsActivity.class);

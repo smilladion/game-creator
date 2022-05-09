@@ -13,10 +13,11 @@ import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class CreateComponentFragment extends Fragment {
 
-    private ComponentDB cDB;
+    private ViewModel VM;
     private Component component;
     private Button doneButton;
     private Button discardButton;
@@ -31,16 +32,15 @@ public class CreateComponentFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        cDB = ComponentDB.getInstance();
         bundle = getArguments();
 
         // Checks if the fragment was opened through an edit button and fetches component data
         if (bundle != null) {
             int index = bundle.getInt("componentIndex");
-            component = cDB.getCurrentStage().getGameComponents().get(index);
+            component = VM.getCurrentStage().getGameComponents().get(index);
             isEdit = true;
         } else {
-            component = cDB.getComponent(); // Create new component
+            component = VM.getComponent(); // Create new component
         }
 
         return inflater.inflate(R.layout.fragment_create_component, container, false);
@@ -66,10 +66,10 @@ public class CreateComponentFragment extends Fragment {
          */
         if (component.saveComponent(this.getContext())) {
             if (component instanceof SolutionComponent) {
-                cDB.getCurrentStage().setSolutionComponent((SolutionComponent) component);
+                VM.getCurrentStage().setSolutionComponent((SolutionComponent) component);
             }
             if (!isEdit) {
-                cDB.getCurrentStage().addGameComponent(component);
+                VM.getCurrentStage().addGameComponent(component);
             }
             getParentFragmentManager().popBackStack();
         }

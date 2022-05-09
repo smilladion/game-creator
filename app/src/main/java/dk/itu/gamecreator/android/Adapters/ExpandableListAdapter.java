@@ -31,6 +31,7 @@ import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.Fragments.CreateComponentFragment;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Stage;
+import dk.itu.gamecreator.android.ViewModel;
 
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -39,6 +40,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<Stage> stages;
     private HashMap<String, List<Component>> map;
     private ComponentDB cDB;
+    private ViewModel VM;
     private FragmentManager fragmentManager;
 
     public ExpandableListAdapter(Context context, List<Stage> stages, HashMap<String, List<Component>> map, FragmentManager fragmentManager) {
@@ -48,6 +50,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.fragmentManager = fragmentManager;
 
         cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
     }
 
     @Override
@@ -189,12 +192,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         listPopupWindow.setOnItemClickListener((par, v, pos, id) -> {
 
             Class<?> clazz = classes.get(pos);
-            cDB.setCurrentStage(s);
+            VM.setCurrentStage(s);
             s.setExpanded(true);
 
             try {
                 Component component = (Component) clazz.getConstructor(int.class).newInstance(cDB.getNextComponentId());
-                cDB.setComponent(component);
+                VM.setComponent(component);
 
                 FragmentManager fm = fragmentManager;
                 fm.beginTransaction().setReorderingAllowed(true)
@@ -239,7 +242,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     private void onDelete(int listPosition, int expandedListPosition) {
-        Stage s = cDB.getCurrentStage();
+        Stage s = VM.getCurrentStage();
         Component c = (Component) s.getGameComponents().get(expandedListPosition);
 
         if (c instanceof SolutionComponent) {
@@ -254,7 +257,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private void onEdit(int listPosition, int expandedListPosition) {
         Bundle bundle = new Bundle();
         bundle.putInt("componentIndex", expandedListPosition);
-        cDB.setCurrentStage(cDB.getCurrentGame().getStages().get(listPosition));
+        VM.setCurrentStage(VM.getCurrentGame().getStages().get(listPosition));
 
         CreateActivity activity = (CreateActivity) context;
         activity.getSupportFragmentManager().beginTransaction()
@@ -286,7 +289,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         String stageName = stages.get(listPosition).getName();
         map.remove(stageName);
         stages.remove(listPosition);
-        cDB.getCurrentGame().getStages().remove(listPosition);
+        VM.getCurrentGame().getStages().remove(listPosition);
         notifyDataSetChanged();
     }
 }

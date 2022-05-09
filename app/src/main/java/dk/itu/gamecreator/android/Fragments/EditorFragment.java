@@ -23,10 +23,12 @@ import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 import dk.itu.gamecreator.android.Util;
 import dk.itu.gamecreator.android.Stage;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class EditorFragment extends Fragment {
 
     private ComponentDB cDB;
+    private ViewModel VM;
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
     private List<Stage> stages = new ArrayList<>();
@@ -42,13 +44,14 @@ public class EditorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
 
-        if (cDB.getCurrentGame() == null) {
-            cDB.newGame();
+        if (VM.getCurrentGame() == null) {
+            VM.newGame();
         }
 
         Util.requestCurrentLocation(this.getContext(), location -> {
-            cDB.getCurrentGame().setLocation(location);
+            VM.getCurrentGame().setLocation(location);
         });
 
         return inflater.inflate(R.layout.fragment_editor, container, false);
@@ -67,11 +70,11 @@ public class EditorFragment extends Fragment {
     public void newStage(View view) {
         Stage stage = new Stage();
         stage.setId(cDB.getNextStageID());
-        if (cDB.getCurrentStage() != null) {
-            cDB.getCurrentStage().setNextStage(stage);
+        if (VM.getCurrentStage() != null) {
+            VM.getCurrentStage().setNextStage(stage);
         }
-        cDB.setCurrentStage(stage);
-        cDB.getCurrentGame().addStage(stage);
+        VM.setCurrentStage(stage);
+        VM.getCurrentGame().addStage(stage);
         populateExpandableListView();
     }
 
@@ -82,12 +85,12 @@ public class EditorFragment extends Fragment {
     }
 
     public void populateExpandableListView() {
-        if (cDB.getCurrentGame() == null) {
-            cDB.newGame();
+        if (VM.getCurrentGame() == null) {
+            VM.newGame();
         }
 
         stages.clear();
-        for (Stage s : cDB.getCurrentGame().getStages()) {
+        for (Stage s : VM.getCurrentGame().getStages()) {
             stages.add(s);
             map.put(s.getName(), s.getGameComponents());
         }

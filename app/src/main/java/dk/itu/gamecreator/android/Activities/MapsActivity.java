@@ -17,11 +17,13 @@ import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Util;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    ComponentDB cDB;
+    private ComponentDB cDB;
+    private ViewModel VM;
 
     private static final int DEFAULT_ZOOM = 15;
 
@@ -31,6 +33,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
 
         // Action bar
         setTitle("World Map");
@@ -65,7 +68,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnInfoWindowClickListener(marker -> {
             for (Game game : cDB.getAllGames()) {
                 if (game.getName().equals(marker.getTitle())) {
-                    cDB.setCurrentGame(game);
+                    VM.setCurrentGame(game);
                     Intent intent = new Intent(this, GameActivity.class);
                     startActivity(intent);
                 }

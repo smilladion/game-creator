@@ -29,8 +29,6 @@ public class GameFinishedFragmentPreview extends Fragment {
     private Fragment previewFragment = new GameFragment(R.id.create_fragment, true);
     private Fragment editorFragment = new EditorFragment();
 
-    private ComponentDB cDB;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +36,6 @@ public class GameFinishedFragmentPreview extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        cDB = ComponentDB.getInstance();
         return inflater.inflate(R.layout.fragment_game_finished, container, false);
     }
 

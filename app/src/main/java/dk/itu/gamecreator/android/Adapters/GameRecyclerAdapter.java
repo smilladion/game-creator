@@ -17,6 +17,7 @@ import dk.itu.gamecreator.android.Activities.GameActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class GameRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -24,12 +25,14 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final LayoutInflater mInflater;
     private final Context context;
     private ComponentDB cDB;
+    private ViewModel VM;
 
     public GameRecyclerAdapter(Context context, List<Game> games) {
         this.mInflater = LayoutInflater.from(context);
         this.games = games;
         this.context = context;
         cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
     }
 
     @Override
@@ -55,14 +58,14 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void onPlay(Game game) {
-        cDB.setCurrentGame(game);
-        cDB.setInMyGames(true);
+        VM.setCurrentGame(game);
+        VM.setInMyGames(true);
         Intent intent = new Intent(context, GameActivity.class);
         context.startActivity(intent);
     }
 
     public void onEdit(Game game) {
-        cDB.setCurrentGame(game);
+        VM.setCurrentGame(game);
         Intent intent = new Intent(context, CreateActivity.class);
         context.startActivity(intent);
     }

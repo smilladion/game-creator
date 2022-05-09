@@ -17,10 +17,11 @@ import dk.itu.gamecreator.android.Components.SolutionComponent;
 import dk.itu.gamecreator.android.Fragments.GameFragment;
 import dk.itu.gamecreator.android.Game;
 import dk.itu.gamecreator.android.R;
+import dk.itu.gamecreator.android.ViewModel;
 
 public class GameActivity extends AppCompatActivity {
 
-    ComponentDB cDB;
+    ViewModel VM;
     FragmentManager fm;
     Fragment gameFragment = new GameFragment(R.id.game_fragment, false);
 
@@ -33,7 +34,7 @@ public class GameActivity extends AppCompatActivity {
 
         fm = getSupportFragmentManager();
 
-        cDB = ComponentDB.getInstance();
+        VM = ViewModel.getInstance();
 
         fm.beginTransaction().setReorderingAllowed(true)
                 .replace(R.id.game_fragment, gameFragment)
@@ -44,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            cDB.setCurrentGame(null);
+            VM.setCurrentGame(null);
             finish();
             return true;
         }
