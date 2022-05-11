@@ -1,6 +1,7 @@
 package dk.itu.gamecreator.android.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -71,9 +74,24 @@ public class GameRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private void onDelete(RecyclerView.ViewHolder holder) {
-        games.remove(holder.getAdapterPosition());
-        notifyItemRemoved(holder.getAdapterPosition());
-        notifyItemRangeChanged(holder.getAdapterPosition(), games.size());
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+        builder.setMessage("Delete game? This can not be undone");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                games.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), games.size());
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        })
+                .show();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
