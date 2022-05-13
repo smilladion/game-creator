@@ -155,18 +155,14 @@ public class CreateActivity extends AppCompatActivity {
         } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
             GameNameDialog.getDialog(this);
         } else {
-            Util.requestCurrentLocation(this, location -> {
-                cDB.getCurrentGame().setLocation(location);
+            cDB.saveGame();
+            cDB.newGame();
 
-                cDB.saveGame();
-                cDB.newGame();
+            finish();
 
-                finish();
-
-                Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            });
+            Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
     }
 }
