@@ -239,7 +239,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     private void onDelete(int listPosition, int expandedListPosition) {
-        Stage s = cDB.getCurrentStage();
+        Stage s = (Stage) getGroup(listPosition);
         Component c = (Component) s.getGameComponents().get(expandedListPosition);
 
         if (c instanceof SolutionComponent) {
