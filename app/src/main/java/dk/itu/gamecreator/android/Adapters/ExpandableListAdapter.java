@@ -52,7 +52,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
         String stageName = stages.get(listPosition).getName();
-        return this.map.get(stageName).get(expandedListPosition);
+        return map.get(stageName).get(expandedListPosition);
     }
 
     @Override

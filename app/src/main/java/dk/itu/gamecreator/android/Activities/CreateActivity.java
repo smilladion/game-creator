@@ -116,12 +116,33 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     public void saveGame() {
-        ArrayList<String> stageNames = new ArrayList<>();
-
         for (Stage s : cDB.getCurrentGame().getStages()) {
             if (s.getSolutionComponent() == null) {
-                stageNames.add(s.getName());
+                Toast toast = Toast.makeText(this,
+                        "There is at least one stage missing a solution component", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                return;
             }
+        }
+
+        if (cDB.getCurrentGame().getStages().isEmpty()) {
+            Toast toast = Toast.makeText(this,
+                    "Nothing to save. Add a stage to start creating a game", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return;
+        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
+            GameNameDialog.getDialog(this);
+        } else {
+            cDB.saveGame();
+            cDB.newGame();
+
+            finish();
+
+            Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
 
         /** Setting all stages to have the following stage as nextStage.
@@ -136,35 +157,6 @@ public class CreateActivity extends AppCompatActivity {
                         cDB.getCurrentGame().getStages().get(i + 1)
                 );
             }
-        }
-
-        if (!stageNames.isEmpty()) {
-            String s = "";
-
-            for (String str : stageNames) {
-                s = s + str + ", ";
-            }
-
-            Toast toast = Toast.makeText(this,
-                    "The following stages have no solution component: " + s, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        } else if (cDB.getCurrentGame().getStages().isEmpty()) {
-            Toast toast = Toast.makeText(this,
-                    "Nothing to save. Add a stage to start creating a game", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
-            GameNameDialog.getDialog(this);
-        } else {
-            cDB.saveGame();
-            cDB.newGame();
-
-            finish();
-
-            Toast toast = Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
         }
     }
 }
