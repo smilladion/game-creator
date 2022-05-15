@@ -50,6 +50,7 @@ public class GameFinishedFragment extends Fragment {
 
     public void playAgain() {
         Intent intent = new Intent(this.getContext(), GameActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
@@ -62,6 +63,7 @@ public class GameFinishedFragment extends Fragment {
         } else {
             intent = new Intent(this.getContext(), MapsActivity.class);
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }
