@@ -145,11 +145,16 @@ public class CreateActivity extends AppCompatActivity {
             String s = "";
 
             for (String str : stageNames) {
-                s = s + str + "";
+                s = s + str + ", ";
             }
 
             Toast toast = Toast.makeText(this,
                     "The following stages have no solution component: " + s, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        } else if (cDB.getCurrentGame().getStages().isEmpty()) {
+            Toast toast = Toast.makeText(this,
+                    "Nothing to save. Add a stage to start creating a game", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         } else if (cDB.getCurrentGame().getName() == null || cDB.getCurrentGame().getName().trim().equals("")) {
