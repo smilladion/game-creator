@@ -45,7 +45,7 @@ public class NextComponent extends SolutionComponent {
 
     @Override
     public View getCreateView(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.fragment_next_component, null, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.fragment_create_next_component, null, false);
         buttonEdit = view.findViewById(R.id.input_solution);
         buttonEdit.setText(buttonText);
         return view;

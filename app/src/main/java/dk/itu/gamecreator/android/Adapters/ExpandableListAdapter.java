@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import dk.itu.gamecreator.android.Activities.CreateActivity;
-import dk.itu.gamecreator.android.ClassFinder2;
+import dk.itu.gamecreator.android.ClassFinder;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
@@ -72,7 +72,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView componentName = convertView.findViewById(R.id.component_name);
-        componentName.setText(ClassFinder2.nameForClass(component.getClass()));
+        componentName.setText(ClassFinder.nameForClass(component.getClass()));
 
         Button editButton = convertView.findViewById(R.id.edit_button);
         Button deleteButton = convertView.findViewById(R.id.delete_button);
@@ -137,16 +137,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         deleteStage.setOnClickListener(v -> onDeleteStage(listPosition));
 
         // Get component class names using the ClassFinder
-        ArrayList<ArrayList<Class<?>>> classes = new ArrayList<>(ClassFinder2.load());
+        ArrayList<ArrayList<Class<?>>> classes = new ArrayList<>(ClassFinder.load());
         ArrayList<String> gameComponents = new ArrayList<>();
         ArrayList<String> solutionComponents = new ArrayList<>();
 
         for (Class<?> clazz : classes.get(0)) {
-            gameComponents.add(ClassFinder2.nameForClass(clazz));
+            gameComponents.add(ClassFinder.nameForClass(clazz));
         }
 
         for (Class<?> clazz : classes.get(1)) {
-            solutionComponents.add(ClassFinder2.nameForClass(clazz));
+            solutionComponents.add(ClassFinder.nameForClass(clazz));
         }
 
         if (s.getSolutionComponent() != null) {

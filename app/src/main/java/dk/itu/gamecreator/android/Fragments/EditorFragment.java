@@ -1,13 +1,11 @@
 package dk.itu.gamecreator.android.Fragments;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,9 +16,7 @@ import java.util.List;
 import dk.itu.gamecreator.android.Adapters.ExpandableListAdapter;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.Components.Component;
-import dk.itu.gamecreator.android.Dialogs.GameNameDialog;
 import dk.itu.gamecreator.android.R;
-import dk.itu.gamecreator.android.Adapters.RecyclerViewAdapter;
 import dk.itu.gamecreator.android.Util;
 import dk.itu.gamecreator.android.Stage;
 

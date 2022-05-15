@@ -22,8 +22,6 @@ import dalvik.system.DexFile;
 import dk.itu.gamecreator.android.Components.GameComponent;
 import dk.itu.gamecreator.android.Components.SolutionComponent;
 
-// CREDIT: Jared Tiala
-// ... A personal friend of ours who was glad to help us write this class.
 public final class ClassFinder {
 
     private static final Class<?> CLASS_LOADER_TYPE = BaseDexClassLoader.class;
@@ -38,25 +36,33 @@ public final class ClassFinder {
     private static final String PACKAGE_PREFIX = "dk.itu.gamecreator.android.Components.";
 
     // load() only retrieves classes that extend these abstract classes
-    private static final Class<?>[] VALID_PARENTS = {
-            GameComponent.class,
+    private static final Class<?>[] GAME_COMPONENT = {
+            GameComponent.class
+    };
+
+    private static final Class<?>[] SOLUTION_COMPONENT = {
             SolutionComponent.class
     };
 
     private ClassFinder() {}
 
     /** Returns all component classes that extend GameComponent or SolutionComponent. */
-    public static Collection<Class<?>> load() {
+    public static List<ArrayList<Class<?>>> load() {
         ClassLoader classLoader = ClassFinder.class.getClassLoader();
         Collection<String> matches = ClassFinder.find(classLoader, PACKAGE_PREFIX);
 
-        Collection<Class<?>> loaded = new ArrayList<>();
+        List<ArrayList<Class<?>>> loaded = new ArrayList<>();
+        ArrayList<Class<?>> gameComponents = new ArrayList<>();
+        ArrayList<Class<?>> solutionComponents = new ArrayList<>();
+        loaded.add(gameComponents);
+        loaded.add(solutionComponents);
 
         for (String path : matches) {
             // If it's an inner class, skip it
             if (path.contains("$")) {
                 continue;
             }
+            System.out.println("Path to class is: " + path);
 
             try {
                 Class<?> clazz = classLoader.loadClass(path);
@@ -66,19 +72,18 @@ public final class ClassFinder {
                     continue;
                 }
 
-                boolean valid = false;
-
-                for (Class<?> parent : VALID_PARENTS) {
+                for (Class<?> parent : GAME_COMPONENT) {
                     if (doesExtend(clazz, parent)) {
-                        valid = true;
-                        break;
+                        gameComponents.add(clazz);
                     }
                 }
 
-                // If the class extends an abstract class from VALID_PARENTS, add it to the returned list
-                if (valid) {
-                    loaded.add(clazz);
+                for (Class<?> parent : SOLUTION_COMPONENT) {
+                    if (doesExtend(clazz, parent)) {
+                        solutionComponents.add(clazz);
+                    }
                 }
+
             } catch (ClassNotFoundException ignored) {
             }
         }
@@ -243,5 +248,12 @@ public final class ClassFinder {
                 matches.add(entry);
             }
         }
+    }
+
+    public static String nameForClass(Class<?> clazz) {
+        String name = clazz.getSimpleName();
+
+        return name.replace("Component", "")
+                .replaceAll("(?=[A-Z])", " ").trim();
     }
 }
