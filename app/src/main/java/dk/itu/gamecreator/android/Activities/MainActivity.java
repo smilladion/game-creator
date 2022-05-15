@@ -12,7 +12,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import dk.itu.gamecreator.android.R;
-import dk.itu.gamecreator.android.Util;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
             // We already have permissions
             return;
         }
-
-        // TODO: Show a prompt explaining rationale for permissions (see Android docs)
 
         // We don't have permissions, so we need to request them
         ActivityCompat.requestPermissions(

@@ -12,7 +12,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import dk.itu.gamecreator.android.Activities.CreateActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.R;
-import dk.itu.gamecreator.android.Util;
 
 public class GameNameDialog {
 

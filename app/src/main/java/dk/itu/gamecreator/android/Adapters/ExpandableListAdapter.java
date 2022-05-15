@@ -1,7 +1,6 @@
 package dk.itu.gamecreator.android.Adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -240,7 +239,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private void onDelete(int listPosition, int expandedListPosition) {
         Stage s = (Stage) getGroup(listPosition);
-        Component c = (Component) s.getGameComponents().get(expandedListPosition);
+        Component c = s.getGameComponents().get(expandedListPosition);
 
         if (c instanceof SolutionComponent) {
             s.setSolutionComponent(null);
@@ -268,18 +267,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
         builder.setMessage("Delete stage?");
         builder.setCancelable(false);
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                deleteStage(listPosition);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        })
-        .show();
+        builder.setPositiveButton("Delete", (dialogInterface, i) -> deleteStage(listPosition));
+        builder.setNegativeButton("Cancel", (dialogInterface, i) -> {}).show();
     }
 
     private void deleteStage(int listPosition) {

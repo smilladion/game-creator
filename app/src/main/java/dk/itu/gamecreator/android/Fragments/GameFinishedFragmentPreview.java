@@ -1,21 +1,15 @@
 package dk.itu.gamecreator.android.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import dk.itu.gamecreator.android.Activities.CreateActivity;
-import dk.itu.gamecreator.android.Activities.GameActivity;
-import dk.itu.gamecreator.android.Activities.MainActivity;
-import dk.itu.gamecreator.android.Activities.PlayActivity;
 import dk.itu.gamecreator.android.ComponentDB;
 import dk.itu.gamecreator.android.R;
 
@@ -50,8 +44,7 @@ public class GameFinishedFragmentPreview extends Fragment {
 
         finishGameButton.setVisibility(View.GONE);
 
-        successText.setText("Congratulations! " +
-                "You completed the game!");
+        successText.setText("Congratulations! You completed the game!");
 
         playAgainButton.setOnClickListener(v -> playAgain());
     }
@@ -62,5 +55,4 @@ public class GameFinishedFragmentPreview extends Fragment {
                 .replace(R.id.create_fragment, previewFragment)
                 .commit();
     }
-
 }

@@ -22,7 +22,7 @@ public class CreateComponentFragment extends Fragment {
     private Button discardButton;
     private Button backButton;
     private Bundle bundle;
-    boolean isEdit = false;
+    private boolean isEdit = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,9 +55,9 @@ public class CreateComponentFragment extends Fragment {
         doneButton = view.findViewById(R.id.done_button);
         discardButton = view.findViewById(R.id.discard_button);
         backButton = view.findViewById(R.id.fragment_back_button);
-        doneButton.setOnClickListener(v -> onDone(v));
-        discardButton.setOnClickListener(v -> onDiscard(v));
-        backButton.setOnClickListener(v -> onDiscard(v));
+        doneButton.setOnClickListener(this::onDone);
+        discardButton.setOnClickListener(this::onDiscard);
+        backButton.setOnClickListener(this::onDiscard);
     }
 
     public void onDone(View view) {

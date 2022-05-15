@@ -28,7 +28,6 @@ public class EditorFragment extends Fragment {
     private List<Stage> stages = new ArrayList<>();
     private HashMap<String, List<Component>> map = new HashMap<>();
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +88,5 @@ public class EditorFragment extends Fragment {
         }
         expandableListAdapter = new ExpandableListAdapter(getContext(), stages, map, getParentFragmentManager());
         expandableListView.setAdapter(expandableListAdapter);
-
-        // Possibly implement the item touch call back - see old version of app for implementation.
     }
 }

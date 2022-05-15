@@ -12,7 +12,6 @@ public final class ComponentDB {
     * Singleton class that can hold data that persists across the different
     * fragments and activities. The private constructor makes sure that it is
     * only created once.
-    *
     * */
 
     private static ComponentDB instance = null;
@@ -46,7 +45,7 @@ public final class ComponentDB {
     }
 
     public void saveGame() {
-        //If this was a game being edited, and already has an id.
+        // If this was a game being edited, and already has an id.
         if (currentGame.getgID() != 0) {
             currentGame = null;
         } else {
@@ -56,11 +55,11 @@ public final class ComponentDB {
         }
     }
 
+    /**
+     * Setting all stages to have the following stage as nextStage.
+     * This is already done on creation (and thus used for preview!).
+     * */
     public void setNextStages() {
-        /** Setting all stages to have the following stage as nextStage.
-         * This is already done on creation, (and thus used for preview!)
-         * But is broken if user deletes a stage.
-         * */
         for (int i = 0; i < currentGame.getStages().size(); i++) {
             if (i == (currentGame.getStages().size()-1)) {
                 currentGame.getStages().get(i).setNextStage(null);

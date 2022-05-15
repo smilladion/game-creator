@@ -32,9 +32,8 @@ public class GameFragment extends Fragment {
 
     public GameFragment(int parentFragmentRef, boolean isPreview) {
         super();
-        /**
-         * We need to know what fragment to replace when the game finishes since this fragment is used in different places.
-         * */
+
+        // We need to know what fragment to replace when the game finishes since this fragment is used in different places.
         this.parentFragmentRef = parentFragmentRef;
         this.isPreview = isPreview;
     }

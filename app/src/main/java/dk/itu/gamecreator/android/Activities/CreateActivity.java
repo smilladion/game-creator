@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +24,6 @@ import dk.itu.gamecreator.android.Fragments.EditorFragment;
 import dk.itu.gamecreator.android.Fragments.GameFragment;
 import dk.itu.gamecreator.android.R;
 import dk.itu.gamecreator.android.Stage;
-import dk.itu.gamecreator.android.Util;
 
 public class CreateActivity extends AppCompatActivity {
 

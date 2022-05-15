@@ -6,13 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import dk.itu.gamecreator.android.Activities.GameActivity;
-import dk.itu.gamecreator.android.Activities.MainActivity;
 import dk.itu.gamecreator.android.Activities.MapsActivity;
 import dk.itu.gamecreator.android.Activities.PlayActivity;
 import dk.itu.gamecreator.android.ComponentDB;
@@ -44,8 +42,7 @@ public class GameFinishedFragment extends Fragment {
         finishGameButton = view.findViewById(R.id.finish_game_button);
         playAgainButton = view.findViewById(R.id.play_again_button);
 
-        successText.setText("Congratulations! " +
-                "You completed the game!");
+        successText.setText("Congratulations! You completed the game!");
 
         finishGameButton.setOnClickListener(v -> finish());
         playAgainButton.setOnClickListener(v -> playAgain());

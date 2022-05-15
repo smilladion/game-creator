@@ -3,14 +3,12 @@ package dk.itu.gamecreator.android.Components;
 import android.content.Context;
 import android.view.View;
 
-import dk.itu.gamecreator.android.Game;
-import dk.itu.gamecreator.android.Stage;
-
 public abstract class SolutionComponent implements Component {
 
     private final int id;
     private boolean isSolved = false;
     private SolvedListener solvedListener;
+
     /**
      * Define all the different views your getCreateView will need, ie:
      * EditText editText;

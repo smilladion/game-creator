@@ -21,7 +21,7 @@ import dk.itu.gamecreator.android.Util;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    ComponentDB cDB;
+    private ComponentDB cDB;
 
     private static final int DEFAULT_ZOOM = 15;
 
